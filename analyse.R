@@ -106,4 +106,7 @@ attribute.tables <- lapply(schema$activities, function(activity) {
 
 attribute.table <- do.call("rbind", attribute.tables)
 
+# next phase is to merge
+
+activityall<- merge(activity.table, indicator.table, by.x = 'activityId', by.y = 'activity.id', all.x=TRUE)
 
