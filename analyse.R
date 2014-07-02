@@ -12,7 +12,7 @@ library(activityinfo)
 activityInfoLogin()
 
 # Check authentication
-activityinfo:::authenticate()
+#activityinfo:::authenticate()
 
 
 ### JOR-RRP-Monitor -- RRP Monitoring Database Jordan db 1064
@@ -107,6 +107,13 @@ attribute.tables <- lapply(schema$activities, function(activity) {
 attribute.table <- do.call("rbind", attribute.tables)
 
 # next phase is to merge
-
 activityall<- merge(activity.table, indicator.table, by.x = 'activityId', by.y = 'activity.id', all.x=TRUE)
 
+# Retrieve data for each activity
+activity4050 <- getSites(activityId=4050)
+activity4138 <- getSites(activityId=4128)
+
+# Convert list in data frame
+library(data.table)
+activitydata4050 <- rbindlist(activity4050)
+do.call(rbind.data.frame, activity4050)
