@@ -15,7 +15,7 @@ activityInfoLogin()
 activityinfo:::authenticate()
 
 
-### JOR-RRP-Monitor -- RRP Monitoring Database Jordan
+### JOR-RRP-Monitor -- RRP Monitoring Database Jordan db 1064
 
 # list all activities and put it ina  data frame
 activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
