@@ -7,6 +7,6 @@ The script is designed to be runed on a monthly basis and to be improved in a co
 
 The results are:
 
-- a report
-- a series of presentation (using slidify packages)
+- reports per themes
+- presentations (using slidify packages)
 

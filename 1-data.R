@@ -11,8 +11,9 @@ source("0-packages.R")
 activityInfoLogin()
 
 # Check authentication
-#activityinfo:::authenticate()
+activityinfo:::authenticate()
 
+activityInfoAuthentication()
 
 ### JOR-RRP-Monitor -- RRP Monitoring Database Jordan db 1064
 
@@ -21,6 +22,22 @@ activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
 
 # put the DB schema  in a  R list
 schema1064 <- getDatabaseSchema(1064)
+
+datajan <- getMonthlyReportsCubeForDatabase(1064, '2014-01')
+datafeb <- getMonthlyReportsCubeForDatabase(1064, '2014-02')
+datamar <- getMonthlyReportsCubeForDatabase(1064, '2014-03')
+dataapr <- getMonthlyReportsCubeForDatabase(1064, '2014-04')
+datamay <- getMonthlyReportsCubeForDatabase(1064, '2014-05')
+datajun <- getMonthlyReportsCubeForDatabase(1064, '2014-06')
+
+data <- rbind(datajan,datafeb,datamar,dataapr,datamay,datajun)
+
+write.xls(data, "RRP-Monitor.xls") 
+write.xlsx(x = data, file = "RRP-Monitor.xlsx",
+           sheetName = "data", row.names = FALSE)
+
+
+data <- getSitesDataFrame(1064, 4050)
 
 library(rjson)
 library(RCurl)
