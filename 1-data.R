@@ -137,3 +137,5 @@ attribute.table <- do.call("rbind", attribute.tables)
 #library(data.table)
 #activitydata4050 <- rbindlist(activity4050)
 #do.call(rbind.data.frame, activity4050)
+
+# Hawraa
