@@ -21,7 +21,7 @@ activityInfoAuthentication()
 activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
 
 # put the DB schema  in a  R list
-schema1064 <- getDatabaseSchema(1064)
+#schema1064 <- getDatabaseSchema(1064)
 
 datajan <- getMonthlyReportsCubeForDatabase(1064, '2014-01')
 datafeb <- getMonthlyReportsCubeForDatabase(1064, '2014-02')
@@ -32,15 +32,16 @@ datajun <- getMonthlyReportsCubeForDatabase(1064, '2014-06')
 
 data <- rbind(datajan,datafeb,datamar,dataapr,datamay,datajun)
 
+write.csv(data, file="RRP-Monitor.csv",row.names=F, na="")
+
 write.xls(data, "RRP-Monitor.xls") 
 write.xlsx(x = data, file = "RRP-Monitor.xlsx",
            sheetName = "data", row.names = FALSE)
 
 
-data <- getSitesDataFrame(1064, 4050)
+data1 <- getSitesDataFrame(1064, 4050)
 
-library(rjson)
-library(RCurl)
+
 
 root <- "https://www.syrianrefugeeresponse.org"
 database.id <- 1064
@@ -122,14 +123,17 @@ attribute.tables <- lapply(schema$activities, function(activity) {
 
 attribute.table <- do.call("rbind", attribute.tables)
 
+
+
 # next phase is to merge
-activityall<- merge(activity.table, indicator.table, by.x = 'activityId', by.y = 'activity.id', all.x=TRUE)
+
+#activityall<- merge(activity.table, indicator.table, by.x = 'activityId', by.y = 'activity.id', all.x=TRUE)
 
 # Retrieve data for each activity
-activity4050 <- getSites(activityId=4050)
-activity4138 <- getSites(activityId=4128)
+#activity4050 <- getSites(activityId=4050)
+#activity4138 <- getSites(activityId=4128)
 
 # Convert list in data frame
-library(data.table)
-activitydata4050 <- rbindlist(activity4050)
-do.call(rbind.data.frame, activity4050)
+#library(data.table)
+#activitydata4050 <- rbindlist(activity4050)
+#do.call(rbind.data.frame, activity4050)
