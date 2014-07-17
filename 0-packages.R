@@ -2,12 +2,14 @@
 
 ## install the packages that are not yet instaled
 
-packages <- c("ggplot2", "xlsx",  "rjson", "RCurl", "reshape")
+packages <- c("ggplot2", 
+             # "xlsx",  
+              "rjson", "RCurl", "reshape")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
 }
 
-library(xlsx)
+#library(xlsx)
 library(reshape)
 library(rjson)
 library(RCurl)

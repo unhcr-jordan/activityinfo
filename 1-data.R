@@ -11,14 +11,13 @@ source("0-packages.R")
 activityInfoLogin()
 
 # Check authentication
-activityinfo:::authenticate()
-
-activityInfoAuthentication()
+#activityinfo:::authenticate()
+# activityInfoAuthentication()
 
 ### JOR-RRP-Monitor -- RRP Monitoring Database Jordan db 1064
 
 # list all activities and put it ina  data frame
-activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
+#activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
 
 # put the DB schema  in a  R list
 #schema1064 <- getDatabaseSchema(1064)
