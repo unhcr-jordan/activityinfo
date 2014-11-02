@@ -16,7 +16,7 @@ rm(names_plan)
 
 
 attribute <- read.csv("~/unhcr_r_project/activityinfojordan/config/attribute3rp.csv")
-indic <- read.csv("~/unhcr_r_project/activityinfojordan/config/Protection-3rp.csv")
+indic <- read.csv("~/unhcr_r_project/activityinfojordan/config/ActivityinfoStructure.csv")
 
 activity <- as.data.frame(unique(indic[,c("ActivityCategory",
                  "ActivityName")]))
@@ -38,7 +38,7 @@ indicmin$sort <- ""
 
 plan <- rbind(activity_att, indicmin)
 
-replace(plan, is.na(plan), "")
+plan <-replace(plan, is.na(plan), "")
 
 plan <- plan[order(plan$ActivityCategory, plan$ActivityName, plan$FormFieldType, plan$Category, plan$Name, plan$AttributeValue ),]
 
@@ -47,3 +47,4 @@ plan$LocationType <- 'SyrRefRespRRP6'
 
 write.csv(plan, file = "~/unhcr_r_project/activityinfojordan/config/plan.csv",na="")
 
+#
