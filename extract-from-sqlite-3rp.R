@@ -157,13 +157,25 @@ dataviz$RegionCODE[dataviz$Area=="Camp"] <- "2"
 dataviz$Area2[dataviz$Area=="Camp"] <- "ALL CAMPS IN JORDAN"
 
 dataviz$RegionCODE[dataviz$Area=="Country Wide"] <- "1"
-dataviz$Area2[dataviz$Area=="Country Wide"] <- "No Breakdown per Governorate"
+dataviz$Area2[dataviz$Area=="Country Wide"] <- "Country Wide Intervention"
 
 dataviz$RegionCODE[dataviz$Area=="Cyber City Refugee Center"] <- "2"
 dataviz$Area2[dataviz$Area=="Cyber City Refugee Center"] <- "Cyber City Refugee Center"
 
 dataviz$RegionCODE[dataviz$Area=="King Abdullah Park Refugee Center"] <- "2"
 dataviz$Area2[dataviz$Area=="King Abdullah Park Refugee Center"] <- "King Abdullah Park Refugee Center"
+
+dataviz$Area[dataviz$Area=="Azraq Camp Village 3"] <- "Azraq Camp"
+dataviz$Area[dataviz$Area=="Zaatari Camp (all district)"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 10"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 12"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 3"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 4"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 5"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 6"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 7"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 8"] <- "Zaatari Camp"
+dataviz$Area[dataviz$Area=="Zaatari District 9"] <- "Zaatari Camp"
 
 #"Azraq Camp" 
 #"Azraq Camp Village 3" 
