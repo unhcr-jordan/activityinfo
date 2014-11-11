@@ -10,7 +10,8 @@ library(plyr)
 # Connect to local SQLite replica installed when offline usage is enabled
 # replace 9 with the name of the database used in your chrome/Default/databases/https_www.syrianrefugeeresponse.org_0 folder 
 ## -- copy the database in your rstudio project
-con <- dbConnect(RSQLite::SQLite(), "/home/rstudio/unhcr_r_project/activityinfojordan/data/8")
+# C:\Users\Kaleem\AppData\Local\Google\Chrome\User Data\Default\databases\https_www.syrianrefugeeresponse.org_0
+con <- dbConnect(RSQLite::SQLite(), "data/2")
 
 #con <- dbConnect(RSQLite::SQLite(), "/home/edouard/.config/google-chrome/Default/databases/https_www.activityinfo.org_0/7")
 
@@ -135,7 +136,7 @@ dataviz$Governorate <- as.factor(dataviz$Governorate)
 levels(dataviz$Governorate)
 
 
-regionactivityinfo <- read.csv("~/unhcr_r_project/activityinfojordan/data/regionactivityinfo.csv")
+regionactivityinfo <- read.csv("data/regionactivityinfo.csv")
 
 dataviz <-rename(dataviz, c("Refugee Camps"="Refugee.Camps")) 
 
