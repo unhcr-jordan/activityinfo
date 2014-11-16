@@ -10,7 +10,7 @@ library(plyr)
 # Connect to local SQLite replica installed when offline usage is enabled
 # replace 9 with the name of the database used in your chrome/Default/databases/https_www.syrianrefugeeresponse.org_0 folder 
 ## -- copy the database in your rstudio project
-con <- dbConnect(RSQLite::SQLite(), "/home/rstudio/unhcr_r_project/activityinfojordan/data/8")
+con <- dbConnect(RSQLite::SQLite(), "data/8")
 
 #con <- dbConnect(RSQLite::SQLite(), "/home/edouard/.config/google-chrome/Default/databases/https_www.activityinfo.org_0/7")
 
@@ -71,16 +71,22 @@ ivplan <- dbGetQuery(con, paste("select s.siteid siteid, rp.reportingperiodid, r
                                 "left join indicator i on (iv.indicatorid = i.indicatorid)",
                                 "where a.databaseid=1662 and s.datedeleted is null and a.datedeleted is null and i.dateDeleted is null"));
 
+
+####################################################
+### Check submission without budget
 ivplancheck <- ivplan [ which(ivplan$Name=='Budgetary Requirement for 2015'), ]
 rm(indicatorsplancheck)
 indicatorsplancheck <- merge(x=sitesplan, y=ivplancheck, by="siteid", all=TRUE)
 
 indicatorsplancheck2 <- subset(indicatorsplancheck, is.na(Name))
+write.csv(indicatorsplancheck2, file="out3rp/submissionwihtoutbudget.csv",row.names=F, na="")
+
+
+###########################
 
 sitesplanunique <- unique(sitesplan)
 ivplancheck2 <- unique(ivplancheck)
 
-write.csv(ivplan, file="RRP6plan_Indics.csv", row.names=F, na="")
 indicatorsplan <- merge(sitesplan, ivplan)
 write.csv(indicatorsplan, file="out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names=F, na="")
 
@@ -91,9 +97,12 @@ write.csv(indicatorsplan, file="out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names
 #write.csv(indicatorsplan, file="RRP6Plan_Indicatorsalllong.csv",row.names=F, na="")
 
 
-### merge with Location
+##############
+# Check wrong extract
+wrong <- indicatorsplan[ which(indicatorsplan$siteid=='683969144'), ]
 
-## Check balnk location
+### merge with Location
+## Check blank location
 indicatorsplanblank <- merge(x=indicatorsplan, y=unitsplanblank, by="siteid")
 indicatorsplanblank <- indicatorsplanblank[ which(indicatorsplanblank$Name=='Budgetary Requirement for 2015'), ]
 indicatorsplanblank <- reorder(indicatorsplanblank, indicatorsplanblank$sector)
@@ -101,17 +110,147 @@ indicatorsplanblank <- reorder(indicatorsplanblank, indicatorsplanblank$sector)
 ### merge with Full geographic three
 indicatorsplan2 <- merge(x=indicatorsplan, y=unitsplan.wide, by="siteid")
 
-#dataviz <- subset (indicatorsplan)
+
+###################################################
+# Generate a reformated extract for the dataviz
+########################################################
+
+
+## Extract target pop
+## clean first labels from the config
+
+indicatorsplan2$Name[indicatorsplan2$Name=="Urban/Rural Syrian Men (Age 18 and Above)"] <- "Urban/Rural Syrian Men (Age 18 and above)"
+indicatorsplan2$Name[indicatorsplan2$Name=="Urban/Rural Syrian Men (Age 18 and Abocve)"] <- "Urban/Rural Syrian Men (Age 18 and above)"
+
+indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian  Boys (Age 0-17)"] <- "Camps Syrian Boys (Age 0-17)"
+indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian  Girls (Age 0-17)"] <- "Camps Syrian Girls (Age 0-17)" 
+indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian Men (Age 18 and above)-"] <- "Camps Syrian Men (Age 18 and above)" 
+indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian Men (Age 18 and above)-"] <- "Camps Syrian Men (Age 18 and above)" 
+indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian  Women (Age 18 and above)"] <-  "Camps Syrian Women (Age 18 and above)"
+
+#levels(indicatorsplan2$Name)
+
+#indicatorsplan2$Name <- as.factor(indicatorsplan2$Name)
+levels(indicatorsplan2$Name)
+
+
+target <- indicatorsplan2[ which(indicatorsplan2$Name=="Camps Syrian Boys (Age 0-17)"|indicatorsplan2$Name=="Camps Syrian Girls (Age 0-17)"|
+                                   indicatorsplan2$Name=="Camps Syrian Men (Age 18 and above)"|indicatorsplan2$Name=="Camps Syrian Women (Age 18 and above)"|
+                                   indicatorsplan2$Name=="Host Community Boys (Age 0-17)"|indicatorsplan2$Name=="Host Community Girls (Age 0-17)"|
+                                   indicatorsplan2$Name=="Host Community Men (Age 18 and above)"|indicatorsplan2$Name=="Host Community Women (Age 18 and above)"|
+                                   indicatorsplan2$Name=="Urban/Rural Syrian Boys (Age 0-17)"|indicatorsplan2$Name=="Urban/Rural Syrian Girls (Age 0-17)"|
+                                   indicatorsplan2$Name=="Urban/Rural Syrian Men (Age 18 and above)"|indicatorsplan2$Name=="Urban/Rural Syrian Women (Age 18 and above)"), ]
+
+target.melt <- melt(target, id=c(1,12), measure=c(13))
+target.cast <- dcast(target.melt, siteid ~ Name, sum)
+
+# Function that will sum values even if we have NA
+psum <- function(..., na.rm=FALSE) {
+  x <- list(...)
+  rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
+}
+
+target.cast <- rename(target.cast, c("Camps Syrian Boys (Age 0-17)" = "campboy", "Camps Syrian Girls (Age 0-17)"="campgirl", 
+                                  "Camps Syrian Men (Age 18 and above)"="campmen",	"Camps Syrian Women (Age 18 and above)"= "campwomen",
+                                  "Host Community Boys (Age 0-17)"="hostboy", "Host Community Girls (Age 0-17)"="hostgirl",
+                                  "Host Community Men (Age 18 and above)"="hostmen",	"Host Community Women (Age 18 and above)"="hostwomen",
+                                  "Urban/Rural Syrian Boys (Age 0-17)"="urbboy", "Urban/Rural Syrian Girls (Age 0-17)"="urbgirl",
+                                  "Urban/Rural Syrian Men (Age 18 and above)"="urbmen",	"Urban/Rural Syrian Women (Age 18 and above)" = "urbwomen"))
+
+target.cast$camp <- psum(target.cast$campboy ,target.cast$campgirl, target.cast$campmen, target.cast$campwomen, na.rm = TRUE)
+target.cast$host <- psum(target.cast$hostboy ,target.cast$hostgirl, target.cast$hostmen, target.cast$hostwomen, na.rm = TRUE)
+target.cast$urban <- psum(target.cast$urbboy ,target.cast$urbgirl, target.cast$urbmen, target.cast$urbwomen, na.rm = TRUE)
+
+target.cast$boy <- psum(target.cast$campboy ,target.cast$hostboy, target.cast$urbboy, na.rm = TRUE)
+target.cast$girl <- psum(target.cast$campgirl ,target.cast$hostgirl, target.cast$urbgirl, na.rm = TRUE)
+target.cast$men <- psum(target.cast$campmen ,target.cast$hostmen, target.cast$urbmen, na.rm = TRUE)
+target.cast$women <- psum(target.cast$campwomen ,target.cast$hostwomen, target.cast$urbwomen, na.rm = TRUE)
+
+target.cast$gender <- paste( with(target.cast, ifelse(target.cast$boy>0, paste0("boy"),"")),
+                             with(target.cast, ifelse(target.cast$girl>0, paste0("girl"),"")) ,
+                             with(target.cast, ifelse(target.cast$men>0, paste0("men"),"")) ,
+                             with(target.cast, ifelse(target.cast$women>0, paste0("women"),"")) ,
+                             sep= "-")
+
+
+target.cast$gender[target.cast$gender=="---"] <- "2-No reported target"
+target.cast$gender[target.cast$gender=="---women"] <- "8-Women only"
+target.cast$gender[target.cast$gender=="--men-"] <- "9-Men only"
+target.cast$gender[target.cast$gender=="--men-women"] <- "7-Adult"
+target.cast$gender[target.cast$gender=="-girl--"] <- "4-Girl Only"
+target.cast$gender[target.cast$gender=="-girl--women"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="-girl-men-"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="-girl-men-women"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="boy---"] <- "5-Boy only"
+target.cast$gender[target.cast$gender=="boy--men-"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="boy--men-women"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="boy-girl--"] <- "6-Minor only"
+target.cast$gender[target.cast$gender=="boy-girl--women"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="boy-girl-men-"] <- "3-Mix"
+target.cast$gender[target.cast$gender=="boy-girl-men-women"] <- "1-All"
+
+target.cast$gender <- as.factor(target.cast$gender)
+levels(target.cast$gender)
+
+target.cast$target <- paste( with(target.cast, ifelse(target.cast$camp>0, paste0("camp"),"")),
+                             with(target.cast, ifelse(target.cast$host>0, paste0("host"),"")) ,
+                             with(target.cast, ifelse(target.cast$urban>0, paste0("urban-rural"),"")) ,
+                             sep= "-")
+target.cast$target[target.cast$target=="--"] <- "No reported target"
+target.cast$target[target.cast$target=="--urban-rural"] <- "Urban & Rural only"
+target.cast$target[target.cast$target=="-host-"] <- "Host only"
+target.cast$target[target.cast$target=="camp--"] <- "Camp only"
+target.cast$target[target.cast$target=="-host-"] <- "Host only"
+target.cast$target[target.cast$target=="-host-urban-rural"] <- "Host, Urban & Rural"
+target.cast$target[target.cast$target=="camp--urban-rural"] <- "Camp, Urban & Rural"
+target.cast$target[target.cast$target=="camp-host-"] <- "Camp & Host"
+target.cast$target[target.cast$target=="camp-host-urban-rural"] <- "All"
+
+target.cast$target <- as.factor(target.cast$target)
+levels(target.cast$target)
+
+target.cast$total <- psum (target.cast$camp ,target.cast$host, target.cast$urban, na.rm = TRUE)
+
+
+
+
 rm(dataviz)
 dataviz <- indicatorsplan2[ which(indicatorsplan2$Name=='Budgetary Requirement for 2015'), ]
 
+## Check on units
+indicatorsplan2$Units <- as.factor(indicatorsplan2$Units)
+levels(indicatorsplan2$Units)
+indicatorsplan2$Units[indicatorsplan2$Units=="USD$"] <-  "USD $"
+datavizunit <- indicatorsplan2[ which(indicatorsplan2$Units=='USD $'), ]
+
+####### merge with target benef
+dataviz <- merge(x=dataviz, y=target.cast, by="siteid", all.x=TRUE)
+
+dataviz$target[is.na(dataviz$target)] <- "No reported target"
+dataviz$gender[is.na(dataviz$gender)] <- "2-No reported target"
+
+#Classify unit cost
+
+dataviz$unitcost <- dataviz$Value / dataviz$total
+
+datatest1 <- dataviz[is.na(dataviz$unitcost),]
+datatest2 <- dataviz[dataviz$unitcost==Inf,]
+
+dataviz$unitcost[is.na(dataviz$unitcost)] <- 0
+dataviz$unitcost[dataviz$unitcost==Inf] <- 0
+
+library(classInt) ## Classififcation
+dataviz$unitcost.class <- as.factor(findCols(classIntervals(dataviz$unitcost, n = 7, style = "fixed", fixedBreaks = c(0, 0.0001, 50, 100, 250, 500, 2000, 10000000))))
+dataviz$costunit <- revalue(dataviz$unitcost.class, c(`1` = "No Unit cost", `2` = "a- 0-49$", `3` = "b- 50-99$", `4` = "c- 100-249$", `5` = "d- 250-499$", `6` = "e- 500-2000$", `7` = "f- >2000$"))
+
+summary(dataviz)
 
 # row.names  siteid	sector	activity	partner	location	comments	ReportingPeriodId	Date1	Date2	IndicatorId	Category	Name	Value	Units
 # Sector  Objective	Output	Partner	Area	RegionCODE	Category	Total
 
 ## select the column of interest for the dataviz
 dataviz <-dataviz[ , c("sector"  , "activity"  , "partner"  , "location.x", "Governorate", "Refugee Camps"  , #"comments"
-                        "Date1"  , "Date2"  , "Value")]
+                        "Date1"  , "Date2"  , "Value","costunit","gender", "target")]
 
 dataviz$sector2 <- substr(dataviz$sector , (regexpr("]", dataviz$sector , ignore.case=FALSE, fixed=TRUE))+1,50)
 dataviz$sector1 <- substr(dataviz$sector ,1, (regexpr("[", dataviz$sector , ignore.case=FALSE, fixed=TRUE))-1)
@@ -133,6 +272,7 @@ dataviz <-rename(dataviz, c("sector1"="Sector"  , "sector2"="Objective"  ,"activ
 #levels(dataviz$Area)
 dataviz$Governorate <- as.factor(dataviz$Governorate)
 levels(dataviz$Governorate)
+
 
 
 regionactivityinfo <- read.csv("~/unhcr_r_project/activityinfojordan/data/regionactivityinfo.csv")
@@ -200,4 +340,11 @@ levels(dataviz$Sector)
 #dataviz <- reorder(dataviz, dataviz$Sector)
 
 
+
+
 write.csv(dataviz, file="out3rp/3rp.csv",row.names=F, na="")
+
+dataviz2 <- subset( dataviz, dataviz$Category=="Refugee")
+
+
+write.csv(dataviz2, file="out3rp/3rp2.csv",row.names=F, na="")
