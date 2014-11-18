@@ -72,20 +72,7 @@ ivplan <- dbGetQuery(con, paste("select s.siteid siteid, rp.reportingperiodid, r
                                 "where a.databaseid=1662 and s.datedeleted is null and a.datedeleted is null and i.dateDeleted is null"));
 
 
-####################################################
-### Check submission without budget
-ivplancheck <- ivplan [ which(ivplan$Name=='Budgetary Requirement for 2015'), ]
-rm(indicatorsplancheck)
-indicatorsplancheck <- merge(x=sitesplan, y=ivplancheck, by="siteid", all=TRUE)
 
-indicatorsplancheck2 <- subset(indicatorsplancheck, is.na(Name))
-write.csv(indicatorsplancheck2, file="out3rp/submissionwihtoutbudget.csv",row.names=F, na="")
-
-
-###########################
-
-sitesplanunique <- unique(sitesplan)
-ivplancheck2 <- unique(ivplancheck)
 
 indicatorsplan <- merge(sitesplan, ivplan)
 write.csv(indicatorsplan, file="out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names=F, na="")
@@ -95,6 +82,20 @@ write.csv(indicatorsplan, file="out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names
 #sitesplanlong <- merge(sitesplan, rrp6long)
 #indicatorsplanlong <- merge(sitesplanlong, ivplan2)
 #write.csv(indicatorsplan, file="RRP6Plan_Indicatorsalllong.csv",row.names=F, na="")
+
+####################################################
+### Check submission without budget
+ivplancheck <- ivplan [ which(ivplan$Name=='Budgetary Requirement for 2015'), ]
+rm(indicatorsplancheck)
+indicatorsplancheck <- merge(x=sitesplan, y=ivplancheck, by="siteid", all=TRUE)
+
+indicatorsplancheck2 <- subset(indicatorsplancheck, is.na(Name))
+write.csv(indicatorsplancheck2, file="out3rp/submissionwihtoutbudget.csv",row.names=F, na="")
+sitesplanunique <- unique(sitesplan)
+ivplancheck2 <- unique(ivplancheck)
+
+
+###########################
 
 
 ##############
@@ -107,21 +108,20 @@ indicatorsplanblank <- merge(x=indicatorsplan, y=unitsplanblank, by="siteid")
 indicatorsplanblank <- indicatorsplanblank[ which(indicatorsplanblank$Name=='Budgetary Requirement for 2015'), ]
 indicatorsplanblank <- reorder(indicatorsplanblank, indicatorsplanblank$sector)
 
-### merge with Full geographic three
-indicatorsplan2 <- merge(x=indicatorsplan, y=unitsplan.wide, by="siteid")
+
 
 
 ###################################################
 # Generate a reformated extract for the dataviz
 ########################################################
-
+### merge with Full geographic three
+indicatorsplan2 <- merge(x=indicatorsplan, y=unitsplan.wide, by="siteid")
 
 ## Extract target pop
 ## clean first labels from the config
 
 indicatorsplan2$Name[indicatorsplan2$Name=="Urban/Rural Syrian Men (Age 18 and Above)"] <- "Urban/Rural Syrian Men (Age 18 and above)"
 indicatorsplan2$Name[indicatorsplan2$Name=="Urban/Rural Syrian Men (Age 18 and Abocve)"] <- "Urban/Rural Syrian Men (Age 18 and above)"
-
 indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian  Boys (Age 0-17)"] <- "Camps Syrian Boys (Age 0-17)"
 indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian  Girls (Age 0-17)"] <- "Camps Syrian Girls (Age 0-17)" 
 indicatorsplan2$Name[indicatorsplan2$Name=="Camps Syrian Men (Age 18 and above)-"] <- "Camps Syrian Men (Age 18 and above)" 
@@ -196,15 +196,18 @@ target.cast$target <- paste( with(target.cast, ifelse(target.cast$camp>0, paste0
                              with(target.cast, ifelse(target.cast$host>0, paste0("host"),"")) ,
                              with(target.cast, ifelse(target.cast$urban>0, paste0("urban-rural"),"")) ,
                              sep= "-")
-target.cast$target[target.cast$target=="--"] <- "No reported target"
-target.cast$target[target.cast$target=="--urban-rural"] <- "Urban & Rural only"
-target.cast$target[target.cast$target=="-host-"] <- "Host only"
-target.cast$target[target.cast$target=="camp--"] <- "Camp only"
-target.cast$target[target.cast$target=="-host-"] <- "Host only"
-target.cast$target[target.cast$target=="-host-urban-rural"] <- "Host, Urban & Rural"
-target.cast$target[target.cast$target=="camp--urban-rural"] <- "Camp, Urban & Rural"
+target.cast$target[target.cast$target=="--"] <- "1-No reported target"
+
+target.cast$target[target.cast$target=="camp-host-urban-rural"] <- "2-All"
+
+target.cast$target[target.cast$target=="-host-"] <- "3-Host only"
+target.cast$target[target.cast$target=="-host-"] <- "3-Host only"
+target.cast$target[target.cast$target=="camp--"] <- "4-Camp only"
+
+target.cast$target[target.cast$target=="--urban-rural"] <- "5-Urban & Rural only"
+target.cast$target[target.cast$target=="camp--urban-rural"] <- "6-Camp, Urban & Rural"
+target.cast$target[target.cast$target=="-host-urban-rural"] <- "7-Host, Urban & Rural"
 target.cast$target[target.cast$target=="camp-host-"] <- "Camp & Host"
-target.cast$target[target.cast$target=="camp-host-urban-rural"] <- "All"
 
 target.cast$target <- as.factor(target.cast$target)
 levels(target.cast$target)
@@ -248,9 +251,7 @@ summary(dataviz)
 # row.names  siteid	sector	activity	partner	location	comments	ReportingPeriodId	Date1	Date2	IndicatorId	Category	Name	Value	Units
 # Sector  Objective	Output	Partner	Area	RegionCODE	Category	Total
 
-## select the column of interest for the dataviz
-dataviz <-dataviz[ , c("sector"  , "activity"  , "partner"  , "location.x", "Governorate", "Refugee Camps"  , #"comments"
-                        "Date1"  , "Date2"  , "Value","costunit","gender", "target")]
+
 
 dataviz$sector2 <- substr(dataviz$sector , (regexpr("]", dataviz$sector , ignore.case=FALSE, fixed=TRUE))+1,50)
 dataviz$sector1 <- substr(dataviz$sector ,1, (regexpr("[", dataviz$sector , ignore.case=FALSE, fixed=TRUE))-1)
@@ -316,15 +317,6 @@ dataviz$Area[dataviz$Area=="Zaatari District 7"] <- "Zaatari Camp"
 dataviz$Area[dataviz$Area=="Zaatari District 8"] <- "Zaatari Camp"
 dataviz$Area[dataviz$Area=="Zaatari District 9"] <- "Zaatari Camp"
 
-#"Azraq Camp" 
-#"Azraq Camp Village 3" 
-#"Cyber City Refugee Center"
-#"King Abdullah Park Refugee Center" 
-#"Zaatari Camp (all district)"                    
-#"Zaatari District 10"                             "Zaatari District 12"                             "Zaatari District 3"                             
-# "Zaatari District 4"                              "Zaatari District 5"                              "Zaatari District 6"                             
-# "Zaatari District 7"                              "Zaatari District 8"                              "Zaatari District 9"   
-
 ## Recode sector names
 #"BASIC NEEDS" "EDU"         "FOOD/LIV"    "HLTH"        "MUNICIPAL"   "PROT"        "SHLT"        "WASH"  
 
@@ -339,12 +331,14 @@ levels(dataviz$Sector)
 
 #dataviz <- reorder(dataviz, dataviz$Sector)
 
+write.csv(dataviz, file="out3rp/all.csv",row.names=F, na="")
 
-
+## select the column of interest for the dataviz
+dataviz <-dataviz[ , c(
+  "Governorate","sector","activity","Partner","Area","Refugee.Camps","Start","End","Total","costunit","gender","target","Objective","Sector","Category","Output","RegionCODE","Area2")]
 
 write.csv(dataviz, file="out3rp/3rp.csv",row.names=F, na="")
 
+## Subset on refugees only
 dataviz2 <- subset( dataviz, dataviz$Category=="Refugee")
-
-
 write.csv(dataviz2, file="out3rp/3rp2.csv",row.names=F, na="")
