@@ -72,6 +72,14 @@ ivmonitor <- dbGetQuery(con, paste("select s.siteid siteid, rp.reportingperiodid
 indicatorsmonitor <- merge(sitesmonitor, ivmonitor)
 write.csv(indicatorsmonitor, file="monitor/RRP6Monitor_Indicatorsall.csv",row.names=F, na="")
 
+### merge with Full geographic three
+indicatorsmonitor2 <- merge(x=indicatorsmonitor, y=unitsmonitor.wide, by="siteid")
+
+
+indicatorsmonitor2$objective <- substr(indicatorsmonitor2$sector , (regexpr("-", indicatorsmonitor2$sector , ignore.case=FALSE, fixed=TRUE))+1,50)
+indicatorsmonitor2$sector <- substr(indicatorsmonitor2$sector ,1, (regexpr("-", indicatorsmonitor2$sector , ignore.case=FALSE, fixed=TRUE))-1)
+
+write.csv(indicatorsmonitor2, file="monitor/RRP6Monitor_Indicatorsall2.csv",row.names=F, na="")
 # Add long narrative
 #rrp6long <- read.csv("rrp6long.csv")
 #siteslong <- merge(sites, rrp6long)
