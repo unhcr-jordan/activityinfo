@@ -4,13 +4,13 @@
 
 packages <- c("ggplot2", 
              # "xlsx",  
-              "rjson", "RCurl", "reshape")
+              "rjson", "RCurl", "reshape2")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
 }
 
 #library(xlsx)
-library(reshape)
+library(reshape2)
 library(rjson)
 library(RCurl)
 
