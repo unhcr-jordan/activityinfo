@@ -28,17 +28,35 @@ datamar <- getMonthlyReportsCubeForDatabase(1064, '2014-03')
 dataapr <- getMonthlyReportsCubeForDatabase(1064, '2014-04')
 datamay <- getMonthlyReportsCubeForDatabase(1064, '2014-05')
 datajun <- getMonthlyReportsCubeForDatabase(1064, '2014-06')
+datajul <- getMonthlyReportsCubeForDatabase(1064, '2014-07')
+dataaug <- getMonthlyReportsCubeForDatabase(1064, '2014-08')
+datasep <- getMonthlyReportsCubeForDatabase(1064, '2014-09')
+dataoct <- getMonthlyReportsCubeForDatabase(1064, '2014-10')
+datanov <- getMonthlyReportsCubeForDatabase(1064, '2014-11')
+datadec <- getMonthlyReportsCubeForDatabase(1064, '2014-12')
 
-data <- rbind(datajan,datafeb,datamar,dataapr,datamay,datajun)
+data <- rbind(datajan,datafeb,datamar,dataapr,datamay,datajun,datajun,datajul,dataaug,datasep,dataoct,datanov,datadec)
+
+rm(datajan)
+rm(datafeb)
+rm(datamar)
+rm(dataapr)
+rm(datamay)
+rm(datajun)
+rm(datajul)
+rm(dataaug)
+rm(datasep)
+rm(dataoct)
+rm(datanov)
+rm(datadec)
 
 write.csv(data, file="RRP-Monitor.csv",row.names=F, na="")
 
-write.xls(data, "RRP-Monitor.xls") 
-write.xlsx(x = data, file = "RRP-Monitor.xlsx",
-           sheetName = "data", row.names = FALSE)
+#write.xls(data, "RRP-Monitor.xls") 
+#write.xlsx(x = data, file = "RRP-Monitor.xlsx",sheetName = "data", row.names = FALSE)
 
 
-data1 <- getSitesDataFrame(1064, 4050)
+#data1 <- getSitesDataFrame(1064, 4050)
 
 
 

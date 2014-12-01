@@ -19,7 +19,7 @@ activity.table <-asActivityDataFrame(schema1662)
 
 act1 <- activity.table[1,2]
 
-sites <- getSitesDataFrame(act1)
+#sites <- getSitesDataFrame(act1)
 
 acti <- schema1662$activities[[1]]
 df <- getSitesDataFrame(acti)
