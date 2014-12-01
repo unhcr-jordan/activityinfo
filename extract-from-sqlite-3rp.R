@@ -175,7 +175,7 @@ target.cast$gender <- paste( with(target.cast, ifelse(target.cast$boy>0, paste0(
                              with(target.cast, ifelse(target.cast$women>0, paste0("women"),"")) ,
                              sep= "-")
 
-
+target.cast$gender[target.cast$gender==""] <- "2-No reported target"
 target.cast$gender[target.cast$gender=="---"] <- "2-No reported target"
 target.cast$gender[target.cast$gender=="---women"] <- "8-Women only"
 target.cast$gender[target.cast$gender=="--men-"] <- "9-Men only"
@@ -199,6 +199,7 @@ target.cast$target <- paste( with(target.cast, ifelse(target.cast$camp>0, paste0
                              with(target.cast, ifelse(target.cast$host>0, paste0("host"),"")) ,
                              with(target.cast, ifelse(target.cast$urban>0, paste0("urban-rural"),"")) ,
                              sep= "-")
+target.cast$target[target.cast$target==""] <- "1-No reported target"
 target.cast$target[target.cast$target=="--"] <- "1-No reported target"
 
 target.cast$target[target.cast$target=="camp-host-urban-rural"] <- "2-All"
@@ -210,7 +211,7 @@ target.cast$target[target.cast$target=="camp--"] <- "4-Camp only"
 target.cast$target[target.cast$target=="--urban-rural"] <- "5-Urban & Rural only"
 target.cast$target[target.cast$target=="camp--urban-rural"] <- "6-Camp, Urban & Rural"
 target.cast$target[target.cast$target=="-host-urban-rural"] <- "7-Host, Urban & Rural"
-target.cast$target[target.cast$target=="camp-host-"] <- "Camp & Host"
+target.cast$target[target.cast$target=="camp-host-"] <- "8-Camp & Host"
 
 target.cast$target <- as.factor(target.cast$target)
 levels(target.cast$target)
@@ -232,8 +233,13 @@ datavizunit <- indicatorsplan2[ which(indicatorsplan2$Units=='USD $'), ]
 ####### merge with target benef
 dataviz <- merge(x=dataviz, y=target.cast, by="siteid", all.x=TRUE)
 
-dataviz$target[is.na(dataviz$target)] <- "No reported target"
+dataviz$target[is.na(dataviz$target)] <- "1-No reported target"
+dataviz$target[dataviz$target==""] <- "1-No reported target"
 dataviz$gender[is.na(dataviz$gender)] <- "2-No reported target"
+
+levels(dataviz$target)
+summary(dataviz$target)
+levels(dataviz$gender)
 
 #Classify unit cost
 
@@ -367,8 +373,8 @@ rm(regionactivityinfo)
 rm(sitesplan)
 rm(sitesplanunique)
 rm(target)
-rm(target.cast)
-rm(target.melt)
+#rm(target.cast)
+#rm(target.melt)
 rm(unitsplan)
 rm(unitsplan.wide)
 rm(unitsplanblank)
