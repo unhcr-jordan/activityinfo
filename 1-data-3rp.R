@@ -11,6 +11,8 @@ activityInfoLogin()
 
 ### JOR-#RP Plan Database Jordan db 1662
 
+data.1662 <- getIndicatorValueTable(1662)
+
 # put the DB schema  in a  R list
 schema1662 <- getDatabaseSchema(1662)
 

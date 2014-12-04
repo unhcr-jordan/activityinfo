@@ -12,7 +12,7 @@ library(plyr)
 ## -- copy the database in your rstudio project
 
 # C:\Users\Kaleem\AppData\Local\Google\Chrome\User Data\Default\databases\https_www.syrianrefugeeresponse.org_0
-con <- dbConnect(RSQLite::SQLite(), "data/2")
+con <- dbConnect(RSQLite::SQLite(), "data/8")
 
 
 #con <- dbConnect(RSQLite::SQLite(), "/home/edouard/.config/google-chrome/Default/databases/https_www.activityinfo.org_0/7")

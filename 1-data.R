@@ -19,6 +19,8 @@ activityInfoLogin()
 # list all activities and put it ina  data frame
 #activity.table <-asActivityDataFrame(getDatabaseSchema(1064))
 
+data.1064 <- getIndicatorValueTable(1064)
+
 # put the DB schema  in a  R list
 #schema1064 <- getDatabaseSchema(1064)
 
@@ -58,7 +60,11 @@ write.csv(data, file="RRP-Monitor.csv",row.names=F, na="")
 
 #data1 <- getSitesDataFrame(1064, 4050)
 
+# put the DB schema  in a  R list
+schema1064 <- getDatabaseSchema(1064)
 
+# list all activities and put them in a data frame
+activity.table <-asActivityDataFrame(schema1064)
 
 root <- "https://www.syrianrefugeeresponse.org"
 database.id <- 1064
