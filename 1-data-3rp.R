@@ -101,3 +101,74 @@ values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE
 
 # 'values' should now have a separate column for every single-selection
 # attribute found in all indicators that exist in the given database.
+
+### Step 4: add the full geographic tree to the data.
+country.id <- schema$country$id
+
+location.types <- getLocationTypes(country.id)
+location.types.table <-
+  do.call(rbind, lapply(location.types, function(type) {
+    data.frame(id = type$id,
+               name = type$name,
+               stringsAsFactors = FALSE)
+    }))
+
+admin.levels <- getAdminLevels(country.id)
+admin.levels.table <-
+  do.call(rbind, lapply(admin.levels, function(level) {
+    data.frame(id = level$id,
+               name = level$name,
+               parent.id = if(!is.null(level$parentId)) level$parentId else NA,
+               stringsAsFactors = FALSE)
+  }))
+
+sanitizeNames <- function(s) {
+  # convert strings to a format that's suitable for use as name
+  gsub("\\s|-|_", ".", tolower(s))
+}
+
+# add a column to 'values' for each administrative level in the country:
+admin.levels.table$column <- sanitizeNames(admin.levels.table$name)
+for (column.name in admin.levels.table$column) {
+  values[[column.name]] <- NA_character_
+}
+
+# add location type identifier to the activities table as having only the name
+# is not very useful:
+activities.table$locationTypeId <-
+  location.types.table$id[match(activities.table$locationTypeName,
+                                location.types.table$name)]
+
+# retrieve all locations for each type present in the activities table:
+locations <- list()
+for (type in unique(activities.table$locationTypeId)) {
+  cat("Getting all location entities of type", type, "\n")
+  locations <- c(locations, getLocations(type))
+}
+
+extractAdminLevelEntities <- function(loc) {
+  # helper function to extract a admin entities from a location. The return 
+  # value is a vector with entity names and the names of the elements are the
+  # names of the columns in 'value' where these entity names need to be stored.
+  entities <- sapply(loc$adminEntities, function(e) e$name)
+  ii <- match(names(entities), admin.levels.table$id, nomatch = 0)
+  names(entities) <- admin.levels.table$column[ii]
+  entities
+}
+
+# store the names of administrative entities for each record (i.e. site) in the
+# final result:
+location.ids <- sapply(locations, function(loc) loc$id)
+for (id in unique(values$locationId)) {
+  rows <- which(values$locationId == id)
+  j <- which(location.ids == id)
+  if (length(j) == 1L) {
+    admin.levels <- extractAdminLevelEntities(locations[[j]])
+    for (col in names(admin.levels)) {
+      values[[col]][rows] <- admin.levels[[col]]
+    }
+  } else {
+    warning("found zero or more locations with identifier ",
+            values$locationId[i], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
+  }
+}
