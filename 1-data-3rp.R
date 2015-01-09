@@ -9,12 +9,17 @@ source("0-packages.R")
 # authenticate
 activityInfoLogin()
 
+
 ### JOR-#RP Plan Database Jordan db 1662
 
 data.1662 <- getIndicatorValueTable(1662)
 
+## get all locations
+locations <- as.data.frame(getLocations(50512))
+
 # put the DB schema  in a  R list
 schema1662 <- getDatabaseSchema(1662)
+
 
 # list all activities and put them in a data frame
 activity.table <-asActivityDataFrame(schema1662)
