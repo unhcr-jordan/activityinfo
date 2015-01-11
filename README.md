@@ -7,6 +7,9 @@ The script is designed to be runed on a monthly basis and to be improved in a co
 
 The results are:
 
+- one dataframe per DB 
+- extraction in csv for dataviz in dc.js
 - reports per themes
 - presentations (using slidify packages)
 
+To start, look at the code folder.

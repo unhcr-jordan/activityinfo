@@ -14,12 +14,7 @@ library(reshape2)
 library(rjson)
 library(RCurl)
 
-## Activity Info R package
-#install.packages("devtools")
-library(devtools)
-# install_github('bedatadriven/activityinfo-R')
-# install_github( "bedatadriven/activityinfo-R", ref = "release")
-library(activityinfo)
+
 
 
 # Function that will sum values even if we have NA

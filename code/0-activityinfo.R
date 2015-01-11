@@ -1,3 +1,13 @@
+
+# Uncomment if needed or to update the package
+
+## Activity Info R package
+#install.packages("devtools")
+#library(devtools)
+# install_github( "bedatadriven/activityinfo-R", ref = "release")
+#library(activityinfo)
+
+
 ### ActivityInfo Login
 
 # required packages:
