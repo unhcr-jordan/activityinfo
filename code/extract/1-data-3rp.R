@@ -139,7 +139,7 @@ for (id in unique(values$locationId)) {
 
 ###
 
-values.1662 <- values
+db.1662.3rp <- values
 
 ### Clean unused elements
 
@@ -159,7 +159,7 @@ rm(database.id)
 rm(id)
 rm(j)
 rm(location.ids)
-rm(location.types)
+rm(location.types.table)
 rm(locations)
 rm(rows)
 rm(schema)

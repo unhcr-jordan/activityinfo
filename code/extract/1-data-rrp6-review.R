@@ -140,7 +140,7 @@ for (id in unique(values$locationId)) {
 
 ###
 
-values.1272 <- values
+db.1272.rrp6review <- values
 
 ### Clean unused elements
 
@@ -165,3 +165,5 @@ rm(locations)
 rm(rows)
 rm(schema)
 rm(type)
+
+
