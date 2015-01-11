@@ -1,6 +1,6 @@
 # required packages:
-require("activityinfo")
-require("reshape2")
+#require("activityinfo")
+#require("reshape2")
 
 #####################################################
 #  ActivityInfo Monitoring analysis script          #
@@ -10,10 +10,12 @@ require("reshape2")
 #  database which have reporting frequency "once".
 
 # authenticate
-activityInfoLogin()
+#activityInfoLogin()
 
-### JOR-#RP Plan Database Jordan db 1662
-database.id <- 1662
+#source("code/activityinfo.R")
+
+### JOR-Services Mapping Database Jordan db 1100
+database.id <- 1100
 
 values <- getIndicatorValueTable(database.id)
 # this gives us almost all the information we need. Missing are the start and 
@@ -29,29 +31,7 @@ schema <- getDatabaseSchema(database.id)
 # convert list of activities to a data frame
 activities.table <-asActivityDataFrame(schema)
 
-# a helper function to extract all single-selection attributes from an activity:
-extractSingleAttributes <- function(activity) {
-  
-  extractAttributes <- function(attr) {
-    do.call(rbind, lapply(attr, function (attr) {
-      data.frame(id = attr$id, name = attr$name, stringsAsFactors = FALSE)
-    }))
-  }
-  
-  single.attributes <-
-    do.call(rbind,
-            lapply(activity$attributeGroups, function(group) {
-              if (!group$multipleAllowed) {
-                attributes <- extractAttributes(group$attributes)
-                attributes$group <- rep(group$name, times = nrow(attributes))
-                return(attributes)
-              } else {
-                NULL
-              }
-            }))
-  
-  single.attributes
-}
+## See extractSingleAttributes in activityinfo.R
 
 # extract singel-selection attributes from the current database:
 attributes.single <-
@@ -66,6 +46,7 @@ activities.reported.once <-
 
 # retrieve a data frame with all sites linked to all indicators in the database
 # and which contains the information missing in the 'data' object:
+
 sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
   cat("Getting sites for indicator", id, "\n")
   sites <- getSites(id)
@@ -122,10 +103,6 @@ admin.levels.table <-
                stringsAsFactors = FALSE)
   }))
 
-sanitizeNames <- function(s) {
-  # convert strings to a format that's suitable for use as name
-  gsub("\\s|-|_", ".", tolower(s))
-}
 
 # add a column to 'values' for each administrative level in the country:
 admin.levels.table$column <- sanitizeNames(admin.levels.table$name)
@@ -146,16 +123,6 @@ for (type in unique(activities.table$locationTypeId)) {
   locations <- c(locations, getLocations(type))
 }
 
-extractAdminLevelEntities <- function(loc) {
-  # helper function to extract a admin entities from a location. The return 
-  # value is a vector with entity names and the names of the elements are the
-  # names of the columns in 'value' where these entity names need to be stored.
-  entities <- sapply(loc$adminEntities, function(e) e$name)
-  ii <- match(names(entities), admin.levels.table$id, nomatch = 0)
-  names(entities) <- admin.levels.table$column[ii]
-  entities
-}
-
 # store the names of administrative entities for each record (i.e. site) in the
 # final result:
 location.ids <- sapply(locations, function(loc) loc$id)
@@ -172,3 +139,31 @@ for (id in unique(values$locationId)) {
             values$locationId[i], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
   }
 }
+
+###
+
+values.1100 <- values
+
+### Clean unused elements
+
+rm(activities.table)
+rm(admin.levels.table)
+rm(attributes.single)
+rm(location.types.table)
+rm(sites)
+rm(sites.wide)
+rm(values)
+rm(activities.reported.once)
+rm(admin.levels)
+rm(col)
+rm(column.name)
+rm(country.id)
+rm(database.id)
+rm(id)
+rm(j)
+rm(location.ids)
+rm(location.types)
+rm(locations)
+rm(rows)
+rm(schema)
+rm(type)

@@ -15,8 +15,8 @@ rm(names_monit)
 rm(names_plan)
 
 
-attribute <- read.csv("~/unhcr_r_project/activityinfojordan/config/attribute3rp.csv")
-indic <- read.csv("~/unhcr_r_project/activityinfojordan/config/ActivityinfoStructure.csv")
+attribute <- read.csv("data/config/attribute3rp.csv")
+indic <- read.csv("data/config/ActivityinfoStructure.csv")
 
 activity <- as.data.frame(unique(indic[,c("ActivityCategory",
                  "ActivityName")]))
@@ -45,6 +45,6 @@ plan <- plan[order(plan$ActivityCategory, plan$ActivityName, plan$FormFieldType,
 plan$ReportingFrequency <-'Once'
 plan$LocationType <- 'SyrRefRespRRP6'
 
-write.csv(plan, file = "~/unhcr_r_project/activityinfojordan/config/plan.csv",na="")
+write.csv(plan, file = "out/plan.csv",na="")
 
 #
