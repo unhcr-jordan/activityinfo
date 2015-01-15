@@ -32,10 +32,13 @@ schema <- getDatabaseSchema(database.id)
 activities.table <-asActivityDataFrame(schema)
 
 
-# extract singel-selection attributes from the current database:
-attributes.single <-
+# extract attributes from the current database:
+include.multiple.selection <- TRUE
+attributes <-
   do.call(rbind, lapply(schema$activities,
-                        function(activity) extractSingleAttributes(activity)))
+                        function(activity) {
+                          extractAttributes(activity, include.multiple.selection)
+                          }))
 
 ### Step 2: extract start/end date and attributes from all sites:
 
@@ -49,17 +52,18 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
   cat("Getting sites for indicator", id, "\n")
   sites <- getSites(id)
   do.call(rbind, lapply(sites, function(site) {
-    df<-data.frame(siteId = site$id,
-                   activityId = site$activity,
-                   startDate = site$startDate,
-                   endDate = site$endDate,
-                   stringsAsFactors = FALSE)
-    if (length(site$attributes)) {
+    n <- length(site$attributes)
+    if (n) {
+      df <- data.frame(siteId = rep(site$id, n),
+                       activityId = rep(site$activity, n),
+                       startDate = rep(site$startDate, n),
+                       endDate = rep(site$endDate, n),
+                       stringsAsFactors = FALSE)
       # site$attributes is a vector with attribute identifiers. Some of these
       # may be multiple-selection attributes, which we currently ignore.
-      i <- match(site$attributes, attributes.single$id, nomatch = 0)
-      df$attributeGroup <- attributes.single$group[i]
-      df$attributeValue <- attributes.single$name[i]
+      i <- match(site$attributes, attributes$id, nomatch = 0)
+      df$attributeGroup <- attributes$group[i]
+      df$attributeValue <- attributes$name[i]
     } else {
       return(NULL)
     }
@@ -72,12 +76,16 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
 # - sites$attributeValue contains the actual value (i.e. selection) of the 
 #   attribute
 # Create a wide-format data frame with a column for each attribute group:
-sites.wide <- dcast(sites,
-                    siteId + activityId + startDate + endDate ~ attributeGroup)
-
-### Step 3: merge missing information into the 'values' data frame:
-values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
-
+if (!include.multiple.selection) {
+  sites.wide <- dcast(sites,
+                      siteId + activityId + startDate + endDate ~ attributeGroup)
+  
+  ### Step 3: merge missing information into the 'values' data frame:
+  values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
+} else {
+  values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
+  warning("attribute values are not stored in separate columns!")
+}
 # 'values' should now have a separate column for every single-selection
 # attribute found in all indicators that exist in the given database.
 
@@ -143,24 +151,5 @@ db.1662.3rp <- values
 
 ### Clean unused elements
 
-rm(activities.table)
-rm(admin.levels.table)
-rm(attributes.single)
-rm(location.types.table)
-rm(sites)
-rm(sites.wide)
-rm(values)
-rm(activities.reported.once)
-rm(admin.levels)
-rm(col)
-rm(column.name)
-rm(country.id)
-rm(database.id)
-rm(id)
-rm(j)
-rm(location.ids)
-rm(location.types.table)
-rm(locations)
-rm(rows)
-rm(schema)
-rm(type)
+# You can do the following to keep just the object(s) that you want:
+rm(list = setdiff(ls(), "db.1662.3rp"))
