@@ -14,7 +14,7 @@
 
 #source("code/activityinfo.R")
 
-### JOR-#RP Plan Database Jordan db 1662
+### JOR Monitoring Database Jordan db 1064
 database.id <- 1064
 
 values <- getIndicatorValueTable(database.id)

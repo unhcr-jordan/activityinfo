@@ -56,3 +56,45 @@ extractAdminLevelEntities <- function(loc) {
   names(entities) <- admin.levels.table$column[ii]
   entities
 }
+
+
+#' asIndicatorDataFrame
+#'
+#' Creates a data.frame containing a list of indicators
+#' and their properties from the given database schema
+#'
+
+asIndicatorDataFrame <- function(databaseSchema) {
+  tables <- lapply(databaseSchema$activities, function(activity) {
+    indicators <- activity$indicators
+    data.frame(
+      databaseId= rep(databaseSchema$id, length.out=length(indicators)),
+      activityId = rep(activity$id, length.out=length(indicators)),
+      indicatorId = extractField(indicators, "id"),
+      indicatorName = extractField(indicators, "name"),
+      indicatorCategory = extractField(indicators, "category"),
+      indicatorCode = extractField(indicators, "code"),
+      aggregation = extractField(indicators, "aggregation"),
+      units = extractField(indicators, "units"),
+      mandatory = extractField(indicators, "mandatory"),
+      listHeader = extractField(indicators, "listHeader"),
+      stringsAsFactors = FALSE)
+  })
+  do.call("rbind", tables)
+}
+
+
+# helper functions to make other functions to extract
+# the data from the list for us
+extractField <- function(sites, fieldName)
+  sapply(sites, function(site) {
+    x <- site[[fieldName]]
+    if(!is.null(x) && is.atomic(x)) {
+      x
+    } else {
+      NA
+    }
+  })
+
+
+
