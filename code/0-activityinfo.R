@@ -17,8 +17,8 @@ require("reshape2")
 # authenticate
 activityInfoLogin()
 
-# a helper function to extract all single-selection attributes from an activity:
-extractSingleAttributes <- function(activity) {
+# a helper function to extract all attributes from an activity:
+extractAttributes <- function(activity, includeMultiple = FALSE) {
   
   extractAttributes <- function(attr) {
     do.call(rbind, lapply(attr, function (attr) {
@@ -26,10 +26,10 @@ extractSingleAttributes <- function(activity) {
     }))
   }
   
-  single.attributes <-
+  attributes <-
     do.call(rbind,
             lapply(activity$attributeGroups, function(group) {
-              if (!group$multipleAllowed) {
+              if (group$multipleAllowed & includeMultiple | !group$multipleAllowed) {
                 attributes <- extractAttributes(group$attributes)
                 attributes$group <- rep(group$name, times = nrow(attributes))
                 return(attributes)
@@ -38,7 +38,7 @@ extractSingleAttributes <- function(activity) {
               }
             }))
   
-  single.attributes
+  attributes
 }
 
 sanitizeNames <- function(s) {
