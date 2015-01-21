@@ -19,13 +19,11 @@ activityInfoLogin()
 
 # a helper function to extract all attributes from an activity:
 extractAttributes <- function(activity, includeMultiple = FALSE) {
-  
   extractAttributes <- function(attr) {
     do.call(rbind, lapply(attr, function (attr) {
       data.frame(id = attr$id, name = attr$name, stringsAsFactors = FALSE)
     }))
   }
-  
   attributes <-
     do.call(rbind,
             lapply(activity$attributeGroups, function(group) {
@@ -37,9 +35,9 @@ extractAttributes <- function(activity, includeMultiple = FALSE) {
                 NULL
               }
             }))
-  
   attributes
 }
+
 
 sanitizeNames <- function(s) {
   # convert strings to a format that's suitable for use as name

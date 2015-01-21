@@ -152,4 +152,30 @@ db.1662.3rp <- values
 ### Clean unused elements
 
 # You can do the following to keep just the object(s) that you want:
-rm(list = setdiff(ls(), "db.1662.3rp"))
+#rm(list = setdiff(ls(), "db.1662.3rp"))
+
+
+rm(activities.table)
+rm(admin.levels.table)
+rm(attributes.single)
+rm(location.types.table)
+rm(sites)
+rm(sites.wide)
+rm(values)
+rm(activities.reported.once)
+rm(admin.levels)
+rm(col)
+rm(column.name)
+rm(country.id)
+rm(database.id)
+rm(id)
+rm(j)
+rm(location.ids)
+rm(location.types)
+rm(locations)
+rm(rows)
+rm(schema)
+rm(type)
+
+rm(attributes)
+rm(include.multiple.selection)
