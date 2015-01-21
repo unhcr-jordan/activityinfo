@@ -22,6 +22,7 @@ values <- getIndicatorValueTable(database.id)
 # end date of the reporting period as well as the value of the attributes for
 # each site.
 
+#################################################################################################
 ### Step 1: create a lookup table for single attributes (i.e. those attributes
 ### that are in the activities and which allow only a single selection)
 
@@ -33,13 +34,14 @@ activities.table <-asActivityDataFrame(schema)
 
 
 # extract attributes from the current database:
-include.multiple.selection <- TRUE
+include.multiple.selection <- FALSE
 attributes <-
   do.call(rbind, lapply(schema$activities,
                         function(activity) {
                           extractAttributes(activity, include.multiple.selection)
                         }))
 
+#################################################################################################
 ### Step 2: extract start/end date and attributes from all sites:
 
 # select the identifiers of activities that have reporting frequency "once":
@@ -89,7 +91,8 @@ if (!include.multiple.selection) {
 # 'values' should now have a separate column for every single-selection
 # attribute found in all indicators that exist in the given database.
 
-### Step 4: add the full geographic tree to the data.
+#################################################################################################
+### Step 3: add the full geographic tree to the data.
 country.id <- schema$country$id
 
 location.types <- getLocationTypes(country.id)

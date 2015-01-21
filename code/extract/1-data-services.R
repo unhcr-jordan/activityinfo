@@ -49,7 +49,7 @@ activities.reported.once <-
 # retrieve a data frame with all sites linked to all indicators in the database
 # and which contains the information missing in the 'data' object:
 sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
-  cat("Getting sites for indicator", id, "\n")
+  cat("Getting sites for activity", id, "\n")
   sites <- getSites(id)
   do.call(rbind, lapply(sites, function(site) {
     n <- length(site$attributes)
@@ -80,7 +80,8 @@ if (!include.multiple.selection) {
   sites.wide <- dcast(sites,
                       siteId + activityId + startDate + endDate ~ attributeGroup)
   
-  ### Step 3: merge missing information into the 'values' data frame:
+#################################################################################################
+### Step 3: merge missing information into the 'values' data frame:
   values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
 } else {
   values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
