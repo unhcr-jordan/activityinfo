@@ -12,7 +12,7 @@
 # authenticate
 #activityInfoLogin()
 
-#source("code/activityinfo.R")
+# source("code/0-activityinfo.R")
 
 ### JOR-Services Mapping Database Jordan db 1100
 database.id <- 1100
@@ -34,6 +34,8 @@ activities.table <-asActivityDataFrame(schema)
 
 # extract attributes from the current database:
 include.multiple.selection <- TRUE
+
+#rm(attributes)
 attributes <-
   do.call(rbind, lapply(schema$activities,
                         function(activity) {
@@ -58,12 +60,14 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
                        activityId = rep(site$activity, n),
                        startDate = rep(site$startDate, n),
                        endDate = rep(site$endDate, n),
+                     #  comments = rep(site$comments, n),
                        stringsAsFactors = FALSE)
       # site$attributes is a vector with attribute identifiers. Some of these
       # may be multiple-selection attributes, which we currently ignore.
       i <- match(site$attributes, attributes$id, nomatch = 0)
       df$attributeGroup <- attributes$group[i]
       df$attributeValue <- attributes$name[i]
+      df$multipleAllowed <- attributes$multipleAllowed[i]
     } else {
       return(NULL)
     }
@@ -71,25 +75,27 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
   }))
 }))
 
+
 # Now we have:
 # - sites$attributeGroup contains the name of the attribute
 # - sites$attributeValue contains the actual value (i.e. selection) of the 
 #   attribute
 # Create a wide-format data frame with a column for each attribute group:
 if (!include.multiple.selection) {
-  sites.wide <- dcast(sites,
-                      siteId + activityId + startDate + endDate ~ attributeGroup)
+              sites.wide <- dcast(sites,
+                                  siteId + activityId + startDate + endDate ~ attributeGroup)
   
 #################################################################################################
 ### Step 3: merge missing information into the 'values' data frame:
-  values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
-} else {
-  values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
-  warning("attribute values are not stored in separate columns!")
-}
+              values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
+            } else {
+              values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
+              warning("attribute values are not stored in separate columns!")
+            }
 # 'values' should now have a separate column for every single-selection
 # attribute found in all indicators that exist in the given database.
 
+#################################################################################################
 ### Step 4: add the full geographic tree to the data.
 country.id <- schema$country$id
 
@@ -146,11 +152,64 @@ for (id in unique(values$locationId)) {
   }
 }
 
-###
 
-db.1100.services <- values
+
+#################################################################################################
+### Step 5: Let's cast attributes and merge them back to unique indicators
+# reformat attributes
+## First unique values for sites;
+
+#names(values)
+
+values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "locationName"  ,
+                                                      "partnerId"  , "partnerName" ,  "activityName" ,
+                                                      "activityCategory","indicatorId"  , "value", "indicatorName",
+                                                      "month" , "database",  "indicatorCategory","units" , "startDate" , "endDate" , 
+                                                      #"attributeGroup" , "attributeValue" , "multipleAllowed"
+                                                      "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts"  )])
+
+## Let's cast attributes
+# We have single and multiple attributes -- multipleAllowed
+names(values)
+values.attribute.single <- values[values$multipleAllowed == "FALSE",c("siteId", "indicatorId","attributeGroup" , "attributeValue")]
+values.attribute.single.wide <- dcast(values.attribute.single, siteId + indicatorId ~ attributeGroup, value.var="attributeValue" )
+
+values.attribute.multiple <- values[values$multipleAllowed == "TRUE",c("siteId", "indicatorId","attributeGroup" , "attributeValue")]
+values.attribute.multiple.wide <- dcast(values.attribute.multiple, siteId + indicatorId ~ attributeValue)
+
+## Merge back
+#rm(values.unique.attribute)
+values.unique.attribute <- merge (x=values.unique, y=values.attribute.single.wide, by=c("siteId", "indicatorId"), all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique, y=values.attribute.multiple.wide, by=c("siteId", "indicatorId"), all.x=TRUE)
+
+### Rename Column for the desired output
+
+output <- rename (values.unique.attribute, c(
+                "SiteID" , "Governorate " , "District" , "Partner Name" , "Sector" , "Activity Name" , "Activity Indicator Name" ,
+                "Start Date" , "End Date" , "Registration Type Requirement" , "Nationality" ,  "Intake Criteria- Open to all" ,
+                "Intake Criteria- Specific Vulnerability Calculation Scoring" , "Intake Criteria- Child at risk" ,
+                "Intake Criteria- Unaccompanied or separated child" , "Intake Criteria- Woman at risk" ,
+                "Intake Criteria- Older person at risk" , "Intake Criteria- Single parent or caregiver" ,
+                "Intake Criteria- Disability" , "Intake Criteria- Serious medical condition" , "Intake Criteria- Family unity" ,
+                "Intake Criteria- Specific legal and physical protection needs" , "Intake Criteria- Torture" ,
+                "Intake Criteria- SGBV", "Accessibility" , "Coverage" ,
+                "Availability" , "Availability Day" , "Office Open at" ,
+                "Office close at" , "Referral Method" , "Immediate Next step",
+                "Response delay after referrals" , "Feedback Mechanism" , 
+                "Feedback delay" , "Referral Contact" , "Comments" 		)])							
+
+
+db.1100.services <- values.unique.attribute
+
+
 
 ### Clean unused elements
+
+rm(values.unique.attribute)
+rm(values.attribute.single)
+rm(values.attribute.multiple)
+rm(values.unique)
+
 
 rm(activities.table)
 rm(admin.levels.table)

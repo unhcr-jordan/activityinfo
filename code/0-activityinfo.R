@@ -18,6 +18,7 @@ require("reshape2")
 activityInfoLogin()
 
 # a helper function to extract all attributes from an activity:
+## added multipleAllowed for future cast
 extractAttributes <- function(activity, includeMultiple = FALSE) {
   extractAttributes <- function(attr) {
     do.call(rbind, lapply(attr, function (attr) {
@@ -28,7 +29,8 @@ extractAttributes <- function(activity, includeMultiple = FALSE) {
     do.call(rbind,
             lapply(activity$attributeGroups, function(group) {
               if (group$multipleAllowed & includeMultiple | !group$multipleAllowed) {
-                attributes <- extractAttributes(group$attributes)
+                attributes <- extractAttributes(group$attributes)                
+                attributes$multipleAllowed <- rep(group$multipleAllowed, times = nrow(attributes))
                 attributes$group <- rep(group$name, times = nrow(attributes))
                 return(attributes)
               } else {

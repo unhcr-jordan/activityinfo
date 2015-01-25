@@ -33,7 +33,8 @@ rrrp.indicator <- rename(rrrp.indicator, c("activityCategory"= "activityCategory
                                          "indicatorName"="indicatorNamerrrp","aggregation"="aggregationrrrp","units"= "unitsrrrp",
                                          "reportingFrequency" ="reportingFrequencyrrrp","locationTypeName"="locationTypeNamerrrp",
                                          "activityId"="activityIdrrrp", "databaseId.x"="rrrp","indicatorId"="indicatorIdrrrp" , "indicatorCode"= "indicatorCoderrrp"))
- 
+write.csv(rrrp.indicator, file="out/indicator/rrrpindicator.csv",row.names=F, na="")
+
 rm(activities.rrrp)
 rm(indicators.rrrp)
 rm(schema.rrrp)
@@ -51,6 +52,14 @@ monitor.indicator <- rename(monitor.indicator, c("activityCategory"= "activityCa
                                                  "indicatorName"="indicatorNamemonitor","aggregation"="aggregationmonitor","units"= "unitsmonitor",
                                                  "reportingFrequency" ="reportingFrequencymonitor","locationTypeName"="locationTypeNamemonitor",
                                                  "activityId"="activityIdmonitor", "databaseId.x"="monitor","indicatorId"="indicatorIdmonitor" , "indicatorCode"= "indicatorCodemonitor"))
+
+write.csv(monitor.indicator, file="out/indicator/monitorindicator.csv",row.names=F, na="")
+
+## variable for merging
+monitor.indicator$sector <- as.factor(monitor.indicator$activityCategorymonitor)
+monitor.indicator$output <- as.factor(monitor.indicator$activityNamemonitor)
+monitor.indicator$indicator <- as.factor(monitor.indicator$indicatorNamemonitor)
+
 rm(activities.monitor)
 rm(indicators.monitor)
 rm(schema.monitor)
@@ -69,6 +78,14 @@ rrp6.indicator <- rename(rrp6.indicator, c("activityCategory"= "activityCategory
                                            "reportingFrequency" ="reportingFrequencyrrp6","locationTypeName"="locationTypeNamerrp6",
                                            "activityId"="activityIdrrp6", "databaseId.x"="rrp6","indicatorId"="indicatorIdrrp6" , "indicatorCode"= "indicatorCoderrp6"))
 
+
+write.csv(rrp6.indicator, file="out/indicator/rrp6indicator.csv",row.names=F, na="")
+
+## variable for merging
+rrp6.indicator$sector <- as.factor(rrp6.indicator$activityCategoryrrp6)
+rrp6.indicator$output <- as.factor(rrp6.indicator$activityNamerrp6)
+rrp6.indicator$indicator <- as.factor(rrp6.indicator$indicatorNamerrp6)
+
 rm(activities.rrp6)
 rm(indicators.rrp6)
 rm(schema.rrp6)
@@ -77,16 +94,22 @@ rm(database.id)
 
 ############# Matching rrp6 to monitor
 
+rrp6out <- as.data.frame(levels(rrp6.indicator$output))
+names(rrp6out )
+rrp6out  <- rename(rrp6out , c("levels(rrp6.indicator$output)"= "output"))
 
+monitout <- as.data.frame(levels(monitor.indicator$output))
+names(monitout)
+monitout <- rename(monitout, c("levels(monitor.indicator$output)"= "output"))
+
+
+check <- merge (rrp6out, monitout, all=TRUE)
+
+indicators.plan2monitor <- merge (x=rrp6.indicator, y=monitor.indicator, by=c("sector","output","indicator"))
+
+## poor matching -- needs to be done manually
 
 
 
 
 ### Clean
-
-rm(activities.3rp)
-rm(activities.rrrp)
-rm(indicators.3rp)
-rm(indicators.rrrp)
-rm(rp.indicator)
-rm(rrp.indicator)
