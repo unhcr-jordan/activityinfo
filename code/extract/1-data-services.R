@@ -180,6 +180,10 @@ sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed ==
 ## does not work
 #sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
 
+## identify duplicate -- potential bug
+sites.attribute.single.dup <- paste(sites.attribute.single$siteId, sites.attribute.single$attributeGroup, sep = " ", collapse = NULL)
+sites.attribute.single.dup <- as.data.frame(sites.attribute.single.dup[duplicated(sites.attribute.single.dup)])
+
 rm(sites.attribute.single.wide)
                        
 sites.attribute.single.1 <- subset(sites.attribute.single, attributeGroup == "1. Registration Type Requirement")
