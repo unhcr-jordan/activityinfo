@@ -12,7 +12,7 @@
 # authenticate
 #activityInfoLogin()
 
-#source("code/activityinfo.R")
+#source("code/0-activityinfo.R")
 
 ### JOR Monitoring Database Jordan db 1064
 database.id <- 1064
@@ -52,21 +52,23 @@ activities.reported.monthly <-
 # retrieve a data frame with all sites linked to all indicators in the database
 # and which contains the information missing in the 'data' object:
 sites <- do.call(rbind, lapply(activities.reported.monthly, function(id) {
-  cat("Getting sites for indicator", id, "\n")
+  cat("Getting sites for activity", id, "\n")
   sites <- getSites(id)
   do.call(rbind, lapply(sites, function(site) {
     n <- length(site$attributes)
     if (n) {
       df <- data.frame(siteId = rep(site$id, n),
                        activityId = rep(site$activity, n),
-                      # startDate = rep(site$startDate, n),
+                     #  startDate = rep(site$startDate, n),
                      #  endDate = rep(site$endDate, n),
+                       comments = ifelse(is.null(site$comments), "", site$comments),
                        stringsAsFactors = FALSE)
       # site$attributes is a vector with attribute identifiers. Some of these
       # may be multiple-selection attributes, which we currently ignore.
       i <- match(site$attributes, attributes$id, nomatch = 0)
       df$attributeGroup <- attributes$group[i]
       df$attributeValue <- attributes$name[i]
+      df$multipleAllowed <- attributes$multipleAllowed[i]
     } else {
       return(NULL)
     }
@@ -152,9 +154,47 @@ for (id in unique(values$locationId)) {
   }
 }
 
-###
 
-db.1064.monitor <- values
+#################################################################################################
+### Step 5: Let's cast attributes and merge them back to unique indicators
+# reformat attributes
+## First unique values for sites;
+
+#names(values)
+values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "locationName"  ,
+                                  "partnerId"  , "partnerName" ,  "activityName" ,
+                                  "activityCategory","indicatorId"  , "value", "indicatorName",
+                                  "month" , "database",  "indicatorCategory","units" , 
+                                  "month",
+                                  #"startDate" , "endDate" , 
+                                  #"attributeGroup" , "attributeValue" , "multipleAllowed"
+                                  "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts","comments"  )])
+
+## Let's cast attributes
+# We have single and multiple attributes -- multipleAllowed
+#names(values)
+
+sites.unique.attr <- unique(values[,c("siteId" , "attributeGroup" , "attributeValue" , "multipleAllowed" )])
+sites.unique <- as.data.frame(values[,c("siteId"  )])
+sites.unique <- unique(sites.unique)
+
+sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
+
+sites.attribute.multiple <- sites.unique.attr[sites.unique$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
+
+## Merge back
+#rm(values.unique.attribute)
+values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide, by="siteId", all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+
+#################################################################################################
+### Step 6: Let's cast dates
+# reformat attributes
+## First unique values for sites;
+
+db.1064.monitor <- values.unique.attribute
 
 ### Clean unused elements
 
