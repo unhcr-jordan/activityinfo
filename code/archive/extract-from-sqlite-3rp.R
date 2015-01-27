@@ -40,6 +40,7 @@ attrsplan <- dbGetQuery(con, paste("select s.siteid siteid, ag.name agroup, ag.m
 
 # reformat attributes
 attrplan.single <- subset(attrsplan, multiple == 0)
+
 attrplan.single.wide <- dcast(attrplan.single, siteid ~ agroup, value.var="attribute")
 
 #attrplan.multiple <- subset(attrsplan, multiple == 1)

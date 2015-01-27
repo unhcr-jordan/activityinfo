@@ -60,7 +60,7 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
                        activityId = rep(site$activity, n),
                        startDate = rep(site$startDate, n),
                        endDate = rep(site$endDate, n),
-                     #  comments = rep(site$comments, n),
+                       comments = ifelse(is.null(site$comments), "", site$comments),
                        stringsAsFactors = FALSE)
       # site$attributes is a vector with attribute identifiers. Some of these
       # may be multiple-selection attributes, which we currently ignore.
@@ -166,45 +166,164 @@ values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "loca
                                                       "activityCategory","indicatorId"  , "value", "indicatorName",
                                                       "month" , "database",  "indicatorCategory","units" , "startDate" , "endDate" , 
                                                       #"attributeGroup" , "attributeValue" , "multipleAllowed"
-                                                      "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts"  )])
+                                                      "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts","comments"  )])
 
 ## Let's cast attributes
 # We have single and multiple attributes -- multipleAllowed
-names(values)
-values.attribute.single <- values[values$multipleAllowed == "FALSE",c("siteId", "indicatorId","attributeGroup" , "attributeValue")]
-values.attribute.single.wide <- dcast(values.attribute.single, siteId + indicatorId ~ attributeGroup, value.var="attributeValue" )
+#names(values)
 
-values.attribute.multiple <- values[values$multipleAllowed == "TRUE",c("siteId", "indicatorId","attributeGroup" , "attributeValue")]
-values.attribute.multiple.wide <- dcast(values.attribute.multiple, siteId + indicatorId ~ attributeValue)
+sites.unique.attr <- unique(values[,c("siteId" , "attributeGroup" , "attributeValue" , "multipleAllowed" )])
+sites.unique <- as.data.frame(values[,c("siteId"  )])
+sites.unique <- unique(sites.unique)
+sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
+
+## does not work
+#sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
+
+rm(sites.attribute.single.wide)
+                       
+sites.attribute.single.1 <- subset(sites.attribute.single, attributeGroup == "1. Registration Type Requirement")
+sites.attribute.single.1.wide <- dcast(sites.attribute.single.1, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.unique, y=sites.attribute.single.1.wide, all.x=TRUE)
+
+sites.attribute.single.2 <- subset(sites.attribute.single, attributeGroup == "2. Nationality")
+sites.attribute.single.2.wide <- dcast(sites.attribute.single.2, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.2.wide, all.x=TRUE)
+
+sites.attribute.single.4 <- subset(sites.attribute.single, attributeGroup == "4. Accessibility")
+sites.attribute.single.4.wide <- dcast(sites.attribute.single.4, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.4.wide, all.x=TRUE)
+
+sites.attribute.single.5 <- subset(sites.attribute.single, attributeGroup == "5. Coverage")
+sites.attribute.single.5.wide <- dcast(sites.attribute.single.5, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.5.wide, all.x=TRUE)
+
+sites.attribute.single.6 <- subset(sites.attribute.single, attributeGroup == "6. Availability")
+sites.attribute.single.6.wide <- dcast(sites.attribute.single.6, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.6.wide, all.x=TRUE)
+
+sites.attribute.single.7 <- subset(sites.attribute.single, attributeGroup == "7. Availability Day")
+sites.attribute.single.7.wide <- dcast(sites.attribute.single.7, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.7.wide, all.x=TRUE)
+
+sites.attribute.single.8 <- subset(sites.attribute.single, attributeGroup == "8. Office Open at")
+sites.attribute.single.8.wide <- dcast(sites.attribute.single.8, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.8.wide, all.x=TRUE)
+
+sites.attribute.single.9 <- subset(sites.attribute.single, attributeGroup == "9. Office close at" )
+sites.attribute.single.9.wide <- dcast(sites.attribute.single.9, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.9.wide, all.x=TRUE)
+
+sites.attribute.single.10 <- subset(sites.attribute.single, attributeGroup == "10. Referral Method" )
+sites.attribute.single.10.wide <- dcast(sites.attribute.single.10, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.10.wide, all.x=TRUE)
+
+sites.attribute.single.11 <- subset(sites.attribute.single, attributeGroup == "11. Immediate Next step  response after referal")
+sites.attribute.single.11.wide <- dcast(sites.attribute.single.11, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.11.wide, all.x=TRUE)
+
+sites.attribute.single.12 <- subset(sites.attribute.single, attributeGroup == "12. Response delay after referrals" )
+sites.attribute.single.12.wide <- dcast(sites.attribute.single.12, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.12.wide, all.x=TRUE)
+
+sites.attribute.single.13 <- subset(sites.attribute.single, attributeGroup == "13. Feedback Mechanism")
+sites.attribute.single.13.wide <- dcast(sites.attribute.single.13, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.13.wide, all.x=TRUE)
+
+sites.attribute.single.14 <- subset(sites.attribute.single, attributeGroup == "14. Feedback delay")
+sites.attribute.single.14.wide <- dcast(sites.attribute.single.14, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.14.wide, all.x=TRUE)
+
+
+sites.attribute.multiple <- sites.unique.attr[sites.unique$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
 
 ## Merge back
 #rm(values.unique.attribute)
-values.unique.attribute <- merge (x=values.unique, y=values.attribute.single.wide, by=c("siteId", "indicatorId"), all.x=TRUE)
-values.unique.attribute <- merge (x=values.unique, y=values.attribute.multiple.wide, by=c("siteId", "indicatorId"), all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide, by="siteId", all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+
+names(values.unique.attribute)
 
 ### Rename Column for the desired output
+#rm(output)
+output <- rename (values.unique.attribute, c( "locationName" = "Reporting Site" ,
+  "siteId"="SiteID" , "governorate"="Governorate", "district"="District" ,
+  "partnerName"= "Partner Name" ,
+  "activityCategory" = "Sector" ,
+  "activityName" = "Activity Name" , "indicatorName"= "Activity Indicator Name" ,
+  "startDate"=   "Start Date" , "endDate"="End Date" ,
+#  "1. Registration Type Requirement"= "Registration Type Requirement" ,
+#  "2. Nationality" = "Nationality" , 
+  "Open to all"  = "3. Intake Criteria- Open to all" ,  
+  "Specific Vulnerability Calculation/Scoring"= "3. Intake Criteria- Specific Vulnerability Calculation Scoring" ,
+  "Child at risk" ="3. Intake Criteria- Child at risk" ,
+  "Unaccompanied or separated child" = "3. Intake Criteria- Unaccompanied or separated child" ,
+  "Woman at risk" = "3. Intake Criteria- Woman at risk" ,
+  "Older person at risk"=   "3. Intake Criteria- Older person at risk" , 
+  "Single parent or caregiver" = "3. Intake Criteria- Single parent or caregiver" ,
+  "Disability" = "3. Intake Criteria- Disability" ,
+  "Serious medical condition" = "3. Intake Criteria- Serious medical condition" , 
+  "Family unity"  = "3. Intake Criteria- Family unity" ,
+#  "3. Intake Criteria- Specific legal and physical protection needs" ,
+# "3. Intake Criteria- Torture" ,
+  "SGBV"  = "3. Intake Criteria- SGBV" , 
+#  "4. Accessibility" = "Accessibility" , 
+#  "5. Coverage" = "Coverage" ,
+#  "6. Availability"= "Availability" , "7. Availability Day"="Availability Day" ,  "8. Office Open at" = "Office Open at" ,
+#  "9. Office close at"= "Office close at" ,
+#  "10. Referral Method" =   "Referral Method" , 
+#  "11. Immediate Next step  response after referal"="Immediate Next step",
+#  "12. Response delay after referrals"= "Response delay after referrals" ,
+#  "13. Feedback Mechanism"= "Feedback Mechanism" , 
+#  "14. Feedback delay" =  "Feedback delay" #,
+#  "Referral Contact" ,
+  "comments" 	= "Comments"
+  ))							
 
-output <- rename (values.unique.attribute, c(
-                "SiteID" , "Governorate " , "District" , "Partner Name" , "Sector" , "Activity Name" , "Activity Indicator Name" ,
-                "Start Date" , "End Date" , "Registration Type Requirement" , "Nationality" ,  "Intake Criteria- Open to all" ,
-                "Intake Criteria- Specific Vulnerability Calculation Scoring" , "Intake Criteria- Child at risk" ,
-                "Intake Criteria- Unaccompanied or separated child" , "Intake Criteria- Woman at risk" ,
-                "Intake Criteria- Older person at risk" , "Intake Criteria- Single parent or caregiver" ,
-                "Intake Criteria- Disability" , "Intake Criteria- Serious medical condition" , "Intake Criteria- Family unity" ,
-                "Intake Criteria- Specific legal and physical protection needs" , "Intake Criteria- Torture" ,
-                "Intake Criteria- SGBV", "Accessibility" , "Coverage" ,
-                "Availability" , "Availability Day" , "Office Open at" ,
-                "Office close at" , "Referral Method" , "Immediate Next step",
-                "Response delay after referrals" , "Feedback Mechanism" , 
-                "Feedback delay" , "Referral Contact" , "Comments" 		)])							
+names(output)
 
+output1 <- output[ ,c("SiteID" ,"Reporting Site", "Governorate",
+                    "District" , "Partner Name" , "Sector" ,
+                     "Activity Name" ,  "Activity Indicator Name" ,
+                      "Start Date" , "End Date",
+                    "1. Registration Type Requirement" ,
+                    "2. Nationality" , 
+                    "3. Intake Criteria- Open to all" ,  
+                    "3. Intake Criteria- Specific Vulnerability Calculation Scoring" ,
+                    "3. Intake Criteria- Child at risk" ,
+                    "3. Intake Criteria- Unaccompanied or separated child" ,
+                    "3. Intake Criteria- Woman at risk" ,
+                    "3. Intake Criteria- Older person at risk" , 
+                    "3. Intake Criteria- Single parent or caregiver" ,
+                    "3. Intake Criteria- Disability" ,
+                    "3. Intake Criteria- Serious medical condition", 
+                    "3. Intake Criteria- Family unity" ,
+                  # "3. Intake Criteria- Specific legal and physical protection needs" ,
+                  # "3. Intake Criteria- Torture" ,
+                    "3. Intake Criteria- SGBV" , 
+                    "4. Accessibility"  , 
+                    "5. Coverage"  ,
+                    "6. Availability" , 
+                    "7. Availability Day" ,
+                    "8. Office Open at"  ,
+                    "9. Office close at" ,
+                    "10. Referral Method"  , 
+                    "11. Immediate Next step  response after referal",
+                    "12. Response delay after referrals" ,
+                    "13. Feedback Mechanism" , 
+                    "14. Feedback delay",
+                    #"Referral Contact" ,
+                    "Comments" 
+                    )]
 
-db.1100.services <- values.unique.attribute
+write.csv(output1, file="out/JOR-Refugee-Services-Maping.csv",row.names=F, na="")
 
 
 
 ### Clean unused elements
-
+rm(output)
+rm(output1)
 rm(values.unique.attribute)
 rm(values.attribute.single)
 rm(values.attribute.multiple)
