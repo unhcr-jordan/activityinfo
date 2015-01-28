@@ -182,13 +182,13 @@ sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed ==
 sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
 
 
-sites.attribute.multiple <- sites.unique.attr[sites.unique$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.multiple <- sites.unique.attr[sites.unique.attr$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
 sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
 
 ## Merge back
 #rm(values.unique.attribute)
 values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide, by="siteId", all.x=TRUE)
-#values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
 
 
 values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
@@ -200,13 +200,56 @@ db.1064.monitor <- values.unique.attribute
 
 #################################################################################################
 ###  merge with the right code for the map
+regionactivityinfo <- read.csv("data/regionactivityinfocode.csv")
+
+
+values.unique.attribute <- merge(x=values.unique.attribute, y=regionactivityinfo, by="governorate", all.x=TRUE)
+
+# Distinguish camps
+values.unique.attribute$gcode <- as.character(values.unique.attribute$gcode)
+values.unique.attribute$rcode <- as.character(values.unique.attribute$rcode)
+values.unique.attribute$gcode[!is.na(values.unique.attribute$Refugee.camps)] <- "2"
+values.unique.attribute$rcode[!is.na(values.unique.attribute$Refugee.camps)] <- "5"
+
+# Distinguish Country wide intervention
+values.unique.attribute$rcode[values.unique.attribute$locationName=="Country Wide"] <- "3"
+values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wide"] <- "1"
+
+
+#################################################################################################
+###  Convert month in full date format
 
 #################################################################################################
 ###  Selection of indicators that have gender disaggregation
 
 
+values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
+levels(values.unique.attribute$indicatorName)
+
+values.unique.attribute$men <- as.numeric(with(values.unique.attribute, ifelse(grepl("men|Men", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
+                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
+values.unique.attribute$women <- as.numeric(with(values.unique.attribute, ifelse(grepl("women|Women", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
+                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
+values.unique.attribute$boy <- as.numeric(with(values.unique.attribute, ifelse(grepl("boy|Boys|Boy", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
+                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
+values.unique.attribute$girl <- as.numeric(with(values.unique.attribute, ifelse(grepl("girl|Girls|girls", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
+                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
+
 #################################################################################################
 ### Merge site type into one through concatenation
+
+values.unique.attribute <- rename (values.unique.attribute, c("Informal Tented Settlement" = "ITS" ,  "Urban areas"="Urban"))
+
+## Replace NA with NULL -- df[is.na(df)] <- " "
+values.unique.attribute$Camp[is.na(values.unique.attribute$Camp)] <- " "
+values.unique.attribute$ITS[is.na(values.unique.attribute$ITS)] <- " " 
+values.unique.attribute$Other[is.na(values.unique.attribute$Other)] <- " "
+values.unique.attribute$Urban[is.na(values.unique.attribute$Urban)] <- " "
+
+values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.unique.attribute$ITS, 
+                                           values.unique.attribute$Other ,  values.unique.attribute$Urban, sep=" - ")                
+
+
 
 names(values.unique.attribute)
 
@@ -219,23 +262,23 @@ names(values.unique.attribute)
 
 
 output <- rename (dataviz, c(
-  "siteId"= "siteid" ,
+ # "siteId"= "siteid" ,
   ""= "StartDate" ,
-  ""=  "EndDate",
-  ""=  "Year",
-  ""=  "Month" ,
+ # ""=  "EndDate",
+ # ""=  "Year",
+ # ""=  "Month" ,
   "objective"= "Category",
   "activityName"=  "activity",
   "indicatorName"= "Indicator",
   "governorate"=  "Governorate" ,
   ""=  "Gender",
   "partnerName"=  "Partner" ,  
-  ""=  "SiteType",
-  "2-RRP6 Implementation Type"= "allocation",
+  "sitetype"=  "SiteType",
+  "2-RRP6 Implementation Type"= "appeal",
   "3-RRP6 appeal through"=  "Fundedby",
-  "4-Allocation according to RRP6"=  "appeal",
-  ""=  "rcode" ,
-  ""=  "gcode" ,
+  "4-Allocation according to RRP6"=  "allocation",
+  "rcode"=  "rcode" ,
+  "gcode"=  "gcode" ,
   "value"= "Value" ,
   "units"=  "Units"  ,
   "locationName"= "location"))
