@@ -1,4 +1,6 @@
-############ Script to generate Schema for Activity Info - IRAQ Refugee Response
+############ Script to generate Schema for Activity Info - 2015 Monitoring
+
+rrrpindicator <- read.csv("out/indicator/rrrpindicator.csv")
 
 rm(activity)
 rm(att_monit)

@@ -181,16 +181,69 @@ sites.unique <- unique(sites.unique)
 sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
 sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
 
+
 sites.attribute.multiple <- sites.unique.attr[sites.unique$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
 sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
 
 ## Merge back
 #rm(values.unique.attribute)
 values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide, by="siteId", all.x=TRUE)
-values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+#values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+
+
+values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
+values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+
+
+
+db.1064.monitor <- values.unique.attribute
 
 #################################################################################################
-### Step 6: Let's cast dates
+###  merge with the right code for the map
+
+#################################################################################################
+###  Selection of indicators that have gender disaggregation
+
+
+#################################################################################################
+### Merge site type into one through concatenation
+
+names(values.unique.attribute)
+
+ #                      "activityId"                     "locationId"                     "locationName"                   "partnerId"                     
+# "partnerName"                    "activityName"                   "activityCategory"               "indicatorId"                    "value"                         
+# "indicatorName"                  "month"                          "database"                       "indicatorCategory"              "units"                         
+# "month.1"                        "governorate"                    "region"                         "district"                       "subdistrict"                   
+# "refugee.camps"                  "camp.districts"                 "comments"                       "2-RRP6 Implementation Type"     "3-RRP6 appeal through"         
+# "4-Allocation according to RRP6" "objective"                      "sector"  
+
+
+output <- rename (dataviz, c(
+  "siteId"= "siteid" ,
+  ""= "StartDate" ,
+  ""=  "EndDate",
+  ""=  "Year",
+  ""=  "Month" ,
+  "objective"= "Category",
+  "activityName"=  "activity",
+  "indicatorName"= "Indicator",
+  "governorate"=  "Governorate" ,
+  ""=  "Gender",
+  "partnerName"=  "Partner" ,  
+  ""=  "SiteType",
+  "2-RRP6 Implementation Type"= "allocation",
+  "3-RRP6 appeal through"=  "Fundedby",
+  "4-Allocation according to RRP6"=  "appeal",
+  ""=  "rcode" ,
+  ""=  "gcode" ,
+  "value"= "Value" ,
+  "units"=  "Units"  ,
+  "locationName"= "location"))
+
+
+
+#################################################################################################
+### Step 7: Let's cast dates
 # reformat attributes
 ## First unique values for sites;
 
@@ -200,10 +253,10 @@ db.1064.monitor <- values.unique.attribute
 
 rm(activities.table)
 rm(admin.levels.table)
-rm(attributes.single)
+#rm(attributes.single)
 rm(location.types.table)
 rm(sites)
-rm(sites.wide)
+#rm(sites.wide)
 rm(values)
 # rm(activities.reported.once)
 rm(activities.reported.monthly)
@@ -222,4 +275,12 @@ rm(schema)
 rm(type)
 
 rm(attributes)
-zaatarizaarm(include.multiple.selection)
+rm(include.multiple.selection)
+rm(sites.attribute.multiple)
+rm(sites.attribute.single)
+rm(sites.attribute.single.dup)
+rm(sites.attribute.single.wide)
+rm(sites.unique)
+rm(sites.unique.attr)
+rm(values.unique)
+rm(values.unique.attribute)

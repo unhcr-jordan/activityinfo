@@ -239,7 +239,7 @@ sites.attribute.single.14.wide <- dcast(sites.attribute.single.14, siteId ~ attr
 sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.14.wide, all.x=TRUE)
 
 
-sites.attribute.multiple <- sites.unique.attr[sites.unique$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.multiple <- sites.unique.attr[sites.unique.attr$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
 sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
 
 ## Merge back

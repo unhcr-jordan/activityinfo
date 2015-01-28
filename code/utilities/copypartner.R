@@ -52,11 +52,11 @@ activityInfoLogin()
 # databases <- c(1540, 1563, 1564)
 # copyPartners(1539, databases)
 
-df <- getPartnerNames(1272)
+df <- getPartnerNames(1064)
 
 #databases <- c(1662)
 #copyPartners(1272, databases)
 
-databases <- c(1150)
-copyPartners(1272, databases)
+databases <- c(2300)
+copyPartners(1064, databases)
 
