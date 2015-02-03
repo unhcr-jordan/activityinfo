@@ -12,8 +12,10 @@
 # authenticate
 #activityInfoLogin()
 
-#source("code/0-activityinfo.R")
-#source("code/0-packages.R")
+#
+source("code/0-activityinfo.R")
+#
+source("code/0-packages.R")
 
 ### JOR Monitoring Database Jordan db 1064
 database.id <- 1064
