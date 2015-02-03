@@ -1,16 +1,16 @@
-gcode,gov,governorate,rcode
-1704,KARAK,Karak,3
-1710,MADABA,Madaba,2
-1705,AMMAN,Amman,2
-1703,AL AQABAH,Aqaba,3
-1706,TAFILAH,Tafileh,3
-1712,ZARQA,Zarqa,1
-1709,MAAN,Ma'an,3
-1701,AJLOUN,Ajlun,1
-1702,BALQA,Al Balqa,2
-1707,IRBID,Irbid,1
-1711,MAFRAQ,Mafraq,1
-1708,JARASH,Jarash,1
-1,No Breakdown per Governorate,Country Wide,3
-2,ALL CAMPS IN JORDAN,Camp,5
+gcode,gov,governorate,rcode,region
+1704,KARAK,Karak,3,South
+1710,MADABA,Madaba,2,Center
+1705,AMMAN,Amman,2,Center
+1703,AL AQABAH,Aqaba,3,South
+1706,TAFILAH,Tafileh,3,South
+1712,ZARQA,Zarqa,1,North
+1709,MAAN,Ma'an,3,South
+1701,AJLOUN,Ajlun,1,North
+1702,BALQA,Al Balqa,2,Center
+1707,IRBID,Irbid,1,North
+1711,MAFRAQ,Mafraq,1,North
+1708,JARASH,Jarash,1,North
+1,No Breakdown per Governorate,Country Wide,3,Countrywide
+2,ALL CAMPS IN JORDAN,Camp,5,Camp
 

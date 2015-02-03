@@ -60,3 +60,11 @@ df <- getPartnerNames(1064)
 databases <- c(2300)
 copyPartners(1064, databases)
 
+
+## Copy all users from 3rp plan and monitrong db 2014 to monitor 2015
+# copyUsers(sourceDatabase, targetDatabase)
+
+copyUsers(1662, 2300)
+
+copyUsers(1064, 2300)
+

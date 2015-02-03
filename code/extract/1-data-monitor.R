@@ -13,6 +13,7 @@
 #activityInfoLogin()
 
 #source("code/0-activityinfo.R")
+#source("code/0-packages.R")
 
 ### JOR Monitoring Database Jordan db 1064
 database.id <- 1064
@@ -218,6 +219,8 @@ values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wid
 
 #################################################################################################
 ###  Convert month in full date format
+values.unique.attribute$startDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
+values.unique.attribute$startDate <- format(values.unique.attribute$startDate, "%d/%m/%Y")
 
 #################################################################################################
 ###  Selection of indicators that have gender disaggregation
@@ -226,14 +229,26 @@ values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wid
 values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
 levels(values.unique.attribute$indicatorName)
 
-values.unique.attribute$men <- as.numeric(with(values.unique.attribute, ifelse(grepl("men|Men", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
-                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
-values.unique.attribute$women <- as.numeric(with(values.unique.attribute, ifelse(grepl("women|Women", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
-                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
-values.unique.attribute$boy <- as.numeric(with(values.unique.attribute, ifelse(grepl("boy|Boys|Boy", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
-                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
-values.unique.attribute$girl <- as.numeric(with(values.unique.attribute, ifelse(grepl("girl|Girls|girls", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, 
-                                                                    values.unique.attribute$indicatorName), paste0(1), 0)))
+values.unique.attribute$men <- with(values.unique.attribute, 
+                                    ifelse(
+                                      grepl("men|Men", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
+                                      paste0("Men"), "")
+                                    )
+values.unique.attribute$women <- with(values.unique.attribute,
+                                      ifelse(grepl("women|Women", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
+                                             paste0("Women"), "")
+                                      )
+values.unique.attribute$boy <- with(values.unique.attribute, 
+                                    ifelse(grepl("boy|Boys|Boy", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
+                                           paste0("Boys"), "")
+                                    )
+values.unique.attribute$girl <- with(values.unique.attribute,
+                                     ifelse(grepl("girl|Girls|girls", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                            paste0("Girls"), "")
+                                     )
+
+values.unique.attribute$gender <- paste0(values.unique.attribute$girl, values.unique.attribute$boy, 
+                                           values.unique.attribute$women ,  values.unique.attribute$men, sep="")
 
 #################################################################################################
 ### Merge site type into one through concatenation
@@ -248,10 +263,7 @@ values.unique.attribute$Urban[is.na(values.unique.attribute$Urban)] <- " "
 
 values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.unique.attribute$ITS, 
                                            values.unique.attribute$Other ,  values.unique.attribute$Urban, sep=" - ")                
-
-
-
-names(values.unique.attribute)
+#names(values.unique.attribute)
 
  #                      "activityId"                     "locationId"                     "locationName"                   "partnerId"                     
 # "partnerName"                    "activityName"                   "activityCategory"               "indicatorId"                    "value"                         
@@ -261,9 +273,9 @@ names(values.unique.attribute)
 # "4-Allocation according to RRP6" "objective"                      "sector"  
 
 
-output <- rename (dataviz, c(
+output <- rename (values.unique.attribute, c(
  # "siteId"= "siteid" ,
-  ""= "StartDate" ,
+  "startDate"= "StartDate" ,
  # ""=  "EndDate",
  # ""=  "Year",
  # ""=  "Month" ,
@@ -271,7 +283,7 @@ output <- rename (dataviz, c(
   "activityName"=  "activity",
   "indicatorName"= "Indicator",
   "governorate"=  "Governorate" ,
-  ""=  "Gender",
+  "gender"=  "Gender",
   "partnerName"=  "Partner" ,  
   "sitetype"=  "SiteType",
   "2-RRP6 Implementation Type"= "appeal",
@@ -281,14 +293,39 @@ output <- rename (dataviz, c(
   "gcode"=  "gcode" ,
   "value"= "Value" ,
   "units"=  "Units"  ,
-  "locationName"= "location"))
+  "locationName"= "location",
+  "region.y"= "region"))
 
+names(output)
+##################################################################################
+######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 
+output.education <-  subset(output, output$sector == "EDUCATION")
+write.csv(output.education, file = "out/monitor/education/data.csv",na="")
 
-#################################################################################################
-### Step 7: Let's cast dates
-# reformat attributes
-## First unique values for sites;
+output.health <-  subset(output, output$sector == "HEALTH")
+write.csv(output.health, file = "out/monitor/health/data.csv",na="")
+
+output.food <-  subset(output, output$sector == "FOOD")
+write.csv(output.food, file = "out/monitor/food/data.csv",na="")
+
+output.cash <-  subset(output, output$sector == "CASH")
+write.csv(output.cash, file = "out/monitor/cash/data.csv",na="")
+
+output.nfi <-  subset(output, output$sector == "NFI")
+write.csv(output.nfi, file = "out/monitor/nfi/data.csv",na="")
+
+output.protection <-  subset(output, output$sector == "PROTECTION")
+write.csv(output.protection, file = "out/monitor/protection/data.csv",na="")
+
+output.shelter <-  subset(output, output$sector == "SHELTER")
+write.csv(output.shelter, file = "out/monitor/shelter/data.csv",na="")
+
+output.wash <-  subset(output, output$sector == "WASH")
+write.csv(output.wash, file = "out/monitor/wash/data.csv",na="")
+
+########################################################
+
 
 db.1064.monitor <- values.unique.attribute
 

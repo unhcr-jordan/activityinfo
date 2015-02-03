@@ -1,3 +1,7 @@
+#source("code/0-activityinfo.R")
+#source("code/0-packages.R")
+
+
 ############ Script to generate Schema for Activity Info - 2015 Monitoring
 
 database.id <- 1662
@@ -44,12 +48,24 @@ indicmin$AttributeValue  <- ""
 #indicmin$ReportingFrequency   <- ""
 #indicmin$LocationType	 <- ""
 indicmin$multipleAllowed	 <- ""
-indicmin$Description   <- ""
+indicmin$Description   <- "Lisaise with Sector lead for more description"
 #indicmin$mandatory	 <- ""
 indicmin$sort <- ""
 
+############################################3
+### Write to CSV in order to perform manual correction
+
+write.csv(indicmin, file = "data/config/indicmin2015.csv",na="")
+
+indicmin <- read.csv("data/config/attribmonit2015-1.csv")
+
+
+##############################################################
+### Unique list of activity
+
 activity <- indicmin[,c("ActivityCategory","ActivityName")]
 activity <- as.data.frame(unique(activity))
+
 
 ##############################################################################################
 ## Getting attribute from monitoring DB
@@ -85,7 +101,7 @@ attributes.or2$ReportingFrequency <- ""
 attributes.or2$LocationType <- ""
 attributes.or2$multipleAllowed <- ""
 attributes.or2$mandatory <- ""
-attributes.or2$sort <- ""
+#attributes.or2$sort <- ""
 attributes.or2$Aggregation <- ""
 
 activity_att <- merge(x=activity, y=attributes.or2)
@@ -110,10 +126,13 @@ plan <- rbind(activity_att, indicmin)
 
 plan <-replace(plan, is.na(plan), "")
 
-plan <- plan[order(plan$ActivityCategory, plan$ActivityName, plan$FormFieldType, plan$Category, plan$Name, plan$AttributeValue ),]
+plan <- plan[order(plan$ActivityCategory, plan$ActivityName, plan$FormFieldType, plan$Category, plan$Name, plan$sort ),]
 
 plan$ReportingFrequency <-'Monthly'
 plan$LocationType <- 'SyrRefRespRRP6'
+
+
+###  Additional points -- delete all cumulative inidcators - from 
 
 write.csv(plan, file = "out/monitor2015.csv",na="")
 
