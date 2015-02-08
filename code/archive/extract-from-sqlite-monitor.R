@@ -10,7 +10,7 @@ library(plyr)
 # Connect to local SQLite replica installed when offline usage is enabled
 # replace 9 with the name of the database used in your chrome/Default/databases/https_www.syrianrefugeeresponse.org_0 folder 
 ## -- copy the database in your rstudio project
-con <- dbConnect(RSQLite::SQLite(), "data/8")
+con <- dbConnect(RSQLite::SQLite(), "data/5")
 
 #######################################################
 ##### Exaction for RRP6 Monitoring Database  DB - 1064

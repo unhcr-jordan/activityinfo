@@ -18,7 +18,7 @@ source("code/0-activityinfo.R")
 source("code/0-packages.R")
 
 ### JOR Monitoring Database Jordan db 1064
-database.id <- 1064
+database.id <- 2300
 
 values <- getIndicatorValueTable(database.id)
 # this gives us almost all the information we need. Missing are the start and 
@@ -288,237 +288,238 @@ values.unique.attribute$gender <- ""
 values.unique.attribute$poptype <- ""
 values.unique.attribute$indic <- ""
 
-#################Syrian Women in Urban
+#################Urban/Rural Syrian Women (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                     ifelse(grepl("Syrian Women in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                     ifelse(grepl("Urban/Rural Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                             paste0("Women"),values.unique.attribute$gender )
                                       )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Women in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Urban/Rural Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Urban"), values.unique.attribute$poptype)
                                       )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Women in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Urban/Rural Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0(
                                                 substr(values.unique.attribute$indicatorName ,
-                                                       (regexpr("Syrian Women in Urban", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+22,250)
+                                                       (regexpr("Urban/Rural Syrian Women (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+22,250)
                                                 ), values.unique.attribute$indic)
                                       )
 
-#################Syrian Women in Camp
+#################Camps Syrian Women (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Women in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Camps Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Women"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Women in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Camps Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Camp"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Women in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Camps Syrian Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Women in Camp", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
+                                                      (regexpr("Camps Syrian Women (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Men in urban
+#################Urban/Rural Syrian Men (Age 18 and Above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Men in urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Urban/Rural Syrian Men (Age 18 and Above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Men"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Men in urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Urban/Rural Syrian Men (Age 18 and Above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Urban"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Men in urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Urban/Rural Syrian Men (Age 18 and Above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Men in urban", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
+                                                      (regexpr("Urban/Rural Syrian Men (Age 18 and Above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Men in Camp
+#################Camps Syrian Men (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Men in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Camps Syrian Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Men"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Men in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Camps Syrian Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Camp"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Men in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Camps Syrian Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Men in Camp", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+19,250)
+                                                      (regexpr("Camps Syrian Men (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+19,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Girls in Urban
+#################Urban/Rural Syrian Girls (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Girls in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Urban/Rural Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Girls"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Girls in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Urban/Rural Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Urban"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Girls in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Urban/Rural Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Girls in Urban", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+22,250)
+                                                      (regexpr("Urban/Rural Syrian Girls (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+22,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Girls in Camp
+#################Camps Syrian Girls (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Girls in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Camps Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Girls"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Girls in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Camps Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Camp"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Girls in Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Camps Syrian Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Girls in Camp", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
+                                                      (regexpr("Camps Syrian Girls (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Boys in Urban
+#################Urban/Rural Syrian Boys (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Urban/Rural Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Boys"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Urban/Rural Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Urban"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Urban/Rural Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Boys in Urban", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
+                                                      (regexpr("Urban/Rural Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Syrian Boys in Urban
+#################Camps Syrian Boys (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Camps Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Boys"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Camps Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Camp"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Syrian Boys in Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Camps Syrian Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Syrian Boys in Urban", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
+                                                      (regexpr("Camps Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+21,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Men - Other affected Population
+#################Host Community Men (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Men - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Host Community Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Men"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Men - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Host Community Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("other Affected"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Men - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Host Community Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Men - Other affected Population", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+32,250)
+                                                      (regexpr("Host Community Men (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+32,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Girls - Other affected Population
+#################Host Community Girls (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Girls - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Host Community Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Girls"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Girls - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Host Community Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("other Affected"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Girls - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Host Community Girls (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Girls - Other affected Population", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
+                                                      (regexpr("Host Community Girls (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Boys- Other affected Population
+#################Host Community Boys (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Boys- Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                       ifelse(grepl("Host Community Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Boys"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Boys- Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Host Community Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("other Affected"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Boys- Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Host Community Boys (Age 0-17)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Boys- Other affected Population", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+32,250)
+                                                      (regexpr("Host Community Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+32,250)
                                              ), values.unique.attribute$indic)
 )
 
 
-#################Women - Other affected Population
+#################Host Community Women (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
-                                       ifelse(grepl("Women - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
-                                              paste0("Women"),values.unique.attribute$gender )
+                                       ifelse(grepl("Host Community Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                              paste0("Host Community Women (Age 18 and above)"),values.unique.attribute$gender )
 )
 values.unique.attribute$poptype <- with(values.unique.attribute,
-                                        ifelse(grepl("Women - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                        ifelse(grepl("Host Community Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                                paste0("Urban"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Women - Other affected Population", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Host Community Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
-                                                      (regexpr("Women - Other affected Population", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
+                                                      (regexpr("Host Community Women (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
                                              ), values.unique.attribute$indic)
 )
 
 ### Now some manual cleaning
-values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
-indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
-indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
-indicbreak$new <- indicbreak$old
+#values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
+#indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
+#indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
+#indicbreak$new <- indicbreak$old
 #write.csv(indicbreak, file = "data/config/indicbreak.csv",na="")
-indicbreak <- read.csv("data/config/indicbreak.csv")
+#indicbreak <- read.csv("data/config/indicbreak.csv")
 
-values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
+#values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
+
 
 
 ################################################
 ###Add indicator that are not breakdown
 values.unique.attribute$new <- with(values.unique.attribute,
-                                    ifelse(is.na(values.unique.attribute$indic)),
-                                    paste0(values.unique.attribute$indicatorName)
-), values.unique.attribute$indic)
+                                      ifelse(is.na(values.unique.attribute$indic)),
+                                             paste0(values.unique.attribute$indicatorName)
+                                             ), values.unique.attribute$indic)
 )
 
 #################################################################################################################
@@ -561,19 +562,18 @@ levels(output$Indicator)
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 
 output.education <-  subset(output, output$sector == "EDUCATION")
-write.csv(output.education, file = "out/monitor/2014/education/data.csv",na="")
+write.csv(output.education, file = "out/monitor/2015/education/data.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
-write.csv(output.health, file = "out/monitor/2014/health/data.csv",na="")
+write.csv(output.health, file = "out/monitor/2015/health/data.csv",na="")
 
 output.food <-  subset(output, output$sector == "FOOD")
-write.csv(output.food, file = "out/monitor/2014/food/data.csv",na="")
+write.csv(output.food, file = "out/monitor/2015/food/data.csv",na="")
 
-output.cash <-  subset(output, output$sector == "CASH")
-write.csv(output.cash, file = "out/monitor/2014/cash/data.csv",na="")
+output.cash <-  subset(output, output$sector == "BASICNEEDS")
+write.csv(output.cash, file = "out/monitor/2015/cash/data.csv",na="")
 
-output.nfi <-  subset(output, output$sector == "NFI")
-write.csv(output.nfi, file = "out/monitor/2014/nfi/data.csv",na="")
+
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
 #  of individuals submitted for resettlement 
@@ -583,7 +583,7 @@ output.protection <-  subset(output, output$sector == "PROTECTION")
 # of women, girls, boys & men receiving legal information, counseling and/or representation 
 # of women, girls, boys & men benefiting from psychosocial support services (level 2 & 3) 
 
-write.csv(output.protection, file = "out/monitor/2014/protection/data.csv",na="")
+write.csv(output.protection, file = "out/monitor/2015/protection/data.csv",na="")
 
 output.shelter <-  subset(output, output$sector == "SHELTER")
 # of dwelling units upgraded to minimum standards
@@ -592,10 +592,10 @@ output.shelter <-  subset(output, output$sector == "SHELTER")
 # of home adaptation kits distributed
 # of people receiving information messaging on housing (HLP)
 
-write.csv(output.shelter, file = "out/monitor/2014/shelter/data.csv",na="")
+write.csv(output.shelter, file = "out/monitor/2015/shelter/data.csv",na="")
 
 output.wash <-  subset(output, output$sector == "WASH")
-write.csv(output.wash, file = "out/monitor/2014/wash/data.csv",na="")
+write.csv(output.wash, file = "out/monitor/2015/wash/data.csv",na="")
 
 ########################################################
 

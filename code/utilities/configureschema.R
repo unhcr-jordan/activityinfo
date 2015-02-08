@@ -48,7 +48,7 @@ indicmin$AttributeValue  <- ""
 #indicmin$ReportingFrequency   <- ""
 #indicmin$LocationType	 <- ""
 indicmin$multipleAllowed	 <- ""
-indicmin$Description   <- "Lisaise with Sector lead for more description"
+indicmin$Description   <- "Liaise with Sector lead for indicator description"
 #indicmin$mandatory	 <- ""
 indicmin$sort <- ""
 
@@ -57,7 +57,7 @@ indicmin$sort <- ""
 
 write.csv(indicmin, file = "data/config/indicmin2015.csv",na="")
 
-indicmin <- read.csv("data/config/attribmonit2015-1.csv")
+indicmin <- read.csv("data/config/indicmin2015-2.csv")
 
 
 ##############################################################
@@ -117,6 +117,11 @@ act <- as.data.frame(names(activity_att))
 act <- rename(act,c("names(activity_att)"="nm"))
 act <- as.data.frame(act[order(act$nm),])
 ind <- as.data.frame(names(indicmin))
+names(indicmin)
+indicmin <- indicmin[,c("ActivityCategory", "ActivityName" ,"LocationType", "Name" , "Category" ,
+                        "Code" ,  "Aggregation" , "Units" , "ReportingFrequency" ,"mandatory" ,"FormFieldType" ,    
+   "AttributeValue", "multipleAllowed", "Description", "sort" )]
+
 ind <- rename(ind,c("names(indicmin)"="nm"))
 ind <- as.data.frame(ind[order(ind$nm),])
 
@@ -129,7 +134,7 @@ plan <-replace(plan, is.na(plan), "")
 plan <- plan[order(plan$ActivityCategory, plan$ActivityName, plan$FormFieldType, plan$Category, plan$Name, plan$sort ),]
 
 plan$ReportingFrequency <-'Monthly'
-plan$LocationType <- 'SyrRefRespRRP6'
+#plan$LocationType <- 'SyrRefRespRRP6'
 
 
 ###  Additional points -- delete all cumulative inidcators - from 
