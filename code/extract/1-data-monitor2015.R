@@ -197,6 +197,11 @@ values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.m
 values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
 values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
 
+values.unique.attribute$sector[values.unique.attribute$sector=="EDU"] <-"EDUCATION"
+values.unique.attribute$sector[values.unique.attribute$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
+values.unique.attribute$sector[values.unique.attribute$sector=="PROT"] <-"PROTECTION"
+values.unique.attribute$sector[values.unique.attribute$sector=="SHLT"] <-"SHELTER"
+values.unique.attribute$sector[values.unique.attribute$sector=="HLTH"] <-"HEALTH"
 
 
 db.2300.monitor <- values.unique.attribute
@@ -418,7 +423,7 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 )
 
 
-#################Host Community Men (Age 18 and above)
+#################Host Community Men (Age 18 and above) Host Community Men (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
                                        ifelse(grepl("Host Community Men (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
                                               paste0("Men"),values.unique.attribute$gender )
@@ -482,7 +487,10 @@ values.unique.attribute$poptype <- with(values.unique.attribute,
                                                paste0("Urban"), values.unique.attribute$poptype)
 )
 values.unique.attribute$indic <- with(values.unique.attribute,
-                                      ifelse(grepl("Host Community Women (Age 18 and above)", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                      ifelse(grepl("Host Community Women (Age 18 and above)", 
+                                                   #ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,
+                                                   
+                                                   values.unique.attribute$indicatorName),
                                              paste0(
                                                substr(values.unique.attribute$indicatorName ,
                                                       (regexpr("Host Community Women (Age 18 and above)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
@@ -520,7 +528,7 @@ output <- rename (values.unique.attribute, c(
   # ""=  "Month" ,
   "objective"= "Category",
   "activityName"=  "activity",
-  "new"= "Indicator",
+  "indicatorName"= "Indicator",
   "gov"=  "Governorate" ,
   "gender"=  "Gender",
   "partnerName"=  "Partner" ,  
@@ -552,7 +560,7 @@ output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "G
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 
 output.education <-  subset(output, output$sector == "EDUCATION")
-output.education <-  subset(output.education, output.education$Indicator != "")
+#output.education <-  subset(output.education, output.education$Indicator != "")
 write.csv(output.education, file = "out/monitor/2015/education/data.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
