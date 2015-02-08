@@ -153,7 +153,7 @@ for (id in unique(values$locationId)) {
     }
   } else {
     warning("found zero or more locations with identifier ",
-            values$locationId[i], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
+            values$locationId[id], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
   }
 }
 
@@ -199,7 +199,7 @@ values.unique.attribute$sector <- substr(values.unique.attribute$activityCategor
 
 
 
-db.1064.monitor <- values.unique.attribute
+db.2300.monitor <- values.unique.attribute
 
 #################################################################################################
 ###  merge with the right code for the map
@@ -211,12 +211,19 @@ values.unique.attribute <- merge(x=values.unique.attribute, y=regionactivityinfo
 # Distinguish camps
 values.unique.attribute$gcode <- as.character(values.unique.attribute$gcode)
 values.unique.attribute$rcode <- as.character(values.unique.attribute$rcode)
-values.unique.attribute$gcode[!is.na(values.unique.attribute$Refugee.camps)] <- "2"
-values.unique.attribute$rcode[!is.na(values.unique.attribute$Refugee.camps)] <- "5"
+values.unique.attribute$gov <- as.character(values.unique.attribute$gov)
+values.unique.attribute$region <- as.character(values.unique.attribute$region.y)
+
+values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
+values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
+values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
 
 # Distinguish Country wide intervention
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Country Wide"] <- "3"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wide"] <- "1"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
+values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
 
 #################################################################################################
@@ -228,29 +235,9 @@ values.unique.attribute$startDate <- format(values.unique.attribute$startDate, "
 ###  Selection of indicators that have gender disaggregation
 
 
-values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
-levels(values.unique.attribute$indicatorName)
+#values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
+#levels(values.unique.attribute$indicatorName)
 
-values.unique.attribute$men <- with(values.unique.attribute, 
-                                    ifelse(
-                                      grepl("men|Men", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
-                                      paste0("Men"), "")
-                                    )
-values.unique.attribute$women <- with(values.unique.attribute,
-                                      ifelse(grepl("women|Women", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
-                                             paste0("Women"), "")
-                                      )
-values.unique.attribute$boy <- with(values.unique.attribute, 
-                                    ifelse(grepl("boy|Boys|Boy", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE, values.unique.attribute$indicatorName),
-                                           paste0("Boys"), "")
-                                    )
-values.unique.attribute$girl <- with(values.unique.attribute,
-                                     ifelse(grepl("girl|Girls|girls", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
-                                            paste0("Girls"), "")
-                                     )
-
-values.unique.attribute$gender <- paste0(values.unique.attribute$girl, values.unique.attribute$boy, 
-                                           values.unique.attribute$women ,  values.unique.attribute$men, sep="")
 
 #################################################################################################
 ### Merge site type into one through concatenation
@@ -517,10 +504,8 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 ################################################
 ###Add indicator that are not breakdown
 values.unique.attribute$new <- with(values.unique.attribute,
-                                      ifelse(is.na(values.unique.attribute$indic)),
-                                             paste0(values.unique.attribute$indicatorName)
-                                             ), values.unique.attribute$indic)
-)
+                                    ifelse((is.na(values.unique.attribute$indic)),
+                                           values.unique.attribute$indicatorName, values.unique.attribute$indic))
 
 #################################################################################################################
 #################
@@ -536,7 +521,7 @@ output <- rename (values.unique.attribute, c(
   "objective"= "Category",
   "activityName"=  "activity",
   "new"= "Indicator",
-  "governorate"=  "Governorate" ,
+  "gov"=  "Governorate" ,
   "gender"=  "Gender",
   "partnerName"=  "Partner" ,  
   "sitetype"=  "SiteType",
@@ -551,10 +536,15 @@ output <- rename (values.unique.attribute, c(
   "region.y"= "region",
   "poptype"="poptype"))
 
-names(output)
 
-output$Indicator <- as.factor(output$Indicator)
-levels(output$Indicator)
+output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
+                    "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
+
+
+#names(output)
+
+#output$Indicator <- as.factor(output$Indicator)
+#levels(output$Indicator)
 
 
 
@@ -562,6 +552,7 @@ levels(output$Indicator)
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 
 output.education <-  subset(output, output$sector == "EDUCATION")
+output.education <-  subset(output.education, output.education$Indicator != "")
 write.csv(output.education, file = "out/monitor/2015/education/data.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
