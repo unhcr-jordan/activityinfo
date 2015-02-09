@@ -214,14 +214,29 @@ values.unique.attribute$rcode <- as.character(values.unique.attribute$rcode)
 values.unique.attribute$gov <- as.character(values.unique.attribute$gov)
 values.unique.attribute$region <- as.character(values.unique.attribute$region.y)
 
-values.unique.attribute$gcode[!is.na(values.unique.attribute$refugee.camps)] <- "2"
-values.unique.attribute$rcode[!is.na(values.unique.attribute$refugee.camps)] <- "5"
-
+values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
+values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
+values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
 
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
 values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
+
+values.unique.attribute$rcode[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "5"
+values.unique.attribute$gcode[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
+values.unique.attribute$gov[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "Camps"
+values.unique.attribute$region[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
+
+values.unique.attribute$rcode[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "5"
+values.unique.attribute$gcode[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
+values.unique.attribute$gov[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "Camps"
+values.unique.attribute$region[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
+
+
+#unique(values.unique.attribute$gov)
+#unique(values.unique.attribute$locationName)
 
 # Distinguish Country wide intervention
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Country Wide"] <- "3"
@@ -229,7 +244,13 @@ values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wid
 values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
+values.unique.attribute$rcode[is.na(values.unique.attribute$locationName)] <- "3"
+values.unique.attribute$gcode[is.na(values.unique.attribute$locationName)] <- "1"
+values.unique.attribute$gov[is.na(values.unique.attribute$locationName)] <- "Countrywide"
+values.unique.attribute$region[is.na(values.unique.attribute$locationName)] <- "Countrywide"
 
+
+#
 #################################################################################################
 ###  Convert month in full date format
 values.unique.attribute$startDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
@@ -514,9 +535,13 @@ values.unique.attribute1 <- merge(x=values.unique.attribute, y=indicbreak, by="i
 
 ################################################
 ###Add indicator that are not breakdown
-values.unique.attribute$new <- with(values.unique.attribute,
-                                    ifelse((is.na(values.unique.attribute$indic)),
-                                    values.unique.attribute$indicatorName, values.unique.attribute$indic))
+values.unique.attribute$new2 <- ""
+
+#str(values.unique.attribute)
+
+values.unique.attribute$new2 <- with(values.unique.attribute,
+                                    ifelse((is.na(values.unique.attribute$new)),
+                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$new))
 
 
 #####################
@@ -566,26 +591,26 @@ output$Indicator <- as.factor(output$Indicator)
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 
 output.education <-  subset(output, output$sector == "EDUCATION")
-output.education <-  subset(output.education, output.education$Indicator != "")
+#output.education <-  subset(output.education, output.education$Indicator != "")
 write.csv(output.education, file = "out/monitor/2014/education/data.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
 write.csv(output.health, file = "out/monitor/2014/health/data.csv",na="")
 
 output.food <-  subset(output, output$sector == "FOOD")
-output.food <-  subset(output.food, output.food$Indicator != "")
+#output.food <-  subset(output.food, output.food$Indicator != "")
 write.csv(output.food, file = "out/monitor/2014/food/data.csv",na="")
 
 output.cash <-  subset(output, output$sector == "CASH")
-output.cash <-  subset(output.cash, output.cash$Indicator != "")
+#output.cash <-  subset(output.cash, output.cash$Indicator != "")
 write.csv(output.cash, file = "out/monitor/2014/cash/data.csv",na="")
 
 output.nfi <-  subset(output, output$sector == "NFI")
-output.nfi <-  subset(output.nfi, output.nfi$Indicator != "")
+#output.nfi <-  subset(output.nfi, output.nfi$Indicator != "")
 write.csv(output.nfi, file = "out/monitor/2014/nfi/data.csv",na="")
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
-output.protection <-  subset(output.protection, output.protection$Indicator != "")
+#output.protection <-  subset(output.protection, output.protection$Indicator != "")
 #  of individuals submitted for resettlement 
 # of women, girls, boys and men SGBV survivors benefiting from case management services 
 # of girls & boys benefiting from multi-sectoral services
@@ -605,7 +630,7 @@ output.shelter <-  subset(output, output$sector == "SHELTER")
 write.csv(output.shelter, file = "out/monitor/2014/shelter/data.csv",na="")
 
 output.wash <-  subset(output, output$sector == "WASH")
-output.education <-  subset(output.education, output.education$Indicator != "")
+#output.education <-  subset(output.education, output.education$Indicator != "")
 write.csv(output.wash, file = "out/monitor/2014/wash/data.csv",na="")
 
 ########################################################

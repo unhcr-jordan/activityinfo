@@ -541,7 +541,7 @@ values.unique.attribute$new <- with(values.unique.attribute,
                                            paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
 #values.unique.attribute$new[values.unique.attribute$new==""] <- as.vector(values.unique.attribute$indicatorName)
-values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])
+#values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])
 
 #################################################################################################################
 #################
