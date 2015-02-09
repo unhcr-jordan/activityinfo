@@ -194,8 +194,10 @@ values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide
 values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
 
 
-values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
-values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("-", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("]", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
+values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("[", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+
+
 
 values.unique.attribute$sector[values.unique.attribute$sector=="EDU"] <-"EDUCATION"
 values.unique.attribute$sector[values.unique.attribute$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
@@ -258,14 +260,6 @@ values.unique.attribute$Urban[is.na(values.unique.attribute$Urban)] <- " "
 values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.unique.attribute$ITS, 
                                            values.unique.attribute$Other ,  values.unique.attribute$Urban, sep=" - ")                
 #names(values.unique.attribute)
-
- #                      "activityId"                     "locationId"                     "locationName"                   "partnerId"                     
-# "partnerName"                    "activityName"                   "activityCategory"               "indicatorId"                    "value"                         
-# "indicatorName"                  "month"                          "database"                       "indicatorCategory"              "units"                         
-# "month.1"                        "governorate"                    "region"                         "district"                       "subdistrict"                   
-# "refugee.camps"                  "camp.districts"                 "comments"                       "2-RRP6 Implementation Type"     "3-RRP6 appeal through"         
-# "4-Allocation according to RRP6" "objective"                      "sector"  
-
 
 
 
@@ -497,6 +491,11 @@ values.unique.attribute$indic <- with(values.unique.attribute,
                                              ), values.unique.attribute$indic)
 )
 
+
+
+
+
+
 ### Now some manual cleaning
 #values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
 #indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
@@ -569,8 +568,8 @@ write.csv(output.health, file = "out/monitor/2015/health/data.csv",na="")
 output.food <-  subset(output, output$sector == "FOOD")
 write.csv(output.food, file = "out/monitor/2015/food/data.csv",na="")
 
-output.cash <-  subset(output, output$sector == "BASICNEEDS")
-write.csv(output.cash, file = "out/monitor/2015/cash/data.csv",na="")
+output.cash <-  subset(output, output$sector == "BASIC NEEDS")
+write.csv(output.cash, file = "out/monitor/2015/basicneeds/data.csv",na="")
 
 
 

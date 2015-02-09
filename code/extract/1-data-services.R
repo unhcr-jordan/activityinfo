@@ -148,7 +148,7 @@ for (id in unique(values$locationId)) {
     }
   } else {
     warning("found zero or more locations with identifier ",
-            values$locationId[i], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
+            values$locationId[id], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
   }
 }
 
@@ -178,29 +178,29 @@ sites.unique <- unique(sites.unique)
 sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
 
 ## does not work
-#sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
 
 ## identify duplicate -- potential bug
 sites.attribute.single.dup <- paste(sites.attribute.single$siteId, sites.attribute.single$attributeGroup, sep = " ", collapse = NULL)
 sites.attribute.single.dup <- as.data.frame(sites.attribute.single.dup[duplicated(sites.attribute.single.dup)])
 
-rm(sites.attribute.single.wide)
+#rm(sites.attribute.single.wide)
                        
-sites.attribute.single.1 <- subset(sites.attribute.single, attributeGroup == "1. Registration Type Requirement")
-sites.attribute.single.1.wide <- dcast(sites.attribute.single.1, siteId ~ attributeGroup, value.var="attributeValue")
-sites.attribute.single.wide <- merge(x=sites.unique, y=sites.attribute.single.1.wide, all.x=TRUE)
+#sites.attribute.single.1 <- subset(sites.attribute.single, attributeGroup == "1. Registration Type Requirement")
+#sites.attribute.single.1.wide <- dcast(sites.attribute.single.1, siteId ~ attributeGroup, value.var="attributeValue")
+#sites.attribute.single.wide <- merge(x=sites.unique, y=sites.attribute.single.1.wide, all.x=TRUE)
 
-sites.attribute.single.2 <- subset(sites.attribute.single, attributeGroup == "2. Nationality")
-sites.attribute.single.2.wide <- dcast(sites.attribute.single.2, siteId ~ attributeGroup, value.var="attributeValue")
-sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.2.wide, all.x=TRUE)
+#sites.attribute.single.2 <- subset(sites.attribute.single, attributeGroup == "2. Nationality")
+#sites.attribute.single.2.wide <- dcast(sites.attribute.single.2, siteId ~ attributeGroup, value.var="attributeValue")
+#sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.2.wide, all.x=TRUE)
 
-sites.attribute.single.4 <- subset(sites.attribute.single, attributeGroup == "4. Accessibility")
-sites.attribute.single.4.wide <- dcast(sites.attribute.single.4, siteId ~ attributeGroup, value.var="attributeValue")
-sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.4.wide, all.x=TRUE)
+#sites.attribute.single.4 <- subset(sites.attribute.single, attributeGroup == "4. Accessibility")
+#sites.attribute.single.4.wide <- dcast(sites.attribute.single.4, siteId ~ attributeGroup, value.var="attributeValue")
+#sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.4.wide, all.x=TRUE)
 
-sites.attribute.single.5 <- subset(sites.attribute.single, attributeGroup == "5. Coverage")
-sites.attribute.single.5.wide <- dcast(sites.attribute.single.5, siteId ~ attributeGroup, value.var="attributeValue")
-sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.5.wide, all.x=TRUE)
+#sites.attribute.single.5 <- subset(sites.attribute.single, attributeGroup == "5. Coverage")
+#sites.attribute.single.5.wide <- dcast(sites.attribute.single.5, siteId ~ attributeGroup, value.var="attributeValue")
+#sites.attribute.single.wide <- merge(x=sites.attribute.single.wide, y=sites.attribute.single.5.wide, all.x=TRUE)
 
 sites.attribute.single.6 <- subset(sites.attribute.single, attributeGroup == "6. Availability")
 sites.attribute.single.6.wide <- dcast(sites.attribute.single.6, siteId ~ attributeGroup, value.var="attributeValue")
