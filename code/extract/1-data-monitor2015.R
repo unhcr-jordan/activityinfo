@@ -168,7 +168,6 @@ values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "loca
                                   "partnerId"  , "partnerName" ,  "activityName" ,
                                   "activityCategory","indicatorId"  , "value", "indicatorName",
                                   "month" , "database",  "indicatorCategory","units" , 
-                                  "month",
                                   #"startDate" , "endDate" , 
                                   #"attributeGroup" , "attributeValue" , "multipleAllowed"
                                   "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts","comments"  )])
@@ -559,6 +558,7 @@ output <- rename (values.unique.attribute, c(
   "activityName"=  "activity",
   #"indicatorName"= "Indicator",
   "indic"= "Indicator",
+  "indicatorName"= "Indicator2",
   "gov"=  "Governorate" ,
   "gender"=  "Gender",
   "partnerName"=  "Partner" ,  
@@ -575,7 +575,7 @@ output <- rename (values.unique.attribute, c(
   "poptype"="poptype"))
 
 
-output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
+output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator","Indicator2", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                     "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
 
@@ -586,25 +586,38 @@ output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "G
 
 
 
+))
 ##################################################################################
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 #"BASIC NEEDS"     "PROTECTION"      "HEALTH"          "EDUCATION"       "WASH"            "SHELTER"         "FOOD/LIVELIHOOD"
 
 output.education <-  subset(output, output$sector == "EDUCATION")
-output.education <-  subset(output.education, output.education$Indicator != "")
-write.csv(output.education, file = "out/monitor/2015/education/data.csv",na="")
+output.education.benef <-  subset(output.education, output.education$Indicator != "")
+write.csv(output.education.benef, file = "out/monitor/2015/education/data.csv",na="")
+output.education.oth <-  subset(output.education, output.education$Indicator == "")
+output.education.oth$Indicator <- output.education.oth$Indicator2
+write.csv(output.education.oth, file = "out/monitor/2015/education/dataother.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
-output.health <-  subset(output.health, output.health$Indicator != "")
-write.csv(output.health, file = "out/monitor/2015/health/data.csv",na="")
+output.health.benef <-  subset(output.health, output.health$Indicator != "")
+write.csv(output.health.benef, file = "out/monitor/2015/health/data.csv",na="")
+output.health.oth <-  subset(output.health, output.health$Indicator == "")
+output.health.oth$Indicator <- output.health.oth$Indicator2
+write.csv(output.health.oth, file = "out/monitor/2015/health/dataother.csv",na="")
 
 output.food <-  subset(output, output$sector == "FOOD/LIVELIHOOD")
-output.food <-  subset(output.food, output.food$Indicator != "")
-write.csv(output.food, file = "out/monitor/2015/food/data.csv",na="")
+output.food.benef <-  subset(output.food, output.food$Indicator != "")
+write.csv(output.food.benef, file = "out/monitor/2015/food/data.csv",na="")
+output.food.oth <-  subset(output.food, output.food$Indicator == "")
+output.food.oth$Indicator <- output.food.oth$Indicator2
+write.csv(output.food.oth, file = "out/monitor/2015/food/dataother.csv",na="")
 
 output.basicneeds <-  subset(output, output$sector == "BASIC NEEDS")
-output.basicneeds <-  subset(output.basicneeds, output.basicneeds$Indicator != "")
-write.csv(output.basicneeds, file = "out/monitor/2015/basicneeds/data.csv",na="")
+output.basicneeds.benef <-  subset(output.basicneeds, output.basicneeds$Indicator != "")
+write.csv(output.basicneeds.benef, file = "out/monitor/2015/basicneeds/data.csv",na="")
+output.basicneeds.oth <-  subset(output.basicneeds, output.basicneeds$Indicator == "")
+output.basicneeds.oth$Indicator <- output.basicneeds.oth$Indicator2
+write.csv(output.basicneeds.oth, file = "out/monitor/2015/basicneeds/dataother.csv",na="")
 
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
@@ -615,8 +628,11 @@ output.protection <-  subset(output, output$sector == "PROTECTION")
 # of women, girls, boys & men receiving legal information, counseling and/or representation 
 # of women, girls, boys & men benefiting from psychosocial support services (level 2 & 3) 
 
-output.protection <-  subset(output.protection, output.protection$Indicator != "")
-write.csv(output.protection, file = "out/monitor/2015/protection/data.csv",na="")
+output.protection.benef <-  subset(output.protection, output.protection$Indicator != "")
+write.csv(output.protection.benef, file = "out/monitor/2015/protection/data.csv",na="")
+output.protection.oth <-  subset(output.protection, output.protection$Indicator == "")
+output.protection.oth$Indicator <- output.protection.oth$Indicator2
+write.csv(output.protection.oth, file = "out/monitor/2015/protection/dataother.csv",na="")
 
 output.shelter <-  subset(output, output$sector == "SHELTER")
 # of dwelling units upgraded to minimum standards
@@ -625,17 +641,24 @@ output.shelter <-  subset(output, output$sector == "SHELTER")
 # of home adaptation kits distributed
 # of people receiving information messaging on housing (HLP)
 
+output.shelter.benef <-  subset(output.shelter, output.protection$Indicator != "")
 write.csv(output.shelter, file = "out/monitor/2015/shelter/data.csv",na="")
+output.shelter.oth <-  subset(output.shelter, output.shelter$Indicator == "")
+output.shelter.oth$Indicator <- output.shelter.oth$Indicator2
+write.csv(output.shelter.oth, file = "out/monitor/2015/shelter/dataother.csv",na="")
 
 output.wash <-  subset(output, output$sector == "WASH")
-output.wash <-  subset(output.wash, output.wash$Indicator != "")
-write.csv(output.wash, file = "out/monitor/2015/wash/data.csv",na="")
+output.wash.benef <-  subset(output.wash, output.wash$Indicator != "")
+write.csv(output.wash.benef, file = "out/monitor/2015/wash/data.csv",na="")
+output.wash.oth <-  subset(output.wash, output.wash$Indicator == "")
+output.wash.oth$Indicator <- output.wash.oth$Indicator2
+write.csv(output.wash.oth, file = "out/monitor/2015/wash/dataother.csv",na="")
 
 ########################################################
 
 
 #db.1064.monitor <- values.unique.attribute
-write.csv(db.1064.monitor, file = "out/monitordata.csv",na="")
+write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
 
 ### Clean unused elements
 
