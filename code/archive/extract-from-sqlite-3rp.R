@@ -12,7 +12,7 @@ library(plyr)
 ## -- copy the database in your rstudio project
 
 # C:\Users\Kaleem\AppData\Local\Google\Chrome\User Data\Default\databases\https_www.syrianrefugeeresponse.org_0
-con <- dbConnect(RSQLite::SQLite(), "data/8")
+con <- dbConnect(RSQLite::SQLite(), "data/2")
 
 
 #con <- dbConnect(RSQLite::SQLite(), "/home/edouard/.config/google-chrome/Default/databases/https_www.activityinfo.org_0/7")
@@ -62,7 +62,7 @@ unitsplan.wide <- dcast(unitsplan, siteid+location ~ level, value.var="name")
 
 # start merging sites with attributes
 #sitesplan <- merge(sitesplan, attrplan.multiple.wide)
-#sitesplan <- merge(sitesplan, attrplan.single.wide)
+sitesplan <- merge(sitesplan, attrplan.single.wide)
 
 # Write in files
 #write.csv(sitesplan, file="RRP6plan_Sites.csv", row.names=F, na="")
@@ -79,10 +79,10 @@ ivplan <- dbGetQuery(con, paste("select s.siteid siteid, rp.reportingperiodid, r
 
 
 indicatorsplan <- merge(sitesplan, ivplan)
-write.csv(indicatorsplan, file="out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names=F, na="")
+write.csv(indicatorsplan, file="out/out3rp/JOR-3RP-Plan_Indicatorsall.csv",row.names=F, na="")
 
 # Add long narrative
-#rrp6long <- read.csv("~/unhcr_r_project/activityinfo/rrp6long.csv")
+rrp6long <- read.csv("data/config/rrp6long.csv")
 #sitesplanlong <- merge(sitesplan, rrp6long)
 #indicatorsplanlong <- merge(sitesplanlong, ivplan2)
 #write.csv(indicatorsplan, file="RRP6Plan_Indicatorsalllong.csv",row.names=F, na="")
