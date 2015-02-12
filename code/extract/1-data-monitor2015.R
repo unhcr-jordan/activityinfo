@@ -256,6 +256,8 @@ values.unique.attribute$region[grepl("Azraq Camp", ignore.case = TRUE, fixed = F
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Country Wide"] <- "3"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wide"] <- "1"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
+
+values.unique.attribute$gov[values.unique.attribute$locationName=="Non Camp"] <- "Countrywide"
 values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
 
@@ -590,7 +592,7 @@ output <- rename (values.unique.attribute, c(
   "poptype"="poptype"))
 
 
-output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator","Indicator2", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
+output <- output[,c("sector","objective","StartDate" ,"Category", "activity","Indicator","Indicator2", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                     "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
 write.csv(output, file = "out/monitor/output2015.csv",na="")
