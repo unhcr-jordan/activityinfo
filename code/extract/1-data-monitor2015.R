@@ -603,7 +603,6 @@ write.csv(output, file = "out/monitor/output2015.csv",na="")
 
 
 
-))
 ##################################################################################
 ######### Writing output for Dashbaord dataviz @ https://github.com/unhcr-jordan/sectors 
 #"BASIC NEEDS"     "PROTECTION"      "HEALTH"          "EDUCATION"       "WASH"            "SHELTER"         "FOOD/LIVELIHOOD"
