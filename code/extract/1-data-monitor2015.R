@@ -231,7 +231,7 @@ values.unique.attribute$region <- as.character(values.unique.attribute$region.y)
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
-values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
+values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "Camps"
 
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
@@ -258,23 +258,13 @@ values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wid
 values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
-values.unique.attribute$rcode[is.na(values.unique.attribute$locationName)] <- "3"
-values.unique.attribute$gcode[is.na(values.unique.attribute$locationName)] <- "1"
-values.unique.attribute$gov[is.na(values.unique.attribute$locationName)] <- "Countrywide"
-values.unique.attribute$region[is.na(values.unique.attribute$locationName)] <- "Countrywide"
-
 
 #################################################################################################
 ###  Convert month in full date format
 values.unique.attribute$startDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
 values.unique.attribute$startDate <- format(values.unique.attribute$startDate, "%d/%m/%Y")
 
-#################################################################################################
-###  Selection of indicators that have gender disaggregation
 
-
-#values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
-#levels(values.unique.attribute$indicatorName)
 
 
 #################################################################################################
@@ -292,7 +282,12 @@ values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.
                                            values.unique.attribute$Other ,  values.unique.attribute$Urban, sep=" - ")                
 #names(values.unique.attribute)
 
+#################################################################################################
+###  Selection of indicators that have gender disaggregation
 
+
+#values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
+#levels(values.unique.attribute$indicatorName)
 
 ##Let's summarise the indicators that are disaggregated
 ## If the indicator contain the string - then 3 variable are filled
@@ -522,35 +517,38 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 
 #### Copy the activityname for indicator with ref to benef --
 
-values.unique.attribute$new2 <- with(values.unique.attribute,
-                                    ifelse((is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
-                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
 
+#names(values.unique.attribute)
 
 ### Now some manual cleaning
-values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
-indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
-indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
-indicbreak$new <- indicbreak$old
-write.csv(indicbreak, file = "data/config/indicbreak2014.csv",na="")
-#indicbreak <- read.csv("data/config/indicbreak.csv")
-
-#values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
+#values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
+#indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
+#indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
+#indicbreak$new <- indicbreak$old
+#write.csv(indicbreak, file = "data/config/indicbreak2015.csv",na="")
+indicbreak <- read.csv("data/config/indicbreak2015-2.csv")
+names(indicbreak)
+values.unique.attribute$indic <- as.factor(values.unique.attribute$indic)
+indicbreak$indic <- as.factor(indicbreak$indic)
+names(values.unique.attribute)
+values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all=TRUE)
 
 
 
 ################################################
 ###Add indicator that are not breakdown
-values.unique.attribute$new <- ""
+#values.unique.attribute$new <- ""
 
 #str(values.unique.attribute)
 
-values.unique.attribute$new <- with(values.unique.attribute,
-                                    ifelse((is.na(values.unique.attribute$indic)),
-                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
+#values.unique.attribute$new <- with(values.unique.attribute,
+ #                                   ifelse((is.na(values.unique.attribute$indic)),
+#                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
-
+values.unique.attribute$new2 <- with(values.unique.attribute,
+                                     ifelse(is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
+                                                  paste0(values.unique.attribute$activity2) , values.unique.attribute$indic))
 
 #values.unique.attribute$new[values.unique.attribute$new==""] <- as.vector(values.unique.attribute$indicatorName)
 #values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])
@@ -568,7 +566,7 @@ output <- rename (values.unique.attribute, c(
   # ""=  "Year",
   # ""=  "Month" ,
   "objective"= "Category",
-  "activityName"=  "activity",
+  "activity2"=  "activity",
   #"indicatorName"= "Indicator",
   "indic"= "Indicator",
   "indicatorName"= "Indicator2",
@@ -579,12 +577,12 @@ output <- rename (values.unique.attribute, c(
   "2-3RP Implementation Type"= "appeal",
   "3-3RP appeal through"=  "Fundedby",
   "4-Allocation according to 3RP"=  "allocation",
-  "rcode"=  "rcode" ,
-  "gcode"=  "gcode" ,
+ # "rcode"=  "rcode" ,
+ # "gcode"=  "gcode" ,
   "value"= "Value" ,
   "units"=  "Units"  ,
   "locationName"= "location",
-  "region.y"= "region",
+ # "region.y"= "region",
   "poptype"="poptype"))
 
 

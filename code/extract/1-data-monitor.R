@@ -529,8 +529,7 @@ levels(indicbreak$indic)
 
 values.unique.attribute$indic <- as.factor(values.unique.attribute$indic)
 levels(values.unique.attribute$indic)
-values.unique.attribute1 <- merge(x=values.unique.attribute, y=indicbreak, by="indic"#, all.x=TRUE
-                                  )
+values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all=TRUE)
 
 
 ################################################
