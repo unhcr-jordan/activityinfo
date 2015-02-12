@@ -1,0 +1,19 @@
+FormFieldType,Category,Name,Description,Units,AttributeValue,ReportingFrequency,LocationType,multipleAllowed,mandatory,sort
+AttributeGroup,,Implementation (Direct/Indirect),,,Direct Implementation,,,,,
+AttributeGroup,,Implementation (Direct/Indirect),,,Indirect Implementation,,,,,
+Indicator,Breakdown of main indicator,Boys (Age 0-17)-Members of impacted communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Boys (Age 0-17)-SYR living in camps,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Boys (Age 0-17)-SYR living in communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Girls (Age 0-17)-Members of impacted communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Girls (Age 0-17)-SYR living in camps,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Girls (Age 0-17)-SYR living in communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Men (Age 18 and Abocve)-Members of impacted communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Men (Age 18 and Abocve)-SYR living in camps,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Men (Age 18 and Abocve)-SYR living in communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Women (Age 18 and above)-Members of impacted communities,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Women (Age 18 and above)-SYR living in camps,,# of benef.,,,,,,
+Indicator,Breakdown of main indicator,Women (Age 18 and above)-SYR living in communities,,# of benef.,,,,,,
+Indicator,Budget,Budgetary Requirement for 2015,,USD $,,,,,,
+Indicator,Budget,"NLG Budget  
+(as part of the overall budget)",,USD $,,,,,,
+

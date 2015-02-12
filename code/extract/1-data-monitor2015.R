@@ -196,15 +196,22 @@ values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.m
 values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("]", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
 values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("[", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
 
-
-
 values.unique.attribute$sector[values.unique.attribute$sector=="EDU"] <-"EDUCATION"
 values.unique.attribute$sector[values.unique.attribute$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
 values.unique.attribute$sector[values.unique.attribute$sector=="PROT"] <-"PROTECTION"
 values.unique.attribute$sector[values.unique.attribute$sector=="SHLT"] <-"SHELTER"
 values.unique.attribute$sector[values.unique.attribute$sector=="HLTH"] <-"HEALTH"
-
 #unique(values.unique.attribute$sector)
+
+values.unique.attribute$Category <- substr(values.unique.attribute$activityName ,(regexpr("[", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))+1, (regexpr("]", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))-4)
+values.unique.attribute$Category[values.unique.attribute$Category=="RES "] <- "Resilience"
+values.unique.attribute$Category[values.unique.attribute$Category=="RES"] <- "Resilience"
+values.unique.attribute$Category[values.unique.attribute$Category=="REF"] <- "Refugee"
+values.unique.attribute$Category <- as.factor(values.unique.attribute$Category)
+levels(values.unique.attribute$Category)
+
+values.unique.attribute$activity2 <- substr(values.unique.attribute$activityName , (regexpr("]", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))+1,50)
+
 
 db.2300.monitor <- values.unique.attribute
 
@@ -513,16 +520,20 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 )
 
 
+#### Copy the activityname for indicator with ref to benef --
 
+values.unique.attribute$new2 <- with(values.unique.attribute,
+                                    ifelse((is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
+                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
 
 
 ### Now some manual cleaning
-#values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
-#indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
-#indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
-#indicbreak$new <- indicbreak$old
-#write.csv(indicbreak, file = "data/config/indicbreak.csv",na="")
+values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
+indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
+indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
+indicbreak$new <- indicbreak$old
+write.csv(indicbreak, file = "data/config/indicbreak2014.csv",na="")
 #indicbreak <- read.csv("data/config/indicbreak.csv")
 
 #values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
@@ -538,6 +549,8 @@ values.unique.attribute$new <- ""
 values.unique.attribute$new <- with(values.unique.attribute,
                                     ifelse((is.na(values.unique.attribute$indic)),
                                            paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
+
+
 
 #values.unique.attribute$new[values.unique.attribute$new==""] <- as.vector(values.unique.attribute$indicatorName)
 #values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])

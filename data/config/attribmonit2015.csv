@@ -1,0 +1,35 @@
+"AttributeValue","multipleAllowed","Name","sort"
+"Camp",TRUE,"1-Location type",1
+"Informal Tented Settlement",TRUE,"1-Location type",2
+"Urban areas",TRUE,"1-Location type",3
+"Other[Villages, Rural areas]",TRUE,"1-Location type",4
+"Direct appeal",FALSE,"2-3RP Implementation Type",5
+"Indirect appeal",FALSE,"2-3RP Implementation Type",6
+"Appeal outside of 3RP",FALSE,"2-3RP Implementation Type",7
+"None - Fund direct from Donors",FALSE,"3-3RP appeal through",10
+"ADRA",FALSE,"3-3RP appeal through",11
+"CHF",FALSE,"3-3RP appeal through",12
+"Caritas",FALSE,"3-3RP appeal through",13
+"DRC",FALSE,"3-3RP appeal through",14
+"FAO",FALSE,"3-3RP appeal through",15
+"ILO",FALSE,"3-3RP appeal through",16
+"IMC",FALSE,"3-3RP appeal through",17
+"IRC",FALSE,"3-3RP appeal through",18
+"IRW",FALSE,"3-3RP appeal through",19
+"Internews",FALSE,"3-3RP appeal through",20
+"MEDAIR",FALSE,"3-3RP appeal through",21
+"MPDL",FALSE,"3-3RP appeal through",22
+"TGH",FALSE,"3-3RP appeal through",23
+"UN Women",FALSE,"3-3RP appeal through",24
+"UNESCO",FALSE,"3-3RP appeal through",25
+"UNFPA",FALSE,"3-3RP appeal through",26
+"UNFPA-UNICEF-UNHCR",FALSE,"3-3RP appeal through",27
+"UNHABITAT",FALSE,"3-3RP appeal through",28
+"UNHCR",FALSE,"3-3RP appeal through",29
+"UNHCR-UNICEF",FALSE,"3-3RP appeal through",30
+"UNICEF",FALSE,"3-3RP appeal through",31
+"WFP",FALSE,"3-3RP appeal through",32
+"WHO",FALSE,"3-3RP appeal through",33
+"WVI",FALSE,"3-3RP appeal through",34
+"Yes",FALSE,"4-Allocation according to 3RP",35
+"No",FALSE,"4-Allocation according to 3RP",36
