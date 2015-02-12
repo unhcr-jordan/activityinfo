@@ -536,11 +536,11 @@ values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="in
 ###Add indicator that are not breakdown
 values.unique.attribute$new2 <- ""
 
-#str(values.unique.attribute)
-
 values.unique.attribute$new2 <- with(values.unique.attribute,
-                                    ifelse((is.na(values.unique.attribute$new)),
-                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$new))
+                                     ifelse(is.na(values.unique.attribute$new),
+                                            ifelse(values.unique.attribute$poptype !="", 
+                                                   paste0(values.unique.attribute$activity2) , paste0(values.unique.attribute$new)),
+                                            paste0(values.unique.attribute$new)))
 
 
 #####################
@@ -559,7 +559,8 @@ output <- rename (values.unique.attribute1, c(
   # ""=  "Month" ,
   "objective"= "Category",
   "activityName"=  "activity",
-  "new"= "Indicator",
+  "new2"= "Indicator",
+  "indicatorName"= "Indicator2",
   "gov"=  "Governorate" ,
   "gender"=  "Gender",
   "partnerName"=  "Partner" ,  
@@ -567,20 +568,20 @@ output <- rename (values.unique.attribute1, c(
   "2-RRP6 Implementation Type"= "appeal",
   "3-RRP6 appeal through"=  "Fundedby",
   "4-Allocation according to RRP6"=  "allocation",
-  "rcode"=  "rcode" ,
-  "gcode"=  "gcode" ,
+  #"rcode"=  "rcode" ,
+ # "gcode"=  "gcode" ,
   "value"= "Value" ,
   "units"=  "Units"  ,
   "locationName"= "location",
-  "region.y"= "region",
+ # "region.y"= "region",
   "poptype"="poptype"))
 
 
 output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                        "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
-names(output)
-
+#names(output)
+write.csv(output, file = "out/monitor/output2014.csv",na="")
 output$Indicator <- as.factor(output$Indicator)
 #levels(output$Indicator)
 

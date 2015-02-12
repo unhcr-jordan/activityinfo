@@ -546,9 +546,13 @@ values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="in
  #                                   ifelse((is.na(values.unique.attribute$indic)),
 #                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
+values.unique.attribute$new2 <- ""
+
 values.unique.attribute$new2 <- with(values.unique.attribute,
-                                     ifelse(is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
-                                                  paste0(values.unique.attribute$activity2) , values.unique.attribute$indic))
+                                  ifelse(is.na(values.unique.attribute$new),
+                                       ifelse(values.unique.attribute$poptype !="", 
+                                              paste0(values.unique.attribute$activity2) , paste0(values.unique.attribute$new)),
+                                       paste0(values.unique.attribute$new)))
 
 #values.unique.attribute$new[values.unique.attribute$new==""] <- as.vector(values.unique.attribute$indicatorName)
 #values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])
@@ -568,7 +572,7 @@ output <- rename (values.unique.attribute, c(
   "objective"= "Category",
   "activity2"=  "activity",
   #"indicatorName"= "Indicator",
-  "indic"= "Indicator",
+  "new2"= "Indicator",
   "indicatorName"= "Indicator2",
   "gov"=  "Governorate" ,
   "gender"=  "Gender",
@@ -589,7 +593,7 @@ output <- rename (values.unique.attribute, c(
 output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator","Indicator2", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                     "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
-
+write.csv(output, file = "out/monitor/output2015.csv",na="")
 #names(output)
 
 #output$Indicator <- as.factor(output$Indicator)
@@ -632,13 +636,6 @@ write.csv(output.basicneeds.oth, file = "out/monitor/2015/basicneeds/dataother.c
 
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
-#  of individuals submitted for resettlement 
-# of women, girls, boys and men SGBV survivors benefiting from case management services 
-# of girls & boys benefiting from multi-sectoral services
-# of women, girls, boys and men with specific needs receiving special support
-# of women, girls, boys & men receiving legal information, counseling and/or representation 
-# of women, girls, boys & men benefiting from psychosocial support services (level 2 & 3) 
-
 output.protection.benef <-  subset(output.protection, output.protection$Indicator != "")
 write.csv(output.protection.benef, file = "out/monitor/2015/protection/data.csv",na="")
 output.protection.oth <-  subset(output.protection, output.protection$Indicator == "")
@@ -646,12 +643,6 @@ output.protection.oth$Indicator <- output.protection.oth$Indicator2
 write.csv(output.protection.oth, file = "out/monitor/2015/protection/dataother.csv",na="")
 
 output.shelter <-  subset(output, output$sector == "SHELTER")
-# of dwelling units upgraded to minimum standards
-# Increased housing units provided in unfinished buildings
-# of HH receiving rental support
-# of home adaptation kits distributed
-# of people receiving information messaging on housing (HLP)
-
 output.shelter.benef <-  subset(output.shelter, output.protection$Indicator != "")
 write.csv(output.shelter, file = "out/monitor/2015/shelter/data.csv",na="")
 output.shelter.oth <-  subset(output.shelter, output.shelter$Indicator == "")
