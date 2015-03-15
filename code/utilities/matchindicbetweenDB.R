@@ -29,17 +29,84 @@ rrrp.indicator <-rrrp.indicator[ , c(  "activityCategory" ,  "activityName", "in
                                      "reportingFrequency" ,"locationTypeName","activityId", "databaseId.x","indicatorId" , "indicatorCode")]
 # "mandatory" - "listHeader"- "databaseId.y" -  "published" 
 
-rrrp.indicator <- rename(rrrp.indicator, c("activityCategory"= "activityCategoryrrrp" ,  "activityName" = "activityNamerrrp", "indicatorCategory"= "indicatorCategoryrrrp",
-                                         "indicatorName"="indicatorNamerrrp","aggregation"="aggregationrrrp","units"= "unitsrrrp",
-                                         "reportingFrequency" ="reportingFrequencyrrrp","locationTypeName"="locationTypeNamerrrp",
-                                         "activityId"="activityIdrrrp", "databaseId.x"="rrrp","indicatorId"="indicatorIdrrrp" , "indicatorCode"= "indicatorCoderrrp"))
-write.csv(rrrp.indicator, file="out/indicator/rrrpindicator.csv",row.names=F, na="")
+#rrrp.indicator <- rename(rrrp.indicator, c("activityCategory"= "activityCategoryrrrp" ,  "activityName" = "activityNamerrrp", "indicatorCategory"= "indicatorCategoryrrrp",
+#                                         "indicatorName"="indicatorNamerrrp","aggregation"="aggregationrrrp","units"= "unitsrrrp",
+#                                         "reportingFrequency" ="reportingFrequencyrrrp","locationTypeName"="locationTypeNamerrrp",
+#                                         "activityId"="activityIdrrrp", "databaseId.x"="rrrp","indicatorId"="indicatorIdrrrp" , "indicatorCode"= "indicatorCoderrrp"))
+
+
+### Parsing Sector, Objective, indicator
+rrrp.indicator$objective <- substr(rrrp.indicator$activityCategory , (regexpr("]", rrrp.indicator$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
+rrrp.indicator$sector <- substr(rrrp.indicator$activityCategory ,1, (regexpr("[", rrrp.indicator$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+rrrp.indicator$sector[rrrp.indicator$sector=="EDU"] <-"EDUCATION"
+rrrp.indicator$sector[rrrp.indicator$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
+rrrp.indicator$sector[rrrp.indicator$sector=="PROT"] <-"PROTECTION"
+rrrp.indicator$sector[rrrp.indicator$sector=="SHLT"] <-"SHELTER"
+rrrp.indicator$sector[rrrp.indicator$sector=="HLTH"] <-"HEALTH"
+rrrp.indicator$Category <- substr(rrrp.indicator$activityName ,(regexpr("[", rrrp.indicator$activityName , ignore.case=FALSE, fixed=TRUE))+1, (regexpr("]", rrrp.indicator$activityName , ignore.case=FALSE, fixed=TRUE))-4)
+rrrp.indicator$Category[rrrp.indicator$Category=="RES "] <- "Resilience"
+rrrp.indicator$Category[rrrp.indicator$Category=="RES"] <- "Resilience"
+rrrp.indicator$Category[rrrp.indicator$Category=="REF"] <- "Refugee"
+rrrp.indicator$Category <- as.factor(rrrp.indicator$Category)
+rrrp.indicator$activity2 <- substr(rrrp.indicator$activityName , (regexpr("]", rrrp.indicator$activityName , ignore.case=FALSE, fixed=TRUE))+1,50)
+
+
+write.csv(rrrp.indicator, file="out/indicator/rrrpindicator2015.csv",row.names=F, na="")
 
 rm(activities.rrrp)
 rm(indicators.rrrp)
 rm(schema.rrrp)
 rm(database.id)
 
+
+###############################################################################################
+### JOR Monitoring 2015 Database Jordan db 2300
+database.id <- 2300
+schema.monitor <- getDatabaseSchema(database.id)
+activities.monitor <-asActivityDataFrame(schema.monitor)
+indicators.monitor <- asIndicatorDataFrame(schema.monitor)
+monitor.indicator <- merge(x=indicators.monitor, y=activities.monitor, by="activityId", all=TRUE)
+monitor.indicator <-monitor.indicator[ , c(  "activityCategory" ,  "activityName", "indicatorCategory","indicatorName","aggregation","units",
+                                             "reportingFrequency" ,"locationTypeName","activityId", "databaseId.x","indicatorId" , "indicatorCode")]
+#monitor.indicator <- rename(monitor.indicator, c("activityCategory"= "activityCategorymonitor" ,  "activityName" = "activityNamemonitor", "indicatorCategory"= "indicatorCategorymonitor",
+#                                                 "indicatorName"="indicatorNamemonitor","aggregation"="aggregationmonitor","units"= "unitsmonitor",
+#                                                 "reportingFrequency" ="reportingFrequencymonitor","locationTypeName"="locationTypeNamemonitor",
+#                                                 "activityId"="activityIdmonitor", "databaseId.x"="monitor","indicatorId"="indicatorIdmonitor" , "indicatorCode"= "indicatorCodemonitor"))
+
+### Parsing Sector, Objective, indicator
+monitor.indicator$objective <- substr(monitor.indicator$activityCategory , (regexpr("]", monitor.indicator$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
+monitor.indicator$sector <- substr(monitor.indicator$activityCategory ,1, (regexpr("[", monitor.indicator$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+monitor.indicator$sector[monitor.indicator$sector=="EDU"] <-"EDUCATION"
+monitor.indicator$sector[monitor.indicator$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
+monitor.indicator$sector[monitor.indicator$sector=="PROT"] <-"PROTECTION"
+monitor.indicator$sector[monitor.indicator$sector=="SHLT"] <-"SHELTER"
+monitor.indicator$sector[monitor.indicator$sector=="HLTH"] <-"HEALTH"
+monitor.indicator$Category <- substr(monitor.indicator$activityName ,(regexpr("[", monitor.indicator$activityName , ignore.case=FALSE, fixed=TRUE))+1, (regexpr("]", monitor.indicator$activityName , ignore.case=FALSE, fixed=TRUE))-4)
+monitor.indicator$Category[monitor.indicator$Category=="RES "] <- "Resilience"
+monitor.indicator$Category[monitor.indicator$Category=="RES"] <- "Resilience"
+monitor.indicator$Category[monitor.indicator$Category=="REF"] <- "Refugee"
+monitor.indicator$Category <- as.factor(monitor.indicator$Category)
+monitor.indicator$activity2 <- substr(monitor.indicator$activityName , (regexpr("]", monitor.indicator$activityName , ignore.case=FALSE, fixed=TRUE))+1,50)
+
+
+write.csv(monitor.indicator, file="out/indicator/monitorindicator2015.csv",row.names=F, na="")
+
+
+
+#########################################################
+### Merging RRP Plan and Monitor Indicators
+###################
+
+
+monitor2plan <- merge (monitor.indicator, rrrp.indicator, by=c("indicatorName","activityName"), all=TRUE)
+write.csv(monitor2plan, file="out/indicator/monitor2plan2015.csv",row.names=F, na="")
+
+
+
+
+
+
+######################################################################################
 ### JOR Monitoring Database Jordan db 1064
 database.id <- 1064
 schema.monitor <- getDatabaseSchema(database.id)
@@ -65,6 +132,7 @@ rm(indicators.monitor)
 rm(schema.monitor)
 rm(database.id)
 
+##########################################################################
 ### JOR-RRP6 Plan Review Database Jordan db 1272
 database.id <- 1272
 schema.rrp6 <- getDatabaseSchema(database.id)
@@ -92,6 +160,8 @@ rm(schema.rrp6)
 rm(database.id)
 
 
+
+####################################################################################
 ############# Matching rrp6 to monitor
 
 rrp6out <- as.data.frame(levels(rrp6.indicator$output))
