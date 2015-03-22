@@ -98,7 +98,7 @@ write.csv(monitor.indicator, file="out/indicator/monitorindicator2015.csv",row.n
 ###################
 
 
-monitor2plan <- merge (monitor.indicator, rrrp.indicator, by=c("indicatorName","activityName"), all=TRUE)
+monitor2plan <- merge (monitor.indicator, rrrp.indicator, by=c("indicatorName","activityName" ), all=TRUE)
 write.csv(monitor2plan, file="out/indicator/monitor2plan2015.csv",row.names=F, na="")
 
 

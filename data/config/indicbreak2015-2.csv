@@ -1,60 +1,70 @@
-indic,new
-accessing non-public KGs including Parent-Child Centres.,# accessing non-public KGs including Parent-Child Centres.
-accessing PSS services (level 2 & 3),# accessing PSS services (level 2 & 3)
-y health volunteers,# active community health volunteers
-benefiting from alternative education service such as non-formal education,# benefiting from alternative education service such as non-formal education
-benefiting from basic learning (literacy and numeracy),# benefiting from basic learning (literacy and numeracy)
-benefiting from CSPs,# benefiting from CSPs
-benefiting from life skills activities,# benefiting from life skills activities
-benefiting from technical skills/post-basic education,# benefiting from technical skills/post-basic education
-"benefitting from extra-curricular activities, recreation activities and sports that contribute to psychosocial well-being","# benefiting from extra-curricular activities, recreation activities and sports that contribute to psychosocial well-being"
-children with disabilities provided with multi-sectoral services,# children with disabilities provided with multi-sectoral services
-# experiencing violence in the home provided with multi-sectoral services,# experiencing violence in the home provided with multi-sectoral services
-- having access to gender appropriate sanitation facilities in the schools,# having access to gender appropriate sanitation facilities in the schools
-# in child labour provided with multi-sectoral services,# in child labour provided with multi-sectoral services
- in Female Headed Household receiving assistance,# in Female Headed Household receiving assistance
- in Female Headed Household receiving HH Items,# in Female Headed Household receiving HH Items
-- in Female Headed Household receiving HH Items,# in Female Headed Household receiving HH Items
- in Female Headed Household receiving replenishment of consumable HH items,# in Female Headed Household receiving replenishment of consumable HH items
- in Female Headed Household receiving seasonal assistance,# in Female Headed Household receiving seasonal assistance
-in FHH receiving financial assistance,# in FHH receiving financial assistance
- in Male Headed Household receiving assistance,# in Male Headed Household receiving assistance
- in Male Headed Household receiving HH Items,# in Male Headed Household receiving HH Items
-- in Male Headed Household receiving HH Items,# in Male Headed Household receiving HH Items
- in Male Headed Household receiving replenishment of consumable HH items,# in Male Headed Household receiving replenishment of consumable HH items
- in Male Headed Household receiving seasonal assistance,# in Male Headed Household receiving seasonal assistance
-in MHH receiving financial assistance,# in MHH receiving financial assistance
- )# of antenatal care visits provided,# of antenatal care visits provided
-# of antenatal care visits provided,# of antenatal care visits provided
-# of consultations provided,# of consultations provided
-# of other child protection cases provided with multi-sectoral services,# of other child protection cases provided with multi-sectoral services
-# of polio and/or measles doses provided,# of polio and/or measles doses provided
-# of SC provided with multi-sectoral services,# of SC provided with multi-sectoral services
-# of sessions  of rehabilitation provided,# of sessions  of rehabilitation provided
-# of UAC provided with multi-sectoral services,# of UAC provided with multi-sectoral services
-out-of-school children and youth who (re)enrol in official education,# out-of-school children and youth who (re)enrol in official education
-participating in information sessions or receiving information about services,# participating in information sessions or receiving information about services
-participating in Youth Committees,# participating in Youth Committees
-provided by emergency shelters,# provided by emergency shelters
-ovided to CHVs,# provided to CHVs
-provided with at least one set of uniform or basic students' clothing,# provided with at least one set of uniform or basic students' clothing
-provided with individual education kits (school bags and stationery),# provided with individual education kits (school bags and stationery)
-provided with semi-permenant shelters,# provided with semi-permenant shelters
-provided with transportation from the border,# provided with transportation from the border
-- reached through hygiene messages and demonstrate knowledge of key hygiene practices,# reached through hygiene messages and demonstrate knowledge of key hygiene practices
--   reached through targeted distribution of WASH NFI’s as per agreed minimum standards,# reached through targeted distribution of WASH NFI’s as per agreed minimum standards
--  reached through targeted distribution of WASH NFI’s as per agreed minimum standards,# reached through targeted distribution of WASH NFI’s as per agreed minimum standards
-receiving assistive tools,# receiving assistive tools
-"receiving information messaging on housing, land and property","# receiving information messaging on housing, land and property"
-"receiving legal information, counselling and/or representation","# receiving legal information, counselling and/or representation"
-receiving rehabilitation sessions and counselling,# receiving rehabilitation sessions and counselling
-# referred for secondary and tertiary care,# referred for secondary and tertiary care
-registered in Jordanian public schools (primary and secondary),# registered in Jordanian public schools (primary and secondary)
-"sensitized on CP issues, services available and referral pathways  (includes inter-agency information campaigns)","# sensitized on CP issues, services available and referral pathways  (includes inter-agency information campaigns)"
-"sensitized on SGBV issues, services available and referral pathways","# sensitized on SGBV issues, services available and referral pathways"
-"SGBV Survivors benefiting from timely safe, confidential and survivor centered case management and multisectoral services","# SGBV Survivors benefiting from timely safe, confidential and survivor centered case management and multisectoral services"
-submitted for third country resettlement,# submitted for third country resettlement
-who benefit from remedial classes,# who benefit from remedial classes
-"-with access to secure, clean and culturally appropriate sanitation facilities","# with access to secure, clean and culturally appropriate sanitation facilities"
-  reached through hygiene messages and demonstrate knowledge of key hygiene practices,# reached through hygiene messages and demonstrate knowledge of key hygiene practices
-
+,old,new
+2,  # in Female Headed Household receiving assistance,# in Female Headed Household receiving assistance
+3,  #in Male Headed Household receiving seasonal assistance,# in Male Headed Household receiving seasonal assistance
+4, # in Female Headed Household receiving assistance,# in Female Headed Household receiving assistance
+5, # in Female Headed Household receiving HH Items,# in Female Headed Household receiving HH Items
+6, # in Female Headed Household receiving replenishment of consumable HH items,# in Female Headed Household receiving replenishment of consumable HH items
+7, # in Female Headed Household receiving seasonal assistance,# in Female Headed Household receiving seasonal assistance
+8, # in Male Headed Household receiving assistance,# in Male Headed Household receiving assistance
+9, # in Male Headed Household receiving HH Items,# in Male Headed Household receiving HH Items
+10, # in Male Headed Household receiving replenishment of consumable HH items,# in Male Headed Household receiving replenishment of consumable HH items
+11, # in Male Headed Household receiving seasonal assistance,# in Male Headed Household receiving seasonal assistance
+12, # of people benefitting from the completion of housing units in unfinished buildings,# of people benefitting from the completion of housing units in unfinished buildings
+13," # with access to secure, clean and culturally appropriate sanitation facilities","# with access to secure, clean and culturally appropriate sanitation facilities"
+14,#  reached through hygiene messages and demonstrate knowledge of key hygiene practices,# reached through hygiene messages and demonstrate knowledge of key hygiene practices
+15,# accessing non-public KGs including Parent-Child Centres.,# accessing non-public KGs including Parent-Child Centres.
+16,# accessing PSS services (level 2 & 3),# accessing PSS services (level 2 & 3)
+17,# active community health volunteers,# active community health volunteers
+18,# benefiting from alternative education service such as non-formal education,# benefiting from alternative education service such as non-formal education
+19,# benefiting from basic learning (literacy and numeracy),# benefiting from basic learning (literacy and numeracy)
+20,# benefiting from CSPs,# benefiting from CSPs
+21,# benefiting from life skills activities,# benefiting from life skills activities
+22,# benefiting from technical skills/post-basic education,# benefiting from technical skills/post-basic education
+23,"# benefitting from extra-curricular activities, recreation activities and sports that contribute to psychosocial well-being","# benefitting from extra-curricular activities, recreation activities and sports that contribute to psychosocial well-being"
+24,# children with disabilities provided with multi-sectoral services,# children with disabilities provided with multi-sectoral services
+25,# experiencing violence in the home provided with multi-sectoral services,# experiencing violence in the home provided with multi-sectoral services
+26,# experiencing violence in the schools provided with multi-sectoral services,# experiencing violence in the schools provided with multi-sectoral services
+27,# having access to gender appropriate sanitation facilities in the schools,# having access to gender appropriate sanitation facilities in the schools
+28,# in child labour provided with multi-sectoral services,# in child labour provided with multi-sectoral services
+29,# in FHH receiving financial assistance,# in FHH receiving financial assistance
+30,# in MHH receiving financial assistance,# in MHH receiving financial assistance
+31,# of antenatal care visits provided,# of antenatal care visits provided
+32,# of beneficiaries receiving assistance and household food consumption improved,# of beneficiaries receiving assistance and household food consumption improved
+33,# of consultations provided on secondary mental health,# of consultations provided on secondary mental health
+34,# of existing shelters and associated facilities upgraded,# of existing shelters and associated facilities upgraded
+35,# of newly arriving Syrian refugees receiving welcome meals and / or welcome vouchers,# of newly arriving Syrian refugees receiving welcome meals and / or welcome vouchers
+36,# of other child protection cases provided with multi-sectoral services,# of other child protection cases provided with multi-sectoral services
+37,# of people benefitting from sealing off kits,# of people benefitting from sealing off kits
+38,# of people provided with emergency shelters,# of people provided with emergency shelters
+39,# of people provided with semi-permanent shelters,# of people provided with semi-permanent shelters
+40,# of people receiving conditional cash for rent assistance,# of people receiving conditional cash for rent assistance
+41,"# of people receiving information messaging on housing, land, and property laws","# of people receiving information messaging on housing, land, and property laws"
+42,# of polio and/or measles doses provided,# of polio and/or measles doses provided
+43,# of SC provided with multi-sectoral services,# of SC provided with multi-sectoral services
+44,# of sessions  of rehabilitation provided,# of sessions  of rehabilitation provided
+45,# of Syrian refugees receiving food vouchers or other forms of food assistance,# of Syrian refugees receiving food vouchers or other forms of food assistance
+46,# of trainings provided to CHVs,# of trainings provided to CHVs
+47,# of UAC provided with multi-sectoral services,# of UAC provided with multi-sectoral services
+48,# out-of-school children and youth who (re)enrol in official education,# out-of-school children and youth who (re)enrol in official education
+49,# participating in information sessions or receiving information about services,# participating in information sessions or receiving information about services
+50,# participating in Youth Committees,# participating in Youth Committees
+51,# provided with at least one set of uniform or basic students' clothing,# provided with at least one set of uniform or basic students' clothing
+52,# provided with individual education kits (school bags and stationery),# provided with individual education kits (school bags and stationery)
+53,# provided with transportation from the border,# provided with transportation from the border
+54,# reached through hygiene messages and demonstrate knowledge of key hygiene practices,# reached through hygiene messages and demonstrate knowledge of key hygiene practices
+55,# reached through targeted distribution of WASH NFI�s as per agreed minimum standards,# reached through targeted distribution of WASH NFI�s as per agreed minimum standards
+56,# receiving assistive tools,# receiving assistive tools
+57,# receiving birth certificates,# receiving birth certificates
+58,"# receiving legal information, counselling and/or representation","# receiving legal information, counselling and/or representation"
+59,# receiving rehabilitation sessions and counselling,# receiving rehabilitation sessions and counselling
+60,# referred for secondary and tertiary care,# referred for secondary and tertiary care
+61,# registered in Jordanian public schools (primary and secondary),# registered in Jordanian public schools (primary and secondary)
+62,"# sensitized on CP issues, services available and referral pathways  (includes inter-agency information campaigns)","# sensitized on CP issues, services available and referral pathways  (includes inter-agency information campaigns)"
+63,"# sensitized on SGBV issues, services available and referral pathways","# sensitized on SGBV issues, services available and referral pathways"
+64,"# SGBV Survivors benefiting from timely safe, confidential and survivor centered case management and multisectoral services","# SGBV Survivors benefiting from timely safe, confidential and survivor centered case management and multisectoral services"
+65,# submitted for third country resettlement,# submitted for third country resettlement
+66,# who benefit from remedial classes,# who benefit from remedial classes
+67,# with access to improved and appropriate sanitation.,# with access to improved and appropriate sanitation.
+68,# with access to potable water  as per the agreed minimum standards.,# with access to potable water  as per the agreed minimum standards.
+69,"# with access to secure, clean and culturally appropriate sanitation facilities","# with access to secure, clean and culturally appropriate sanitation facilities"
+70,# with specific needs provided with inclusive education and psychosocial services,# with specific needs provided with inclusive education and psychosocial services

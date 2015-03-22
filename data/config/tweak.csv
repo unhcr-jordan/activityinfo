@@ -1,0 +1,106 @@
+sector,StartDate,Category,activity,Indicator,Indicator2,Governorate,Gender,Partner,SiteType,appeal,Fundedby,allocation,rcode,gcode,Value,Units,location,region,poptype
+BASIC NEEDS,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+BASIC NEEDS,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+BASIC NEEDS,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+BASIC NEEDS,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+PROTECTION,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+PROTECTION,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+PROTECTION,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+HEALTH,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+HEALTH,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+HEALTH,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+EDUCATION,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+EDUCATION,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+EDUCATION,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+WASH,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+WASH,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+WASH,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+SHELTER,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+SHELTER,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+SHELTER,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,IRBID,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,MAFRAQ,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,ZARQA,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,AMMAN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,MAAN,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,AQABAH,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,TAFILAH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,KARAK,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,MADABA,Men,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,BALQA,Women,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,JARASH,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,AJLOUN,Boys,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,ZaatariCamp,Men,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,AzraqCamp,Women,UNHCR,Camp    - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Camp
+FOOD/LIVELIHOOD,31/12/2014,,,From Script,,Countrywide,Girls,UNHCR,   Urban areas - ,Indirect appeal,UNHCR,Yes,,,0,# of benef,,,Host Community

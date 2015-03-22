@@ -5,6 +5,9 @@
 #install.packages("devtools")
 #library(devtools)
 # install_github( "bedatadriven/activityinfo-R", ref = "release")
+
+#install_github( "bedatadriven/activityinfo-R", ref = "development")
+
 #library(activityinfo)
 
 
