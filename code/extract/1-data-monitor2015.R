@@ -14,6 +14,7 @@
 
 #
 source("code/0-activityinfo.R")
+
 #
 source("code/0-packages.R")
 
@@ -284,6 +285,10 @@ values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Non Camp"] <- "Countrywide"
 values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
+values.unique.attribute$rcode[is.na(values.unique.attribute$locationName)] <- "3"
+values.unique.attribute$gcode[is.na(values.unique.attribute$locationName)] <- "1"
+values.unique.attribute$gov[is.na(values.unique.attribute$locationName)] <- "Countrywide"
+values.unique.attribute$region[is.na(values.unique.attribute$locationName)] <- "Countrywide"
 
 #################################################################################################
 ###  Convert month in full date format
@@ -629,6 +634,8 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 
 #### Copy the activityname for indicator with ref to benef --
 
+#values.unique.attribute$new2 <- with(values.unique.attribute, ifelse((is.na(values.unique.attribute$indic) || !is.na(values.unique.attribute$poptype)), paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
+
 
 
 #names(values.unique.attribute)
@@ -686,7 +693,7 @@ output <- rename (values.unique.attribute, c(
   # ""=  "Year",
   # ""=  "Month" ,
   "objective"= "Category",
-  "activity2"=  "activity",
+  "activityName"=  "activity",
   #"indicatorName"= "Indicator",
   "new2"= "Indicator",
   "indicatorName"= "Indicator2",
@@ -814,6 +821,12 @@ output.azraq.benef$sector[output.azraq.benef$sector=="BASIC NEEDS"] <- "BASICNEE
 output.azraq.benef$sector[output.azraq.benef$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
 write.csv(output.azraq.benef, file = "out/monitor/2015/azraq/data.csv",na="")
 
+### Multisectorial Dashboard - Countrywide
+
+countrywide <- rbind(output.education.benef, output.health.benef, output.food.benef, output.basicneeds.benef, output.protection.benef, output.shelter.benef, output.wash.benef)
+countrywide$sector[countrywide$sector=="BASIC NEEDS"] <- "BASICNEEDS"
+countrywide$sector[countrywide$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
+write.csv(countrywide, file = "out/monitor/2015/countrywide/data.csv",na="")
 
 write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
 

@@ -235,6 +235,29 @@ values.unique.attribute$gov[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALS
 values.unique.attribute$region[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
 
 
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 9"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 6"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 5"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 3"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 10"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 2"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 4"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 11"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 7"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 12"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 1"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 8"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari Camp (all district)"] <- "ZaatariCamp"
+
+
+#Camp Names AzraqCamp
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 1"] <- "AzraqCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 6"] <- "AzraqCamp"
+
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 2"] <- "AzraqCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp"] <- "AzraqCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 3"] <- "AzraqCamp"
+
 #unique(values.unique.attribute$gov)
 #unique(values.unique.attribute$locationName)
 
@@ -255,6 +278,11 @@ values.unique.attribute$region[is.na(values.unique.attribute$locationName)] <- "
 ###  Convert month in full date format
 values.unique.attribute$startDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
 values.unique.attribute$startDate <- format(values.unique.attribute$startDate, "%d/%m/%Y")
+
+
+values.unique.attribute$endDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
+values.unique.attribute$endDate <- format(values.unique.attribute$endDate, "%d/%m/%Y")
+
 
 #################################################################################################
 ###  Selection of indicators that have gender disaggregation
@@ -551,7 +579,7 @@ values.unique.attribute$new2 <- with(values.unique.attribute,
 #########
 ##
 
-output <- rename (values.unique.attribute1, c(
+output <- rename (values.unique.attribute, c(
   # "siteId"= "siteid" ,
   "startDate"= "StartDate" ,
   # ""=  "EndDate",
@@ -576,15 +604,39 @@ output <- rename (values.unique.attribute1, c(
  # "region.y"= "region",
   "poptype"="poptype"))
 
+write.csv(output, file = "out/monitor/output2014.csv",na="")
 
 output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                        "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
 #names(output)
-write.csv(output, file = "out/monitor/output2014.csv",na="")
+
 output$Indicator <- as.factor(output$Indicator)
 #levels(output$Indicator)
 
+
+
+#Changing Start Date to End date
+output$StartDate[output$StartDate=="01/01/2015"] <- "31/01/2015"
+output$StartDate[output$StartDate=="01/02/2015"] <- "28/02/2015"
+output$StartDate[output$StartDate=="01/03/2015"] <- "31/03/2015"
+output$StartDate[output$StartDate=="01/04/2015"] <- "30/04/2015"
+output$StartDate[output$StartDate=="01/05/2015"] <- "31/05/2015"
+output$StartDate[output$StartDate=="01/06/2015"] <- "30/06/2015"
+output$StartDate[output$StartDate=="01/07/2015"] <- "31/07/2015"
+output$StartDate[output$StartDate=="01/08/2015"] <- "31/08/2015"
+output$StartDate[output$StartDate=="01/09/2015"] <- "30/09/2015"
+output$StartDate[output$StartDate=="01/10/2015"] <- "31/10/2015"
+output$StartDate[output$StartDate=="01/11/2015"] <- "30/11/2015"
+output$StartDate[output$StartDate=="01/12/2015"] <- "31/12/2015"
+
+
+
+##Tweaking for blank data. It adds All the govenorates for all the sector with 0 Value entry for Dec 2014
+## This allows the bubble chart to work correctly in dc.js
+
+tweakdata <- read.csv("data/config/tweak.csv",header=T,sep=",")
+output <- rbind(output,tweakdata)
 
 
 ##################################################################################
