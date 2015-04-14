@@ -14,7 +14,6 @@
 
 #
 source("code/0-activityinfo.R")
-
 #
 source("code/0-packages.R")
 
@@ -229,20 +228,16 @@ values.unique.attribute$rcode <- as.character(values.unique.attribute$rcode)
 values.unique.attribute$gov <- as.character(values.unique.attribute$gov)
 values.unique.attribute$region <- as.character(values.unique.attribute$region.y)
 
-#values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
-#values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
-#values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
-#values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "Camps"
+values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
+values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
+values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
 
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Camps"] <- "5"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Camps"] <- "2"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "Camps"
 values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
 
-# values.unique.attribute$rcode[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "5"
-# values.unique.attribute$gcode[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
-# values.unique.attribute$gov[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "Camps"
-# values.unique.attribute$region[grepl("Zaatari", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
 #Camp Names ZaatariCamp
 values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 9"] <- "ZaatariCamp"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 6"] <- "ZaatariCamp"
@@ -262,16 +257,15 @@ values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari Camp 
 #Camp Names AzraqCamp
 values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 1"] <- "AzraqCamp"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 6"] <- "AzraqCamp"
-
 values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 2"] <- "AzraqCamp"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp"] <- "AzraqCamp"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 3"] <- "AzraqCamp"
 
+#Camp Names EJC
 
-# values.unique.attribute$rcode[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "5"
-# values.unique.attribute$gcode[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
-# values.unique.attribute$gov[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "Camps"
-# values.unique.attribute$region[grepl("Azraq Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$locationName)] <- "2"
+values.unique.attribute$gov[values.unique.attribute$locationName=="EJ Camp"] <- "Emirati Jordanian Camp (EJC)"
+
+
 
 
 #unique(values.unique.attribute$gov)
@@ -281,14 +275,13 @@ values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Vi
 values.unique.attribute$rcode[values.unique.attribute$locationName=="Country Wide"] <- "3"
 values.unique.attribute$gcode[values.unique.attribute$locationName=="Country Wide"] <- "1"
 values.unique.attribute$gov[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
-
-values.unique.attribute$gov[values.unique.attribute$locationName=="Non Camp"] <- "Countrywide"
 values.unique.attribute$region[values.unique.attribute$locationName=="Country Wide"] <- "Countrywide"
 
 values.unique.attribute$rcode[is.na(values.unique.attribute$locationName)] <- "3"
 values.unique.attribute$gcode[is.na(values.unique.attribute$locationName)] <- "1"
 values.unique.attribute$gov[is.na(values.unique.attribute$locationName)] <- "Countrywide"
 values.unique.attribute$region[is.na(values.unique.attribute$locationName)] <- "Countrywide"
+
 
 #################################################################################################
 ###  Convert month in full date format
@@ -298,6 +291,12 @@ values.unique.attribute$startDate <- format(values.unique.attribute$startDate, "
 values.unique.attribute$endDate <- as.Date(paste(values.unique.attribute$month,"-01",sep=""),"%Y-%m-%d" )
 values.unique.attribute$endDate <- format(values.unique.attribute$endDate, "%d/%m/%Y")
 
+#################################################################################################
+###  Selection of indicators that have gender disaggregation
+
+
+#values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
+#levels(values.unique.attribute$indicatorName)
 
 
 #################################################################################################
@@ -315,12 +314,7 @@ values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.
                                            values.unique.attribute$Other ,  values.unique.attribute$Urban, sep=" - ")                
 #names(values.unique.attribute)
 
-#################################################################################################
-###  Selection of indicators that have gender disaggregation
 
-
-#values.unique.attribute$indicatorName <- as.factor(values.unique.attribute$indicatorName)
-#levels(values.unique.attribute$indicatorName)
 
 ##Let's summarise the indicators that are disaggregated
 ## If the indicator contain the string - then 3 variable are filled
@@ -332,6 +326,10 @@ values.unique.attribute$sitetype <- paste0(values.unique.attribute$Camp, values.
 values.unique.attribute$gender <- ""
 values.unique.attribute$poptype <- ""
 values.unique.attribute$indic <- ""
+
+
+
+
 
 #################Urban/Rural Syrian Women (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
@@ -548,7 +546,6 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 )
 
 
-
 #################Host Community Men # active community health volunteers
 
 values.unique.attribute$gender <- with(values.unique.attribute,
@@ -629,52 +626,37 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 
 
 
-
-
-
 #### Copy the activityname for indicator with ref to benef --
 
-#values.unique.attribute$new2 <- with(values.unique.attribute, ifelse((is.na(values.unique.attribute$indic) || !is.na(values.unique.attribute$poptype)), paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
+values.unique.attribute$new2 <- with(values.unique.attribute,
+                                    ifelse((is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
+                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
 
-
-#names(values.unique.attribute)
 
 ### Now some manual cleaning
 values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
 indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
 indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
 indicbreak$new <- indicbreak$old
-write.csv(indicbreak, file = "data/config/indicbreak2015.csv",na="")
+write.csv(indicbreak, file = "data/config/indicbreak2014.csv",na="")
+#indicbreak <- read.csv("data/config/indicbreak.csv")
 
-
-### After cleansing
-indicbreak <- read.csv("data/config/indicbreak2015-2.csv")
-names(indicbreak)
-values.unique.attribute$indic <- as.factor(values.unique.attribute$indic)
-indicbreak$indic <- as.factor(indicbreak$old)
-names(values.unique.attribute)
-values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all=TRUE)
+#values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
 
 
 
 ################################################
 ###Add indicator that are not breakdown
-#values.unique.attribute$new <- ""
+values.unique.attribute$new <- ""
 
 #str(values.unique.attribute)
 
-#values.unique.attribute$new <- with(values.unique.attribute,
- #                                   ifelse((is.na(values.unique.attribute$indic)),
-#                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
+values.unique.attribute$new <- with(values.unique.attribute,
+                                    ifelse((is.na(values.unique.attribute$indic)),
+                                           paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
-values.unique.attribute$new2 <- ""
 
-values.unique.attribute$new2 <- with(values.unique.attribute,
-                                  ifelse(is.na(values.unique.attribute$new),
-                                       ifelse(values.unique.attribute$poptype !="", 
-                                              paste0(values.unique.attribute$activity2) , paste0(values.unique.attribute$new)),
-                                       paste0(values.unique.attribute$new)))
 
 #values.unique.attribute$new[values.unique.attribute$new==""] <- as.vector(values.unique.attribute$indicatorName)
 #values.unique.attribute <- within(values.unique.attribute, new[b==""] <- indicatorName[b==0])
@@ -687,15 +669,14 @@ names(values.unique.attribute)
 
 output <- rename (values.unique.attribute, c(
   # "siteId"= "siteid" ,
-  # "startDate"= "StartDate" ,
-  # ""=  "EndDate",
-  "endDate"=  "StartDate",
+  #"startDate"= "StartDate" ,
+   "endDate"=  "StartDate",
   # ""=  "Year",
   # ""=  "Month" ,
   "objective"= "Category",
   "activityName"=  "activity",
   #"indicatorName"= "Indicator",
-  "new2"= "Indicator",
+  "indic"= "Indicator",
   "indicatorName"= "Indicator2",
   "gov"=  "Governorate" ,
   "gender"=  "Gender",
@@ -716,36 +697,38 @@ output <- rename (values.unique.attribute, c(
 output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator","Indicator2", "Governorate" , "Gender","Partner" ,   "SiteType", "appeal",
                     "Fundedby",  "allocation",  "rcode" , "gcode" ,"Value" , "Units"  ,"location", "region","poptype")] 
 
-write.csv(output, file = "out/monitor/output2015.csv",na="")
+
 #names(output)
 
 #output$Indicator <- as.factor(output$Indicator)
 #levels(output$Indicator)
 
 
+
+))
+
+
 #Changing Start Date to End date
-output$StartDate[output$StartDate=="01/01/2015"] <- "31/01/2015"
-output$StartDate[output$StartDate=="01/02/2015"] <- "28/02/2015"
-output$StartDate[output$StartDate=="01/03/2015"] <- "31/03/2015"
-output$StartDate[output$StartDate=="01/04/2015"] <- "30/04/2015"
-output$StartDate[output$StartDate=="01/05/2015"] <- "31/05/2015"
-output$StartDate[output$StartDate=="01/06/2015"] <- "30/06/2015"
-output$StartDate[output$StartDate=="01/07/2015"] <- "31/07/2015"
-output$StartDate[output$StartDate=="01/08/2015"] <- "31/08/2015"
-output$StartDate[output$StartDate=="01/09/2015"] <- "30/09/2015"
-output$StartDate[output$StartDate=="01/10/2015"] <- "31/10/2015"
+output$StartDate[output$StartDate=="01/01/2015"] <- "30/1/2015"
+output$StartDate[output$StartDate=="01/02/2015"] <- "28/2/2015"
+output$StartDate[output$StartDate=="01/03/2015"] <- "30/3/2015"
+output$StartDate[output$StartDate=="01/04/2015"] <- "30/4/2015"
+output$StartDate[output$StartDate=="01/05/2015"] <- "30/5/2015"
+output$StartDate[output$StartDate=="01/06/2015"] <- "30/6/2015"
+output$StartDate[output$StartDate=="01/07/2015"] <- "30/7/2015"
+output$StartDate[output$StartDate=="01/08/2015"] <- "30/8/2015"
+output$StartDate[output$StartDate=="01/09/2015"] <- "30/9/2015"
+output$StartDate[output$StartDate=="01/10/2015"] <- "30/10/2015"
 output$StartDate[output$StartDate=="01/11/2015"] <- "30/11/2015"
-output$StartDate[output$StartDate=="01/12/2015"] <- "31/12/2015"
+output$StartDate[output$StartDate=="01/12/2015"] <- "30/12/2015"
 
 
 
 ##Tweaking for blank data. It adds All the govenorates for all the sector with 0 Value entry for Dec 2014
-## This allows the bubble chart to work correctly in dc.js
+
 
 tweakdata <- read.csv("data/config/tweak.csv",header=T,sep=",")
 output <- rbind(output,tweakdata)
-
-
 
 
 ##################################################################################
@@ -782,6 +765,13 @@ write.csv(output.basicneeds.oth, file = "out/monitor/2015/basicneeds/dataother.c
 
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
+#  of individuals submitted for resettlement 
+# of women, girls, boys and men SGBV survivors benefiting from case management services 
+# of girls & boys benefiting from multi-sectoral services
+# of women, girls, boys and men with specific needs receiving special support
+# of women, girls, boys & men receiving legal information, counseling and/or representation 
+# of women, girls, boys & men benefiting from psychosocial support services (level 2 & 3) 
+
 output.protection.benef <-  subset(output.protection, output.protection$Indicator != "")
 write.csv(output.protection.benef, file = "out/monitor/2015/protection/data.csv",na="")
 output.protection.oth <-  subset(output.protection, output.protection$Indicator == "")
@@ -789,6 +779,12 @@ output.protection.oth$Indicator <- output.protection.oth$Indicator2
 write.csv(output.protection.oth, file = "out/monitor/2015/protection/dataother.csv",na="")
 
 output.shelter <-  subset(output, output$sector == "SHELTER")
+# of dwelling units upgraded to minimum standards
+# Increased housing units provided in unfinished buildings
+# of HH receiving rental support
+# of home adaptation kits distributed
+# of people receiving information messaging on housing (HLP)
+
 output.shelter.benef <-  subset(output.shelter, output.shelter$Indicator != "")
 write.csv(output.shelter.benef, file = "out/monitor/2015/shelter/data.csv",na="")
 output.shelter.oth <-  subset(output.shelter, output.shelter$Indicator == "")
@@ -804,13 +800,24 @@ write.csv(output.wash.oth, file = "out/monitor/2015/wash/dataother.csv",na="")
 
 ########################################################
 
-########################################################
-
 ### Multisectorial Dashboard - ZaatariCamp
 output.zaatari <-  subset(output, output$Governorate == "ZaatariCamp")
 output.zaatari.benef <-  subset(output.zaatari, output.zaatari$Indicator != "")
 output.zaatari.benef$sector[output.zaatari.benef$sector=="BASIC NEEDS"] <- "BASICNEEDS"
 output.zaatari.benef$sector[output.zaatari.benef$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 9"] <- "District 9"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 6"] <- "District 6"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 5"] <- "District 5"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 3"] <- "District 3"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 10"] <- "District 10"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 2"] <- "District 2"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 4"] <- "District 4"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 11"] <- "District 11"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 7"] <- "District 7"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 12"] <- "District 12"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 1"] <- "District 1"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 8"] <- "District 8"
+output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari Camp (all district)"] <- "Campwide"
 write.csv(output.zaatari.benef, file = "out/monitor/2015/zaatari/data.csv",na="")
 
 
@@ -819,6 +826,11 @@ output.azraq <-  subset(output, output$Governorate == "AzraqCamp")
 output.azraq.benef <-  subset(output.azraq, output.azraq$Indicator != "")
 output.azraq.benef$sector[output.azraq.benef$sector=="BASIC NEEDS"] <- "BASICNEEDS"
 output.azraq.benef$sector[output.azraq.benef$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
+output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 1"] <- "Village 1"
+output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 6"] <- "Village 6"
+output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 2"] <- "Village 2"
+output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp"] <- "Campwide"
+output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 3"] <- "Village 3"
 write.csv(output.azraq.benef, file = "out/monitor/2015/azraq/data.csv",na="")
 
 ### Multisectorial Dashboard - Countrywide
@@ -828,6 +840,8 @@ countrywide$sector[countrywide$sector=="BASIC NEEDS"] <- "BASICNEEDS"
 countrywide$sector[countrywide$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
 write.csv(countrywide, file = "out/monitor/2015/countrywide/data.csv",na="")
 
+
+#db.1064.monitor <- values.unique.attribute
 write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
 
 ### Clean unused elements
