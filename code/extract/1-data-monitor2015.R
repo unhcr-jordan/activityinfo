@@ -629,7 +629,7 @@ values.unique.attribute$indic <- with(values.unique.attribute,
 #### Copy the activityname for indicator with ref to benef --
 
 values.unique.attribute$new2 <- with(values.unique.attribute,
-                                    ifelse((is.na(values.unique.attribute$indic) and !is.na(values.unique.attribute$poptype)),
+                                    ifelse((is.na(values.unique.attribute$indic) || !is.na(values.unique.attribute$poptype)),
                                            paste0(values.unique.attribute$indicatorName) , values.unique.attribute$indic))
 
 
@@ -639,8 +639,8 @@ values.unique.attribute$indic2 <- as.factor(values.unique.attribute$indic)
 indicbreak <- as.data.frame(levels(values.unique.attribute$indic2))
 indicbreak <- rename(indicbreak, c("levels(values.unique.attribute$indic2)"="old"))
 indicbreak$new <- indicbreak$old
-write.csv(indicbreak, file = "data/config/indicbreak2014.csv",na="")
-#indicbreak <- read.csv("data/config/indicbreak.csv")
+write.csv(indicbreak, file = "data/config/indicbreak2015.csv",na="")
+#indicbreak <- read.csv("data/config/indicbreak2015-2.csv")
 
 #values.unique.attribute <- merge(x=values.unique.attribute, y=indicbreak, by="indic", all.x=TRUE)
 
@@ -703,9 +703,6 @@ output <- output[,c("sector","StartDate" ,"Category", "activity","Indicator","In
 #output$Indicator <- as.factor(output$Indicator)
 #levels(output$Indicator)
 
-
-
-))
 
 
 #Changing Start Date to End date
@@ -842,7 +839,7 @@ write.csv(countrywide, file = "out/monitor/2015/countrywide/data.csv",na="")
 
 
 #db.1064.monitor <- values.unique.attribute
-write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
+#write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
 
 ### Clean unused elements
 
