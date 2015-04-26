@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<!-- Sector Dashboard -->
+<html lang="en">
+    <head>
+        <title>Health Dashboard | Syrian Refugee Response in Jordan</title>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
+        <meta content="UNHCR Information management" name="author" />
+        <meta content="Refugee Response in Jordan" property="og:title" />
+        <meta content="article" property="og:type" />
+        <meta content="http://data.unhcr.org/jordan/response/Health" property="og:url" />
+        <meta content="http://data.unhcr.org/jordan/images/Healthdashboard.jpg" property="og:image" />
+        <meta content="Syrian Refugee Response in Jordan" property="og:site_name" />
+        <meta content="Syrian Refugee Response in Jordan" property="og:description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <!-- Bootstrap -->
+        <link href="../../css/bootstrap.css" rel="stylesheet" />
+        <link href="../../css/dc.css" rel="stylesheet" type="text/css" />
+        <link href="../../css/3w-dashboard.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="../../css/font-humanitarian.css">
+        <!-- Add IntroJs styles and JS -->
+        <link href="../../css/introjs.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../../js/intro.js"></script>
+        <script type="text/javascript" src="../../js/monthlyReport.js"> </script>
+        <script src="../../js/jquery.js"></script>
+        <!-- map the data to the GeoJSON object -->
+        <script src="../../js/data-jo.js"></script>
+        <link href="img/coordination.ico" rel="icon" type="image/x-icon">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <style type="text/css">
+            @-webkit-keyframes popbwrxrenhumgzdpcbgaqswgncarlccaxy {
+                50% {
+                    -webkit-transform: scale(1.2);
+                }
+
+                100% {
+                    -webkit-transform: scale(1);
+                }
+            }
+
+            @keyframes popbwrxrenhumgzdpcbgaqswgncarlccaxy {
+                50% {
+                    -webkit-transform: scale(1.2);
+                    transform: scale(1.2);
+                }
+
+                100% {
+                    -webkit-transform: scale(1);
+                    transform: scale(1);
+                }
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy {
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                border: solid 2px #fff !important;
+                color: #fff !important;
+                display: block !important;
+                height: auto !important;
+                margin: 0 !important;
+                opacity: 0.9 !important;
+                padding: 7px 10px !important;
+                position: fixed !important;
+                visibility: visible !important;
+                width: auto !important;
+                z-index: 2147483647 !important;
+                -moz-border-radius: 5px !important;
+                border-radius: 5px !important;
+                -moz-box-shadow: 0px 0px 20px #000 !important;
+                box-shadow: 0px 0px 20px #000 !important;
+            }
+
+            .bwrxrenhumgzdpcbgaqswgncarlccaxy-blocked {
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                color: #AAA !important;
+                display: inline !important;
+                text-decoration: line-through !important;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy br {
+                display: block !important;
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy span {
+                background: transparent !important;
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy div {
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                border: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: auto !important;
+                letter-spacing: normal !important;
+                font: 13px Arial,Helvetica !important;
+                text-align: left !important;
+                text-shadow: none !important;
+                text-transform: none !important;
+                word-spacing: normal !important;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy a {
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                font-weight: normal !important;
+                background: none !important;
+                text-decoration: underline !important;
+                color: #fff !important;
+            }
+
+            a#bwrxrenhumgzdpcbgaqswgncarlccaxy-gear {
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                text-decoration: none !important;
+                position: absolute !important;
+                display: none !important;
+                font-size: 20px !important;
+                width: 20px !important;
+                height: 20px !important;
+                line-height: 20px !important;
+                text-align: center !important;
+                background-color: rgba(255,255,255,.8) !important;
+                background-image: url(resource://firefox-at-ghostery-dot-com/ghostery/data/images/gear.svg) !important;
+                background-size: 16px 16px !important;
+                background-position: center center !important;
+                background-repeat: no-repeat !important;
+                text-decoration: none !important;
+            }
+
+            a#bwrxrenhumgzdpcbgaqswgncarlccaxy-gear:hover {
+                -webkit-animation-name: popbwrxrenhumgzdpcbgaqswgncarlccaxy !important;
+                animation-name: popbwrxrenhumgzdpcbgaqswgncarlccaxy !important;
+                -webkit-animation-duration: 0.3s !important;
+                animation-duration: 0.3s !important;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy:hover #bwrxrenhumgzdpcbgaqswgncarlccaxy-gear {
+                text-decoration: none !important;
+                display: inline-block !important;
+            }
+
+            #bwrxrenhumgzdpcbgaqswgncarlccaxy hr {
+                visibility: hidden !important;
+                padding: 0;
+                margin: 0;
+                font: 13px Arial,Helvetica;
+                text-transform: none;
+                font-size: 100%;
+                vertical-align: baseline;
+                line-height: normal;
+                color: #fff;
+                position: static;
+                height: 1em;
+            }
+
+            @media print {
+                #bwrxrenhumgzdpcbgaqswgncarlccaxy {
+                    display: none !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+     <!-- Loading screen -->
+        <div class="loader"></div>
+        <div class="container-fluid" id="dashboard">
+
+                <!--    Color code for dashbaord
+                        '#c00000', /* Education */
+                        '#006600', /* Food Security */
+                        '#7f7f7f', /* NFI */
+                        '#376092', /* Protection */
+                        '#92d050', /* Public Health */
+                        '#215968', /* SCL*/
+                        '#ffc000', /* Shelter */
+                        '#7030a0', /* WASH */
+                        -->
+
+            <div class="row" style="background-color: #92d050; color: #ffffff">
+                <div class="col-md-1">
+                    <center pbzloc="509">
+                        <i class="icon-ocha-sector-health" style="color:white; font-size:100px;" ></i>
+                    </center>
+                </div>
+                <div class="col-md-7">
+                   <!-- <center> </center> -->
+                        <h3><strong>Health Working Group | 2015 Syrian Refugee Response in Jordan
+                         | <a href="../../index.html"  target="_blank"><i class="icon-im-coord" style="color:white; font-size:20px;" ></i></a></strong></h3>
+                        The data presented here are collected through the <a href="https://www.syrianrefugeeresponse.org/" target="_blank">Syrian Refugee Response</a> platform and then cleared by Sector focal points.
+                        You can donwload the <a href="data.csv" target="_blank">data here</a>. More info on jordan <a href="http://data.unhcr.org/jordan" target="_blank">here</a>.<br />
+                        <strong>The following charts shows the achievement of Health sector. Click on any of the graphs below to filter and slice the data.</strong>
+                        <p>The units displayed here corresponds to "Assistance Instance". As such totals presented here should be analysed with caution. </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="row" >
+                        <div class="socialmedia" data-step="11" data-intro="Feel Free to share if you like it!" data-position="left">
+                            <table width = "100%">
+                              <tbody>
+                                  <tr>
+                                    <td valign="middle"><a href="http://www.facebook.com/sharer.php?u=http://data.unhcr.org/jordan/sectors/shelter" target="_blank">
+                                        <img src="../../img/Facebook.png" style="height: 25px; width: 25px"></a></td>
+                                    <td valign="middle"><a href="https://twitter.com/intent/tweet?url=http://data.unhcr.org/jordan/sectors/shelter&amp;text=%23jordan%20@Refugees" target="_blank">
+                                        <img src="../../img/Twitter.png" style="height: 25px; width: 25px"></a></td>
+                                    <td valign="middle"><a href="https://plus.google.com/share?&amp;hl=en&amp;url=http://data.unhcr.org/jordan/sectors/shelter" target="_blank">
+                                        <img src="../../img/Google.png" style="height: 25px; width: 25px"></a></td>
+                                  </tr>
+                            </tbody></table><br>
+                        </div>
+                    </div>
+                    <div class="row" >
+                            <p>
+                                <p><b>Leading Agencies:</b> <i>UNHCR</i> <a href="mailto:burton@unhcr.org">Ann Burton</a> &
+                                    <i>WHO</i> <a href="mailto:sweidanm@who.int">Mary Sweidan</a><br >
+                                    <small>
+                                    <b>Reproductive Health:<b> <i>UNFPA</i> <a href="mailto:sahbani@unfpa.org">Shible Sahbani</a>,
+                                     <a href="mailto:mal-khateeb@unfpa.org">Maysa Al-Khateeb</a>;
+                                    <b>Mental Health and Psychosocial Support:</b> <i>IMC</i> <a href="mailto:abawaneh@InternationalMedicalCorps.org">Ahmad Bawaneh</a>,
+                                     <i>WHO</i> <a href="mailto:alfarh@who.int">Hadeel Al Far</a>;
+                                     <b>Nutrition:</b> <i>SCJ</i> <a href="mailto:salsamman@savethechildren.org.jog">Sura Alsamman</a>, <i>UNICEF</i> <a href="mailto:msato@unicef.org">Midori Sato</a>
+                                     <small>
+
+                            </p>
+                        <br>
+                        <div class="dc-chart" id="count-info" data-step="12" data-intro="Click on this button to clear all the filters." data-position="right">
+                        <strong><span class="filter-count " ></span></strong> selected out of <span class="total-count "></span> records</div>&nbsp;&nbsp;
+                        <a class="reset btn btn-primary btn-sm" id="reset" href="javascript:dc.filterAll();dc.redrawAll();">Reset All Filters</a>&nbsp;&nbsp;
+                        <a class="btn btn btn-info" href="#timelineid" >Highlight</a>&nbsp;&nbsp;
+                        <a class="reset btn btn-primary btn-sm" href="monthSel.html" onclick="javascript:void window.open('monthSel.html','1418129557768','width=190,height=120,toolbar=0,menubar=0,location=0,status=0,scrollbars=0,resizable=1,left=800,top=300');return false;"> Report </a>&nbsp;&nbsp;
+                        <a class="btn btn btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();">Tutorial</a> <br >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Activity." data-position="right" data-step="1" id="obj">
+                                <center>
+                                    <h5><strong>Output</strong><br ><small># of reports</small></h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Indicator." data-position="right" data-step="1" id="indicator">
+                                <center>
+                                    <h5><strong>Indicator</strong><br ><small># of assistance instance</small></h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <center>
+                                <div class="dc-chart" data-intro="Click on this pie chart to filter by Population Cohort." data-position="right" data-step="2" id="gender">
+                                    <center>
+                                        <h5><strong>Age Group & Gender</strong><br ><small># of assistance instance</small></h5>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-md-6">
+                            <center>
+                                <div class="dc-chart" data-intro="Click on this pie chart to filter by Population Cohort." data-position="right" data-step="2" id="poptype">
+                                    <center>
+                                        <h5><strong>Population Type</strong><br ><small># of assistance instance</small></h5>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by RRP6 status of the report." data-position="right" data-step="4" id="appeal">
+                                <center>
+                                    <h5><strong>Inter Agency Appeal Appeal</strong><br ><small># of assistance instance</small></h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Partner." data-position="right" data-step="5" id="partner">
+                                <center>
+                                    <h5><strong>Partner</strong><br ><small># of assistance instance</small></h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Site Type." data-position="right" data-step="6" id="allocation">
+                                <center>
+                                    <h5><strong>Allocation according to Initial Plan</strong><br ><small># of assistance instance</small></h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6" >
+                            <center>
+                                <div class="dc-chart" data-intro="Click on this pie chart to filter by Funding Agency." data-position="right" data-step="3" id="funded">
+                                    <center>
+                                        <h5><strong>Funding Agency</strong><br ><small># of assistance instance</small></h5>
+                                    </center>
+                                </div>
+                                <div class="dc-chart" data-intro="Click on this pie chart to filter by Funding Agency." data-position="right" data-step="10" id="location">
+                                    <center>
+                                        <h5><strong>Top Locations </strong> <br> <small>Camps locations are not aggregated within Governorate</small></h5>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-md-6"
+                        data-intro="Click anywhere on the map to filter the results. The camp icon filters activities for camp only and the small jordan map filters country-wide activities" data-position="left" data-step="8" >
+                            <div id="region">
+                                <h5><strong>Governorates</strong><br >
+                                <small>Some activities are country-wide or for camps only.</small></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+					        <center>
+                                <h5><strong>Monthly Progress</strong><br ><small># of assistance instance</small></h5>
+                            </center>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<script type="text/javascript">
+                            var d = new Date();
+                            var n = d.getMonth();
+                                for(count = 0; count < n; count++){
+                                document.write('<a id="reset" class="reset btn btn-primary btn-sm" href="javascript:dc.filterAll(); monthrange_chart.filter([new Date(2015,' + count + ', 1), new Date(2015, ' + count + ', 31)]); dc.redrawAll();">');
+                                document.write(monthNames[count] + "</a> &nbsp;");
+                                }
+                    </script>
+                    <br>
+					
+                        <div class="col-md-12 dc-chart" data-intro="Click on this line chart to zoom in to specific Month." data-position="left" data-step="9" id="month">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 dc-chart" data-intro="Click on this bar chart to filter by Range of Month(s)." data-position="left" data-step="10" id="monthrange">
+                            <center>
+                                <h5><strong>Select Month Range Here</strong></h5>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-12">
+                    <p><h2> &nbsp; </h2></p>
+                </div>
+            </div>
+            <div class="row" id="timelineid"style="background-color: #92d050; color: #ffffff">
+                <div class="col-md-12">
+                    <p><h2>Monthly Highlight</h2></p>
+                </div>
+            </div>
+            <div class="row" style="background-color: #D8D8D8;">
+                <iframe src="../../timeline/health/timeline.html" width="100%" height="800" frameborder="0" scrolling="no" marginheight="10" marginwidth="10"></iframe>
+            </div>
+
+            <div class="row" style="background-color: #92d050; color: #00000">
+                <div class="col-md-12">
+                    <p><strong>Produced by Information Management Unit, UNHCR, Jordan. For more information please
+                    contact <a href="http://data.unhcr.org/jordan/team.html" target="_blank" >our team</a>.
+                    Post comments, issues or bug report <a href="https://github.com/unhcr-jordan/sectors/issues">here</a></strong></p>
+                </div>
+            </div>
+
+            </div>
+            <script type="text/javascript" src="../../js/d3_002.js">
+            </script><!--script type="text/javascript" src="../../js/d3.v3.js"></script -->
+            <script type="text/javascript" src="../../js/crossfilter.js"></script>
+            <script type="text/javascript" src="../../js/dc.js"></script>
+            <script type="text/javascript" src="../../js/d3.js"></script>
+            <script>
+        // loading screen code
+        $(window).load(function() {
+        $(".loader").fadeOut("slow");
+        });
+
+        //GeoJSON data for background map
+                    var width = 360;
+                    var height = 360;
+                    var svg = d3.select("#region")
+                                .append("svg")
+                                .attr("width", width)
+                                .attr("height", height)
+                                .style("stroke-width", "0")
+                                .style("stroke", "grey");
+                    d3.json("../../data/admin1.geojson", function(json) {
+                        var center = d3.geo.centroid(json)
+                        var scale  = 150;
+                        var offset = [width/2, height/2];
+                        var projection = d3.geo.mercator().scale(scale).center(center).translate(offset);
+                        var path = d3.geo.path().projection(projection);
+                        var bounds  = path.bounds(json);
+                        var hscale  = scale*(width) / (bounds[1][0] - bounds[0][0]);
+                        var vscale  = scale*(height - 75)/ (bounds[1][1] - bounds[0][1]);
+                        var scale   = (hscale < vscale) ? hscale : vscale;
+                        var offset  = [width - (bounds[0][0] + bounds[1][0])/2, height - (bounds[0][1] + bounds[1][1])/2];
+                        path.projection(d3.geo.mercator().center([42,29.9]).scale(3500))
+                        svg.append("rect").attr('width', width).attr('height', height).style('stroke', 'black').style('fill', 'none');
+                        svg.selectAll("path").data(json.features).enter().append("path").attr("d", path).style("fill", "white").style("stroke-width", "1").style("stroke", "black")
+                    });
+
+           //Prepare to load data
+                var dataset;
+
+                var indicator_chart = dc.rowChart("#indicator");
+                var gender_chart = dc.pieChart("#gender");
+                var poptype_chart = dc.pieChart("#poptype");
+                var funded_chart = dc.rowChart("#funded");
+                var appeal_chart = dc.rowChart("#appeal");
+                var allocation_chart = dc.rowChart("#allocation");
+                var partner_chart = dc.rowChart("#partner");
+                var month_chart = dc.lineChart("#month");
+                var monthrange_chart = dc.barChart("#monthrange");
+                var location_chart = dc.rowChart("#location");
+                var obj_chart = dc.rowChart("#obj");
+                var region_chart = dc.bubbleOverlay("#region").svg(d3.select("#region svg"));
+
+                function getFiltersValues() {
+                       var filters = [
+                                       { name: 'indicator', value: indicator_chart.filters()},
+                                       { name: 'gender', value: gender_chart.filters()},
+                                       { name: 'poptype', value: poptype_chart.filters()},
+                                       { name: 'funded', value: funded_chart.filters()},
+                                       { name: 'appeal', value: appeal_chart.filters()},
+                                       { name: 'partner', value: partner_chart.filters()},
+                                       { name: 'allocation', value: allocation_chart.filters()},
+                                       { name: 'monthrange', value: monthrange_chart.filters()},
+                                       { name: 'location', value: location_chart.filters()},
+                                       { name: 'obj', value: obj_chart.filters()},
+                                       { name: 'region', value: region_chart.filters()}
+                                    ];
+                       var recursiveEncoded = $.param( filters );
+                       location.hash = recursiveEncoded;
+                   }
+                function initFilters() {
+        // Get hash values
+                       var parseHash = /^#indicator=([A-Za-z0-9,_\-\/\s]*)&gender=([A-Za-z0-9,_\-\/\s]*)&funded=([A-Za-z0-9,_\-\/\s]*)&rrp6=([A-Za-z0-9,_\-\/\s]*)&partner=([A-Za-z0-9,_\-\/\s]*)&AllocationRRP6=([A-Za-z0-9,_\-\/\s]*)&Governorate=([A-Za-z0-9,_\-\/\s]*)$/;
+                       var parsed = parseHash.exec(decodeURIComponent(location.hash));
+                       function filter(chart, rank) {
+                           if (parsed[rank] == "") { chart.filter(null); }
+                           else {
+                               var filterValues = parsed[rank].split(",");
+                               for (var i = 0; i < filterValues.length; i++ ) { chart.filter(filterValues[i]); }
+                           }
+                       }
+                       if (parsed) {
+                           filter(indicator_chart, 1);
+                           filter(gender_chart, 2);
+                           filter(funded_chart, 3);
+                           filter(appeal_chart, 4);
+                           filter(partner_chart, 5);
+                           filter(allocation_chart, 6);
+                           filter(allocation_chart, 7);
+                           filter(poptype_chart, 8);
+                           filter(region_chart, 9);
+                           filter(obj_chart, 10);
+                       }
+                   }
+
+                d3.csv("data.csv", function(error, dataset) {
+
+                var dateFormat = d3.time.format("%d/%m/%Y");
+                var numberFormat = d3.format(",f");
+
+                dataset.forEach(function (d) {
+                   d.dd = dateFormat.parse(d.StartDate);
+                   d.month = d3.time.month(d.dd); // pre-calculate month for better performance
+                   d.close = +d.close; // coerce to number
+                   d.open = +d.open;
+                });
+
+                if (error) {  //If error is not null, something went wrong.
+                   console.log(error);  //Log the error.
+                } else {      //If no error, the file loaded correctly. Yay!
+         //console.log(dataset);   //Log the data.
+
+                var cf = crossfilter(dataset);
+
+                cf.indicator = cf.dimension(function(d) { return d.Indicator; });
+                var indicator = cf.indicator.group();
+                var indicatorByTotal = cf.indicator.group().reduceSum(function (d) { return d.Value;} );
+                   indicator_chart.width(400).height(250)
+                       .dimension(cf.indicator)
+                       .group(indicatorByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(10); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.gender = cf.dimension(function(d) { return d.Gender; });
+                var gender = cf.gender.group();
+                var genderByTotal = cf.gender.group().reduceSum(function (d) { return d.Value;} );
+                   gender_chart.width(100).height(100)
+                       .dimension(cf.gender)
+                       .group(genderByTotal)
+                       .innerRadius(10)
+                       .colors(['#8da0cb', /* boys */
+                               '#fc8d62', /* girls */
+                               '#e78ac3', /* men */
+                               '#66c2a5', /* women */
+                               ])
+                       .colorDomain([0,4])
+                       .renderLabel(true)
+                       .colorAccessor(function(d, i){return i%4;})
+                       .on("filtered", getFiltersValues);
+
+                cf.poptype = cf.dimension(function(d) { return d.poptype; });
+                var poptype = cf.poptype.group();
+                var poptypeByTotal = cf.poptype.group().reduceSum(function (d) { return d.Value;} );
+                   poptype_chart.width(100).height(100)
+                       .dimension(cf.poptype)
+                       .group(poptypeByTotal)
+                       .innerRadius(10)
+                       .colors(['#8da0cb', /* boys */
+                               '#fc8d62', /* girls */
+                               '#e78ac3', /* men */
+                               ])
+                       .colorDomain([0,4])
+                       .renderLabel(true)
+                       .colorAccessor(function(d, i){return i%4;})
+                       .on("filtered", getFiltersValues);
+
+                cf.funded = cf.dimension(function(d) { return d.Fundedby; });
+                var funded = cf.funded.group();
+                var fundedByTotal = cf.funded.group().reduceSum(function (d) { return d.Value;} );
+                   funded_chart.width(400).height(175)
+                       .dimension(cf.funded)
+                       .group(fundedByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(100); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.location = cf.dimension(function(d) { return d.Governorate; });
+                var location = cf.location.group();
+                var locationByTotal = cf.location.group().reduceSum(function (d) { return d.Value;} );
+                   location_chart.width(400).height(175)
+                       .dimension(cf.location)
+                       .group(locationByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(6); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.obj = cf.dimension(function(d) { return d.activity; });
+                var obj = cf.obj.group();
+                var objByTotal = cf.obj.group().reduceCount();
+                   obj_chart.width(400).height(140)
+                       .dimension(cf.obj)
+                       .group(objByTotal)
+                       .elasticX(false)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(4); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.appeal = cf.dimension(function(d) { return d.appeal; });
+                var appeal = cf.appeal.group();
+                var appealByTotal = cf.appeal.group().reduceSum(function (d) { return d.Value;} );
+                   appeal_chart.width(400).height(130)
+                       .dimension(cf.appeal)
+                       .group(appealByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(100); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.allocation = cf.dimension(function(d) { return d.allocation; });
+                var allocation = cf.allocation.group();
+                var allocationByTotal = cf.allocation.group().reduceSum(function (d) { return d.Value;} );
+                   allocation_chart.width(400).height(90)
+                       .dimension(cf.allocation)
+                       .group(allocationByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(100); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+
+
+                cf.partner = cf.dimension(function(d) { return d.Partner; });
+                var partner = cf.partner.group();
+                var partnerByTotal = cf.partner.group().reduceSum(function (d) { return d.Value;} );
+                   partner_chart.width(400).height(570)
+                       .dimension(cf.partner)
+                       .group(partnerByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) { return group.top(200); })
+                       .colors(['#99A5B7'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+
+                cf.month = cf.dimension(function (d) {return d.dd;});
+                var month = cf.month.group();
+                var monthByTotal = cf.month.group().reduceSum(function (d) { return d.Value;} );
+                var boys=cf.month.group().reduceSum(function(d) {if (d.Gender=="Boys") {return d.Value;}else{return 0;}});
+                var girls=cf.month.group().reduceSum(function(d) {if (d.Gender=="Girls") {return d.Value;}else{return 0;}});
+                var men=cf.month.group().reduceSum(function(d) {if (d.Gender=="Men") {return d.Value;}else{return 0;}});
+                var women=cf.month.group().reduceSum(function(d) {if (d.Gender=="Women") {return d.Value;}else{return 0;}});
+
+                   month_chart.width(900).height(230)
+                       .transitionDuration(1000)
+                       .margins({top: 30, right: 50, bottom: 25, left: 40})
+                       .dimension(cf.month)
+                       .mouseZoomable(true)
+                       .rangeChart(monthrange_chart)
+                       .x(d3.time.scale().domain([new Date(2015, 0, 1), new Date(2015, 11, 31)]))
+                       .xUnits(d3.time.months)
+        //.elasticY(true)
+                       .renderHorizontalGridLines(true)
+                       .legend(dc.legend().x(700).y(10).itemHeight(13).gap(5))
+                       .brushOn(false)
+                        .group(boys, 'Boys')
+                        .stack(girls, 'Girls')
+                        .stack(men, 'Men')
+                        .stack(women, 'Women')
+                       .renderArea(false);
+
+
+
+                   monthrange_chart.width(900)
+                       .height(40)
+                       .margins({top: 0, right: 50, bottom: 20, left: 40})
+                       .dimension(cf.month)
+                       .group(monthByTotal)
+                       .colors(['#99A5B7'])
+                       .gap(1)
+                       .x(d3.time.scale().domain([new Date(2015, 0, 1), new Date(2015, 11, 31)]))
+                       .xUnits(d3.time.months)
+                       .yAxis().ticks(0);
+
+
+                // Now create the buble chart for all region
+                cf.region = cf.dimension(function(d) { return d.Governorate; });
+                var region = cf.region.group();
+                var regionByTotal = cf.region.group().reduceSum(function (d) { return d.Value;} );
+                      region_chart.width(400).height(400)
+                        .transitionDuration(500)
+                        .dimension(cf.region)
+                        .group(regionByTotal)
+                        .colors(['#215968'])
+                        .colorDomain([0, 0])
+                        .colorAccessor(function(d, i){return 1;})
+                        .title(function(d) { return "region: " + d.key + "\nTotal:" + d.value;})
+
+                  //      .radiusValueAccessor(function (p) { return p.value;  })
+                   //     .maxBubbleRelativeSize(0.03)
+
+                        .r(d3.scale.linear().domain([0, 100000]))
+                        .point("IRBID", 98, 58)
+                        .point("MAFRAQ", 193, 70)
+                        .point("ZARQA", 160, 108)
+                        .point("AMMAN", 130, 120)
+                        .point("MAAN", 120, 230)
+                        .point("AQABAH", 70, 260)
+                        .point("TAFILAH", 90, 180)
+                        .point("KARAK", 100, 155)
+                        .point("MADABA", 95, 130)
+                        .point("BALQA", 94, 96)
+                        .point("JARASH", 104, 82)
+                        .point("AJLOUN", 74, 96)
+                        .point("ZaatariCamp", 270, 150)
+                        .point("AzraqCamp", 270, 180)
+						.point("EJ Camp", 270, 210)
+                        .point("Countrywide", 255, 260)
+                        .on("filtered", getFiltersValues)
+                      //  .debug(true)
+                       ;
+
+                var all = cf.groupAll();
+                  dc.dataCount("#count-info")
+                       .dimension(cf)
+                       .group(all);
+
+
+                cf.region = cf.dimension(function(d) { return d.region; });
+                var region = cf.region.group();
+
+
+
+
+               dc.renderAll();
+
+               /* Customised infobox */
+               d3.selectAll("g.row").call(rowTip);
+               d3.selectAll("g.row").on('mouseover', rowTip.show).on('mouseout', rowTip.hide);
+
+               d3.selectAll(".pie-slice").call(pieTip);
+               d3.selectAll(".pie-slice").on('mouseover', pieTip.show).on('mouseout', pieTip.hide);
+
+
+               // tooltips
+                var rowTip = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) { return "<span style='color: #f0027f'>" +  d.key + "</span> : "  + numberFormat(d.value) + " Assistance Instance"; });
+                var pieTip = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) { return "<span style='color: #f0027f'>" +  d.data.key + "</span> : "  + numberFormat(d.value) + " Assistance Instance"; });
+                var barTip = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) { return "<span style='color: #f0027f'>" + d.data.key + "</span> : " + numberFormat(d.value) + " Assistance Instance";});
+                var bubbleTip = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) { return "<span style='color: #f0027f'>" + d.key + "</span> : " + numberFormat(d.value) + " Assistance Instance";});
+                //var geoTip = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) { return "<span style='color: #f0027f'>" + cazacode2caza[d.key] + "</span> : " + numberFormat(d.value) + " Individuals";});
+
+
+                   $('#dashboard').show();
+                }
+                });
+            </script>
+
+            <script src="../../js/bootstrap.js"></script>
+
+
+            <script>
+            // Script to initiate filtering on page at the right place
+                $(window).bind("load", function() {
+                if (GetUrlValue('Camp')=="ZaatariCamp")
+                {
+                dc.filterAll(); location_chart.filter("ZaatariCamp");  dc.renderAll();
+                }
+                var d = new Date();
+                var n = d.getMonth();
+                dc.filterAll(); 
+                monthrange_chart.filter([new Date(2015, n-1, 1), new Date(2015, n-1, 31)]); 
+                dc.redrawAll();
+                });
+
+
+            </script>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+        </div>
+    </body>
+
+</html>

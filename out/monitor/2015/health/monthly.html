@@ -1,0 +1,531 @@
+<html lang="en">
+    <head>
+        <title>Syrian Refugee Response in Jordan</title>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+        <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
+        <meta content="Aung Thu Win based on original work by Edouard Legoupil" name="author" />
+        <meta content="2014 Refugee Response in Jordan" property="og:title" />
+        <meta content="article" property="og:type" />
+        <meta content="http://data.unhcr.org/jordan/response/Protection" property="og:url" />
+        <meta content="http://data.unhcr.org/jordan/images/Protectiondashboard.jpg" property="og:image" />
+        <meta content="2014 Syrian Refugee Response in Jordan" property="og:site_name" />
+        <meta content="2014 Syrian Refugee Response in Jordan" property="og:description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <!-- Bootstrap -->
+        <link href="../css/bootstrap.css" rel="stylesheet" />
+        <link href="../css/dc.css" rel="stylesheet" type="text/css" />
+        <link href="../css/3w-dashboard.css" rel="stylesheet" type="text/css" />
+        <!-- Add IntroJs styles and JS -->
+        <link href="../css/introjs.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../js/intro.js"></script>
+        <script src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/monthlyReport.js"> </script>
+        <!-- map the data to the GeoJSON object -->
+        <script src="../js/data-jo.js"></script>
+        <link href="http://www.unhcr.org/favicon.ico" rel="icon" type="image/x-icon" />
+        <style type="text/css">@-webkit-keyframes popbwrxrenhumgzdpcbgaqswgncarlccaxy {50% {-webkit-transform:scale(1.2);}100% {-webkit-transform:scale(1);}}@keyframes popbwrxrenhumgzdpcbgaqswgncarlccaxy {50% {-webkit-transform:scale(1.2);transform:scale(1.2);}100% {-webkit-transform:scale(1);transform:scale(1);}}#bwrxrenhumgzdpcbgaqswgncarlccaxy{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:solid 2px #fff !important;color:#fff !important;display:block !important;height:auto !important;margin:0 !important;opacity:0.9 !important;padding:7px 10px !important;position:fixed !important;visibility:visible !important;width:auto !important;z-index:2147483647 !important;-moz-border-radius:5px !important;border-radius:5px !important;-moz-box-shadow:0px 0px 20px #000 !important;box-shadow:0px 0px 20px #000 !important;}.bwrxrenhumgzdpcbgaqswgncarlccaxy-blocked{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;color:#AAA !important;display:inline !important;text-decoration:line-through !important;}#bwrxrenhumgzdpcbgaqswgncarlccaxy br{display:block !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#bwrxrenhumgzdpcbgaqswgncarlccaxy span{background:transparent !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#bwrxrenhumgzdpcbgaqswgncarlccaxy div{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:0 !important;margin:0 !important;padding:0 !important;width:auto !important;letter-spacing:normal !important;font:13px Arial,Helvetica !important;text-align:left !important;text-shadow:none !important;text-transform:none !important;word-spacing:normal !important;}#bwrxrenhumgzdpcbgaqswgncarlccaxy a{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;font-weight:normal !important;background:none !important;text-decoration:underline !important;color:#fff !important;}a#bwrxrenhumgzdpcbgaqswgncarlccaxy-gear{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;text-decoration:none !important;position:absolute !important;display:none !important;font-size:20px !important;width:20px !important;height:20px !important;line-height:20px !important;text-align:center !important;background-color:rgba(255,255,255,.8) !important;background-image:url(resource://firefox-at-ghostery-dot-com/ghostery/data/images/gear.svg) !important;background-size:16px 16px !important;background-position:center center !important;background-repeat:no-repeat !important;text-decoration:none !important;}a#bwrxrenhumgzdpcbgaqswgncarlccaxy-gear:hover{-webkit-animation-name:popbwrxrenhumgzdpcbgaqswgncarlccaxy !important;animation-name:popbwrxrenhumgzdpcbgaqswgncarlccaxy !important;-webkit-animation-duration:0.3s !important;animation-duration:0.3s !important;}#bwrxrenhumgzdpcbgaqswgncarlccaxy:hover #bwrxrenhumgzdpcbgaqswgncarlccaxy-gear{text-decoration:none !important;display:inline-block !important;}#bwrxrenhumgzdpcbgaqswgncarlccaxy hr{visibility:hidden !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;height:1em;}@media print{#bwrxrenhumgzdpcbgaqswgncarlccaxy{display:none !important;}}
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid" id="dashboard">
+            <div class="row" pbzloc="357" style="background-color: #006ca9; color: #ffffff">
+                <div class="col-md-2">
+                    <center pbzloc="509"><br />
+                        <img src="../img/Protection.gif" style="max-height: 48px; max-weight: 64" width="64" /> 
+                        <img src="./img/PWG.gif" style="max-height: 48px; max-weight: 64" /><br />
+                        Protection Working Group (Jordan)
+                    </center>
+                </div>
+                <div class="col-md-6">
+                    <center>
+                        <h3>
+                            <strong>
+                                Jordan: MONTHLY UPDATE - <script type="text/javascript">
+                                    document.write(monthNames[GetUrlValue('Month')-1] + " ");
+                                    document.write(GetUrlValue('Year')); 
+                                </script>
+                            </strong>
+                        </h3>
+                    </center>
+                </div>
+                <div class="col-md-4" pbzloc="559">
+                    <div class="col-md-5" pbzloc="555" style="width: 269px; height: 103px; top: 5px; left: 3px">
+                        <p> &nbsp;</p>
+                        <p><a class="reset btn btn-primary btn-sm" href="javascript:location.reload();" id="reset">Reset Report</a> <a class="btn btn btn-success" href="javascript:void(0);" onclick="javascript:introJs().start();" pbzloc="427">Tutorial</a>
+                        </p>
+                    </div>
+                    <p pbzloc="516" style="text-align: center">&nbsp;</p>
+                    <div class="col-md-3" pbzloc="557" style="width: 216px; height: 40px">
+                        <div class="socialmedia" data-intro="Feel Free to share if you like it!" data-position="left" data-step="11" pbzloc="547" style="width: 139px; height: 103px; top: -100px; left: 293px">
+                            <table pbzloc="552">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center" valign="center"><a href="http://www.facebook.com/sharer.php?u=http://data.unhcr.org/jordan/response/Protection" pbzloc="549" target="_blank">
+                                            <img pbzloc="531" src="../img/Facebook.png" style="width: 25px; height: 25px" /></a>
+                                        </td>
+                                        <td style="text-align: center" valign="center"><a data-pin-do="buttonBookmark" href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fdata.unhcr.org/jordan/response/Protection&amp;media=http%3A%2F%2Fdata.unhcr.org/jordan/images/Protectiondashboard.jpg" target="_blank">
+                                            <img pbzloc="535" src="../img/Pinterest.png" style="width: 28px; height: 28px" /></a>
+                                        </td>
+                                        <td style="text-align: center" valign="center"><a href="https://twitter.com/intent/tweet?url=http://data.unhcr.org/jordan/response/Protection&amp;text=%23jordan%20@Refugees" pbzloc="370" target="_blank">
+                                            <img pbzloc="361" src="../img/Twitter.png" style="width: 25px; height: 25px" /></a>
+                                        </td>
+                                        <td style="text-align: center" valign="center"><a href="https://plus.google.com/share?&amp;hl=en&amp;url=http://data.unhcr.org/jordan/response/Protection" target="_blank">
+                                            <img pbzloc="533" src="../img/Google.png" style="width: 25px; height: 25px" /></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-4 col-md-offset-4" pbzloc="554" style="width: 157px; height: 42px; top: 22px; left: -3px">
+                                <p style="text-align: center"><small pbzloc="400"><a href="https://github.com/unhcr-jordan/sectors" target="_blank">Source</a></small></p>
+                                <p pbzloc="558" style="text-align: center">&nbsp;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" pbzloc="452">
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Indicator." data-position="right" data-step="1" id="indicator">
+                                <center>
+                                    <h5><strong>Indicator</strong>(# of Persons)</h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this pie chart to filter by Population Cohort." data-position="right" data-step="2" id="gender">
+                                <center>
+                                    <h5><strong>Women,Girls,Boys and Men</strong>(# of Persons)</h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this pie chart to filter by Funding Agency." data-position="right" data-step="3" id="funded">
+                                <center>
+                                    <h5><strong>Funding Agency</strong>(# of Persons)</h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by RRP6 status of the report." data-position="right" data-step="4" id="rrp6" style="width: 200%">
+                                <br>
+                                <center style="text-align: left"><span style="font-size: 10px"><span style="font-family: tahoma,geneva,sans-serif"><b>Leading Agencies: UNHCR- Karen Whiting, <a href="mailto:whiting@unhcr.org">whiting@unhcr.org</a>, IRD - co-lead - Uma Kandalayeva, <a href="mailto:uma.kandalayeva@ird-jo.org">uma.kandalayeva@ird-jo.org</a></b></span></span></center>
+                                <center style="text-align: left"><strong><span style="font-size: 10px"><span style="font-family: tahoma,geneva,sans-serif">The Protection Sector includes the following sub-sectors: Child Protection (UNHCR/UNICEF), SGBV (UNHCR/UNFPA) and Mental Health and Psychosocial Support (IMC/WHO). <br> Reporting Agencies:</span></span></strong></center>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Partner." data-position="right" data-step="5" id="partner">
+                                <center>
+                                    <h5><strong>Partner</strong>(# of Persons)</h5>
+                                </center>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <center>
+                            <div class="dc-chart" data-intro="Click on this row chart to filter by Site Type." data-position="right" data-step="6" id="AllocationRRP6"></div>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="map">
+                                <h5><strong>Geographic filter : <a href="javascript:governoratesMapShow();">Governorates</a> -or- Regions</strong></h5>
+                                <p><small>Some activities are country-wide or for camps only.</small></p>
+                            </div>
+                            <div data-intro="Click anywhere on the map to filter the results. The camp icon filters activities for camp only and the small jordan map filters country-wide activities" data-position="left" data-step="7" id="map2">
+                                <h5><strong>Geographic filter : Governorates -or- <a href="javascript:regionsMapShow();">Regions</a></strong></h5>
+                                <p><small>Some activities are country-wide or for camps only.</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 dc-chart" data-intro="Click on this line chart to zoom in to specific Month." data-position="right" data-step="9" id="month">
+                            <center>
+                                <h5><strong>Monthly Progress</strong>(# of Persons)</h5>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 dc-chart" data-intro="Click on this bar chart to filter by Range of Month(s)." data-position="right" data-step="10" id="monthrange">
+                            <center>
+                                <h5><strong>Select Month Range Here</strong></h5>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    &nbsp;
+                    <div class="col-xs-6" style="width: 93.81%; height: 29px"></div>
+                    <div class="col-xs-6" style="width: 100%; height: 68px">
+                        <center style="text-align: left"><span style="font-size: 12px">
+                            <span style="font-family: tahoma,geneva,sans-serif"><small><img border="0" height="23" src="img/partner/unicef.jpg" /> <img border="0" height="23" src="img/partner/unfpalogo.jpg" /> <img border="0" height="23" src="img/partner/imc.jpg" /> <img border="0" height="23" src="img/partner/icmc.jpg" /> <img border="0" height="23" src="img/partner/unwomen.jpg" /> <img border="0" height="23" src="img/partner/intersos.jpg" /> <img border="0" height="23" src="img/partner/jrf.jpg" /> <img border="0" height="23" src="img/partner/sci.jpg" /> <img border="0" height="23" src="img/partner/scjordan.jpg" /><img border="0" height="23" src="img/partner/ird.jpg" /> <img border="0" height="23" src="img/partner/tdh.jpg" /> <img border="0" height="23" src="img/partner/caritas.jpg" /> <img border="0" height="23" src="img/partner/fpsci.jpg" /> <img border="0" height="23" src="img/partner/nrc.jpg" /> <img border="0" height="23" src="img/partner/NAHF.gif" /> <img border="0" height="23" src="img/partner/acted.jpg" /> <img border="0" height="23" src="img/partner/drc.jpg" /> <img border="0" height="23" src="img/partner/care.jpg" /> <img border="0" height="23" src="img/partner/upp.jpg" /> <img border="0" height="23" src="img/partner/iom.jpg" /> <img border="0" height="23" src="img/partner/FINN.jpg" /> <img border="0" height="23" src="img/partner/quetscope.jpg" /> <img border="0" height="23" src="img/partner/wvi.jpg" /> <img border="0" height="23" src="img/partner/mc.jpg" /> <img border="0" height="23" src="img/partner/irc.jpg" /> <img border="0" height="23" src="img/partner/ardd.jpg" /> <img border="0" height="23" src="img/partner/iccs.png" /> <img border="0" height="23" src="img/partner/ri.jpg" /> <img border="0" height="23" src="img/partner/acf.jpg" /> <img border="0" height="23" src="img/partner/niccod.jpg" /></small></span></span>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript" src="../js/d3_002.js"></script>
+            <!--script type="text/javascript" src="../js/d3.v3.js"></script -->
+            <script type="text/javascript" src="../js/crossfilter.js"></script>
+            <script type="text/javascript" src="../js/dc.js"></script>
+            <script type="text/javascript" src="../js/d3.js"></script><script>
+                function regionsMapShow(){
+                   $('#map2').hide();
+                   $('#map').show();
+                   map2_chart.filterAll();
+                   dc.redrawAll();
+                }
+                
+                function governoratesMapShow(){
+                   $('#map').hide();
+                   $('#map2').show();
+                map_chart.filterAll();
+                dc.redrawAll();
+                }
+                $('#dashboard').hide();
+                $('#map').hide();
+                
+                
+                
+                
+                
+                
+                //Prepare to load data
+                var dataset;
+                
+                var indicator_chart = dc.rowChart("#indicator");
+                var gender_chart = dc.pieChart("#gender");
+                var funded_chart = dc.pieChart("#funded");
+                //    var rrp6_chart = dc.rowChart("#RRP6");
+                //    var AllocationRRP6_chart = dc.rowChart("#AllocationRRP6");
+                var partner_chart = dc.rowChart("#partner");
+                var month_chart = dc.lineChart("#month");
+                var monthrange_chart = dc.barChart("#monthrange");
+                var map_chart = dc.geoChoroplethChart("#map");
+                var map2_chart = dc.geoChoroplethChart("#map2");
+                
+                d3.csv("protection.csv", function(error, dataset) {
+                
+                var dateFormat = d3.time.format("%d/%m/%Y");
+                var numberFormat = d3.format(",f");
+                
+                dataset.forEach(function (d) {
+                   d.dd = dateFormat.parse(d.StartDate);
+                   d.month = d3.time.month(d.dd); // pre-calculate month for better performance
+                   d.close = +d.close; // coerce to number
+                   d.open = +d.open;
+                });
+                
+                if (error) {  //If error is not null, something went wrong.
+                   console.log(error);  //Log the error.
+                } else {      //If no error, the file loaded correctly. Yay!
+                   //console.log(dataset);   //Log the data.
+                
+                var cf = crossfilter(dataset);
+                
+                cf.indicator = cf.dimension(function(d) { return d.Indicator; });
+                cf.gender = cf.dimension(function(d) { return d.Gender; });
+                cf.Governorate = cf.dimension(function(d) { return d.Governorate; });
+                //        cf.caza = cf.dimension(function(d) { return d.CazaCode; });
+                cf.partner = cf.dimension(function(d) { return d.Partner; });
+                cf.funded = cf.dimension(function(d) { return d.Fundedby; });
+                //        cf.rrp6 = cf.dimension(function(d) { return d.RRP6; });
+                //        cf.AllocationRRP6 = cf.dimension(function(d) { return d.AllocationRRP6; });
+                cf.month = cf.dimension(function (d) {return d.month;});
+                cf.rcode = cf.dimension(function (d) {return d.rcode;});
+                cf.gcode = cf.dimension(function (d) {return d.gcode;});
+                
+                var indicator = cf.indicator.group();
+                var gender = cf.gender.group();
+                var Governorate = cf.Governorate.group();
+                var partner = cf.partner.group();
+                var funded = cf.funded.group();
+                //        var rrp6 = cf.rrp6.group();
+                //        var AllocationRRP6 = cf.AllocationRRP6.group();
+                var month = cf.month.group();
+                var rcode = cf.rcode.group();
+                var gcode = cf.gcode.group();
+                var all = cf.groupAll();
+                
+                var indicatorByTotal = cf.indicator.group().reduceSum(function (d) { return d.Value;} );
+                var genderByTotal = cf.gender.group().reduceSum(function (d) { return d.Value;} );
+                var partnerByTotal = cf.partner.group().reduceSum(function (d) { return d.Value;} );
+                var fundedByTotal = cf.funded.group().reduceSum(function (d) { return d.Value;} );
+                //        var rrp6ByTotal = cf.rrp6.group().reduceSum(function (d) { return d.Value;} );
+                //        var AllocationRRP6ByTotal = cf.AllocationRRP6.group().reduceSum(function (d) { return d.Value;} );
+                var monthByTotal = cf.month.group().reduceSum(function (d) { return d.Value;} );
+                
+                //var incltotalByTotal = cf.incltotal.group().reduceSum(function (d) { return d.Value; });
+                
+                //Load in GeoJSON data for area
+                   d3.json("../data/region.geojson", function (regionsJSON) {
+                
+                       map_chart.width(400).height(300)
+                           .dimension(cf.rcode)
+                           .group(rcode)
+                           .colors(['#AAAAAA', '#006CA9'])
+                           .colorDomain([0, 1])
+                           .on("filtered", getFiltersValues)
+                           .colorAccessor(function (d) {
+                               if(d>0){
+                                   return 1;
+                               } else {
+                                   return 0;
+                               }
+                           })
+                           .overlayGeoJson(regionsJSON.features, "Region", function (d) {
+                               return d.properties.rid;
+                           })
+                           .projection(d3.geo.mercator().center([42,29.9]).scale(3500)) /* Center on Jordan */
+                           .title(function (d) {
+                               return "Geo-Filter: " + rcode2reg[d.key];
+                           });
+                
+                    /* Governorate map with ID adm1_code */
+                           d3.json("../data/admin1.geojson", function (governJSON){
+                               map2_chart.width(400).height(300)
+                                   .dimension(cf.gcode)
+                                   .group(gcode)
+                                   .colors(['#AAAAAA', '#006CA9'])
+                                   .colorDomain([0, 1])
+                                   .on("filtered", getFiltersValues)
+                                   .colorAccessor(function (d) {
+                                       if(d>0){
+                                           return 1;
+                                       } else {
+                                           return 0;
+                                       }
+                                   })
+                                   .overlayGeoJson(governJSON.features, "Governorates", function (d) {
+                                       return d.properties.adm1_code;
+                                   })
+                                   .projection(d3.geo.mercator().center([42,29.9]).scale(3500)) /* Center on Jordan */
+                                   .title(function (d) {
+                                       return "Geo-Filter: " + gcode2gov[d.key];
+                                   });
+                
+                                   $('#loading').hide();
+                                   $('#dashboard').show();
+                                   dc.renderAll();
+                
+                                   /* Customised infobox */
+                                   d3.selectAll("g.row").call(rowTip);
+                                   d3.selectAll("g.row").on('mouseover', rowTip.show)
+                                       .on('mouseout', rowTip.hide);
+                
+                                   d3.selectAll(".pie-slice").call(pieTip);
+                                   d3.selectAll(".pie-slice").on('mouseover', pieTip.show)
+                                       .on('mouseout', pieTip.hide);
+                           });
+                       });
+                
+                function getFiltersValues() {
+                       var filters = [
+                           { name: 'indicator', value: indicator_chart.filters()},
+                           { name: 'gender', value: gender_chart.filters()},
+                           { name: 'funded', value: funded_chart.filters()},
+                //                    { name: 'rrp6', value: rrp6_chart.filters()},
+                           { name: 'partner', value: partner_chart.filters()},
+                //                    { name: 'AllocationRRP6', value: AllocationRRP6_chart.filters()},
+                { name: 'map', value: map_chart.filters()},
+                           { name: 'map2', value: map2_chart.filters()}
+                ];
+                
+                       var recursiveEncoded = $.param( filters );
+                       location.hash = recursiveEncoded;
+                   }
+                function initFilters() {
+                       // Get hash values
+                       var parseHash = /^#indicator=([A-Za-z0-9,_\-\/\s]*)&gender=([A-Za-z0-9,_\-\/\s]*)&funded=([A-Za-z0-9,_\-\/\s]*)&rrp6=([A-Za-z0-9,_\-\/\s]*)&partner=([A-Za-z0-9,_\-\/\s]*)&AllocationRRP6=([A-Za-z0-9,_\-\/\s]*)&Governorate=([A-Za-z0-9,_\-\/\s]*)&caza=([A-Za-z0-9,_\-\/\s]*)$/;
+                       var parsed = parseHash.exec(decodeURIComponent(location.hash));
+                       function filter(chart, rank) {
+                
+                           if (parsed[rank] == "") {
+                               chart.filter(null);
+                           }
+                           else {
+                               var filterValues = parsed[rank].split(",");
+                               for (var i = 0; i < filterValues.length; i++ ) {
+                                   chart.filter(filterValues[i]);
+                               }
+                           }
+                       }
+                       if (parsed) {
+                           filter(indicator_chart, 1);
+                           filter(gender_chart, 2);
+                           filter(funded_chart, 3);
+                //                    filter(rrp6_chart, 4);
+                           filter(partner_chart, 5);
+                //                    filter(AllocationRRP6_chart, 6);
+                           filter(map_chart, 7);
+                           filter(map2_chart, 8);					
+                       }
+                   }
+                
+                   // tooltips for row chart
+                   var rowTip = d3.tip()
+                         .attr('class', 'd3-tip')
+                         .offset([-10, 0])
+                         .html(function (d) { return "<span style='color: #f0027f'>" +  d.key + "</span> : "  + numberFormat(d.value) + " Individuals"; });
+                
+                   // tooltips for pie chart
+                   var pieTip = d3.tip()
+                         .attr('class', 'd3-tip')
+                         .offset([-10, 0])
+                         .html(function (d) { return "<span style='color: #f0027f'>" +  d.data.key + "</span> : "  + numberFormat(d.value) + " Individuals"; });
+                
+                   // tooltips for bar chart
+                   var barTip = d3.tip()
+                         .attr('class', 'd3-tip')
+                         .offset([-10, 0])
+                         .html(function (d) { return "<span style='color: #f0027f'>" + d.data.key + "</span> : " + numberFormat(d.value) + " Individuals";});
+                
+                   // tooltips for bubble chart
+                   var bubbleTip = d3.tip()
+                         .attr('class', 'd3-tip')
+                         .offset([-10, 0])
+                         .html(function (d) { return "<span style='color: #f0027f'>" + d.key + "</span> : " + numberFormat(d.value) + " Individuals";});
+                
+                   // tooltips for geoChoropleth chart (there is an error and that's why I blocked it off temporarily)
+                
+                   var geoTip = d3.tip()
+                         .attr('class', 'd3-tip')
+                         .offset([-10, 0])
+                         .html(function (d) { return "<span style='color: #f0027f'>" + cazacode2caza[d.key] + "</span> : " + numberFormat(d.value) + " Individuals";});
+                
+                
+                   indicator_chart.width(400).height(200)
+                       .dimension(cf.indicator)
+                       .group(indicatorByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) {
+                           return group.top(100);
+                       })
+                       //.colors(['#006CA9'])
+                       .colors(['#006CA9'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+                
+                   gender_chart.width(200).height(175)
+                       .dimension(cf.gender)
+                       .group(genderByTotal)
+                       .innerRadius(10)
+                       .colors(['#ff0000', /* Affected lebanese */
+                               '#00ff00', /* Lebanese Returnees */
+                               '#0000ff', /* Palestanian Refugees from Syria */
+                               '#006CA9', /* Syrian Refugees */
+                               ])
+                       .colorDomain([0,4])
+                       .renderLabel(true)
+                       .colorAccessor(function(d, i){return i%4;})
+                       .on("filtered", getFiltersValues);
+                
+                   funded_chart.width(200).height(175)
+                       .dimension(cf.funded)
+                       .group(fundedByTotal)
+                       .innerRadius(10)
+                       .colors(['rgb(195,195,255)', /* Indepedent */
+                               'rgb(0,108,169)', /* UNHCR */
+                               '#0000ff', /* Other 1 */
+                               '#006CA9', /* Other 2 */
+                               ])
+                       .colorDomain([0,4])
+                       .renderLabel(true)
+                       .colorAccessor(function(d, i){return i%4;})
+                       .on("filtered", getFiltersValues);
+                                
+                   partner_chart.width(400).height(570)
+                       .dimension(cf.partner)
+                       .group(partnerByTotal)
+                       .elasticX(true)
+                       .on("filtered", getFiltersValues)
+                       .data(function(group) {
+                           return group.top(200);
+                       })
+                       .colors(['#006CA9'])
+                       .colorDomain([0,0])
+                       .colorAccessor(function(d, i){return 1;})
+                       .xAxis().ticks(4).tickFormat(d3.format("s"));
+                
+                   month_chart.width(900).height(270)
+                       //.renderArea(true)
+                       .transitionDuration(1000)
+                       .margins({top: 30, right: 50, bottom: 25, left: 40})
+                       .dimension(cf.month)
+                       .mouseZoomable(true)
+                       // Specify a range chart to link the brush extent of the range with the zoom focue of the current chart.
+                       .rangeChart(monthrange_chart)
+                       .x(d3.time.scale().domain([new Date(2014, 0, 1), new Date(2014, 11, 31)]))
+                       //.round(d3.time.month.round)
+                       .xUnits(d3.time.months)
+                       //.elasticY(true)
+                       .renderHorizontalGridLines(true)
+                       .legend(dc.legend().x(700).y(10).itemHeight(13).gap(5))
+                       .brushOn(false)
+                       // Add the base layer of the stack with group. The second parameter specifies a series name for use in the legend
+                       // The `.valueAccessor` will be used for the base layer
+                       .group(monthByTotal, "Monthly Progress")
+                       .valueAccessor(function (d) {
+                           return d.value;
+                       })
+                       .colors(['#006CA9']);
+                       // stack additional layers with `.stack`. The first paramenter is a new group.
+                       // The second parameter is the series name. The third is a value accessor.
+                       //.stack(monthlyMoveGroup, "Monthly Index Move", function (d) {
+                       //  return d.value;
+                       //})
+                       // title can be called by any stack layer.
+                       //.title(function (d) {
+                       //  var value = d.value.avg ? d.value.avg : d.value;
+                       //  if (isNaN(value)) value = 0;
+                       //  return dateFormat(d.key) + "\n" + numberFormat(value);
+                       //});
+                
+                   monthrange_chart.width(900)
+                       .height(40)
+                       .margins({top: 0, right: 50, bottom: 20, left: 40})
+                       .dimension(cf.month)
+                       .group(monthByTotal)
+                       //.centerBar(true)
+                       .colors(['#006CA9'])
+                       .gap(1)
+                       .x(d3.time.scale().domain([new Date(2014, 0, 1), new Date(2014, 11, 31)]))
+                       //.round(d3.time.month.round)
+                       //.alwaysUseRounding(true)
+                       .xUnits(d3.time.months);
+                monthrange_chart.yAxis().ticks(0);
+                   dc.dataCount("#count-info")
+                       .dimension(cf)
+                       .group(all);
+                   //$('#loading').hide();
+                   $('#dashboard').show();
+                }
+                });
+                
+            </script><script src="../js/bootstrap.js"></script>
+            <script>
+                $(window).bind("load", function() {
+                dc.filterAll(); monthrange_chart.filter([new Date(GetUrlValue('Year'), 0, 1), new Date(GetUrlValue('Year'), GetUrlValue('Month')-1, 30)]); dc.redrawAll();
+                });
+                
+            </script>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+            <div class="d3-tip" style="box-sizing: border-box; position: absolute; display: none">&nbsp;</div>
+        </div>
+    </body>
+</html>
