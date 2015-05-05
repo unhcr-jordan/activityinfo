@@ -12,7 +12,10 @@
 # authenticate
 #activityInfoLogin()
 
-#source("code/activityinfo.R")
+# Required Packages and authenticate
+
+source("code/0-packages.R")
+source("code/0-activityinfo.R")
 
 ### JOR-3RP Plan Database Jordan db 1662
 database.id <- 1662
@@ -56,14 +59,16 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
     if (n) {
       df <- data.frame(siteId = rep(site$id, n),
                        activityId = rep(site$activity, n),
-                       startDate = rep(site$startDate, n),
-                       endDate = rep(site$endDate, n),
+                       #  startDate = rep(site$startDate, n),
+                       #  endDate = rep(site$endDate, n),
+                       comments = ifelse(is.null(site$comments), "", site$comments),
                        stringsAsFactors = FALSE)
       # site$attributes is a vector with attribute identifiers. Some of these
       # may be multiple-selection attributes, which we currently ignore.
       i <- match(site$attributes, attributes$id, nomatch = 0)
       df$attributeGroup <- attributes$group[i]
       df$attributeValue <- attributes$name[i]
+      df$multipleAllowed <- attributes$multipleAllowed[i]
     } else {
       return(NULL)
     }
@@ -77,26 +82,15 @@ sites <- do.call(rbind, lapply(activities.reported.once, function(id) {
 #   attribute
 # Create a wide-format data frame with a column for each attribute group:
 if (!include.multiple.selection) {
-  sites.wide <- dcast(sites,
-                      siteId + activityId + startDate + endDate ~ attributeGroup)
-  
-
-  
+         sites.wide <- dcast(sites, siteId + activityId + startDate + endDate ~ attributeGroup)  
 #################################################################################################
 ### Step 3: merge missing information into the 'values' data frame:
-  values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
-} else {
-  values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
-  warning("attribute values are not stored in separate columns!")
-}
-# 'values' should now have a separate column for every single-selection
-# attribute found in all indicators that exist in the given database.
-  ### Step 3: merge missing information into the 'values' data frame:
-  values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
-} else {
-  values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
-  warning("attribute values are not stored in separate columns!")
-}
+         values <- merge(values, sites.wide, by = c("siteId", "activityId"), all.x = TRUE)
+      } else 
+      {
+        values <- merge(values, sites, by = c("siteId", "activityId"), all.x = TRUE)
+        warning("attribute values are not stored in separate columns!")
+      }
 # 'values' should now have a separate column for every single-selection
 # attribute found in all indicators that exist in the given database.
 
@@ -142,8 +136,7 @@ for (type in unique(activities.table$locationTypeId)) {
   locations <- c(locations, getLocations(type))
 }
 
-# store the names of administrative entities for each record (i.e. site) in the
-# final result:
+# store the names of administrative entities for each record (i.e. site) in the final result:
 location.ids <- sapply(locations, function(loc) loc$id)
 for (id in unique(values$locationId)) {
   rows <- which(values$locationId == id)
@@ -155,13 +148,67 @@ for (id in unique(values$locationId)) {
     }
   } else {
     warning("found zero or more locations with identifier ",
-            values$locationId[i], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
+            values$locationId[id], ". Skipping row(s) ", paste(rows, collapse = ", "), ".")
   }
 }
 
-###
+#################################################################################################
+### Step 5: Let's cast attributes and merge them back to unique indicators
+# reformat attributes
+## First unique values for sites;
 
-db.1662.3rp <- values
+names(values)
+values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "locationName"  ,
+                                  "partnerId"  , "partnerName" ,  "activityName" ,
+                                  "activityCategory","indicatorId"  , "value", "indicatorName",
+                                  "month" , "database",  "indicatorCategory","units" , 
+                                  #"startDate" , "endDate" , 
+                                  #"attributeGroup" , "attributeValue" , "multipleAllowed"
+                                  "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts","comments"  )])
+
+## Let's cast attributes
+# We have single and multiple attributes -- multipleAllowed
+#names(values)
+
+sites.unique.attr <- unique(values[,c("siteId" , "attributeGroup" , "attributeValue" , "multipleAllowed" )])
+sites.unique <- as.data.frame(values[,c("siteId"  )])
+sites.unique <- unique(sites.unique)
+
+sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
+
+
+sites.attribute.multiple <- sites.unique.attr[sites.unique.attr$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
+sites.attribute.multiple.wide <- dcast(sites.attribute.multiple, siteId  ~ attributeValue)
+
+## Merge back
+#rm(values.unique.attribute)
+values.unique.attribute <- merge (x=values.unique, y=sites.attribute.single.wide, by="siteId", all.x=TRUE)
+values.unique.attribute <- merge (x=values.unique.attribute, y=sites.attribute.multiple.wide, by="siteId", all.x=TRUE)
+
+
+values.unique.attribute$objective <- substr(values.unique.attribute$activityCategory , (regexpr("]", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))+1,50)
+values.unique.attribute$sector <- substr(values.unique.attribute$activityCategory ,1, (regexpr("[", values.unique.attribute$activityCategory , ignore.case=FALSE, fixed=TRUE))-1)
+
+values.unique.attribute$sector[values.unique.attribute$sector=="EDU"] <-"EDUCATION"
+values.unique.attribute$sector[values.unique.attribute$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
+values.unique.attribute$sector[values.unique.attribute$sector=="PROT"] <-"PROTECTION"
+values.unique.attribute$sector[values.unique.attribute$sector=="SHLT"] <-"SHELTER"
+values.unique.attribute$sector[values.unique.attribute$sector=="HLTH"] <-"HEALTH"
+#unique(values.unique.attribute$sector)
+
+values.unique.attribute$Category <- substr(values.unique.attribute$activityName ,(regexpr("[", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))+1, (regexpr("]", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))-4)
+values.unique.attribute$Category[values.unique.attribute$Category=="RES "] <- "Resilience"
+values.unique.attribute$Category[values.unique.attribute$Category=="RES"] <- "Resilience"
+values.unique.attribute$Category[values.unique.attribute$Category=="REF"] <- "Refugee"
+values.unique.attribute$Category <- as.factor(values.unique.attribute$Category)
+levels(values.unique.attribute$Category)
+
+values.unique.attribute$activity2 <- substr(values.unique.attribute$activityName , (regexpr("]", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))+1,50)
+
+
+#################################
+db.1662.3rp <- values.unique.attribute
 
 ### Clean unused elements
 
