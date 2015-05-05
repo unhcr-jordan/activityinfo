@@ -209,6 +209,7 @@ values.unique.attribute$activity2 <- substr(values.unique.attribute$activityName
 
 #################################
 db.1662.3rp <- values.unique.attribute
+write.csv(db.1662.3rp, file = "out/plandata.csv",na="")
 
 ### Clean unused elements
 
