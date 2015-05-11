@@ -953,8 +953,8 @@ countrywide$sector[countrywide$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
 write.csv(countrywide, file = "out/monitor/2015/countrywide/data.csv",na="")
 
 
-#db.1064.monitor <- values.unique.attribute
-#write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
+db.1064.monitor <- values.unique.attribute
+write.csv(db.2300.monitor, file = "out/monitordata.csv",na="")
 
 
 
