@@ -717,7 +717,7 @@ write.csv(output.nfi.oth, file = "out/monitor/2014/nfi/dataother.csv",na="")
 
 
 db.1064.monitor <- values.unique.attribute
-write.csv(db.1064.monitor, file = "out/monitordata.csv",na="")
+write.csv(db.1064.monitor, file = "out/monitordata2014.csv",na="")
 
 ### Clean unused elements
 
