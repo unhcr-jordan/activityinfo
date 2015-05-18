@@ -849,6 +849,7 @@ output <- output[with(output, order(activity, Indicator,location, Partner)), ]
 
 output.education <-  subset(output, output$sector == "EDUCATION")
 output.education.benef <-  subset(output.education, output.education$Indicator != "")
+output.education.benef$Indicator[output.education.benef$Indicator=="From Script"] <- ""
 write.csv(output.education.benef, file = "out/monitor/2015/education/data.csv",na="")
 output.education.oth <-  subset(output.education, output.education$Indicator == "")
 output.education.oth$Indicator <- output.education.oth$Indicator2
@@ -856,6 +857,7 @@ write.csv(output.education.oth, file = "out/monitor/2015/education/dataother.csv
 
 output.health <-  subset(output, output$sector == "HEALTH")
 output.health.benef <-  subset(output.health, output.health$Indicator != "")
+output.health.benef$Indicator[output.health.benef$Indicator=="From Script"] <- ""
 write.csv(output.health.benef, file = "out/monitor/2015/health/data.csv",na="")
 output.health.oth <-  subset(output.health, output.health$Indicator == "")
 output.health.oth$Indicator <- output.health.oth$Indicator2
@@ -863,6 +865,7 @@ write.csv(output.health.oth, file = "out/monitor/2015/health/dataother.csv",na="
 
 output.food <-  subset(output, output$sector == "FOOD/LIVELIHOOD")
 output.food.benef <-  subset(output.food, output.food$Indicator != "")
+output.food.benef$Indicator[output.food.benef$Indicator=="From Script"] <- ""
 write.csv(output.food.benef, file = "out/monitor/2015/food/data.csv",na="")
 output.food.oth <-  subset(output.food, output.food$Indicator == "")
 output.food.oth$Indicator <- output.food.oth$Indicator2
@@ -870,6 +873,7 @@ write.csv(output.food.oth, file = "out/monitor/2015/food/dataother.csv",na="")
 
 output.basicneeds <-  subset(output, output$sector == "BASIC NEEDS")
 output.basicneeds.benef <-  subset(output.basicneeds, output.basicneeds$Indicator != "")
+output.basicneeds.benef$Indicator[output.basicneeds.benef$Indicator=="From Script"] <- ""
 write.csv(output.basicneeds.benef, file = "out/monitor/2015/basicneeds/data.csv",na="")
 output.basicneeds.oth <-  subset(output.basicneeds, output.basicneeds$Indicator == "")
 output.basicneeds.oth$Indicator <- output.basicneeds.oth$Indicator2
@@ -885,6 +889,7 @@ output.protection <-  subset(output, output$sector == "PROTECTION")
 # of women, girls, boys & men benefiting from psychosocial support services (level 2 & 3) 
 
 output.protection.benef <-  subset(output.protection, output.protection$Indicator != "")
+output.protection.benef$Indicator[output.protection.benef$Indicator=="From Script"] <- ""
 write.csv(output.protection.benef, file = "out/monitor/2015/protection/data.csv",na="")
 output.protection.oth <-  subset(output.protection, output.protection$Indicator == "")
 output.protection.oth$Indicator <- output.protection.oth$Indicator2
@@ -898,6 +903,7 @@ output.shelter <-  subset(output, output$sector == "SHELTER")
 # of people receiving information messaging on housing (HLP)
 
 output.shelter.benef <-  subset(output.shelter, output.shelter$Indicator != "")
+output.shelter.benef$Indicator[output.shelter.benef$Indicator=="From Script"] <- ""
 write.csv(output.shelter.benef, file = "out/monitor/2015/shelter/data.csv",na="")
 output.shelter.oth <-  subset(output.shelter, output.shelter$Indicator == "")
 output.shelter.oth$Indicator <- output.shelter.oth$Indicator2
@@ -905,6 +911,7 @@ write.csv(output.shelter.oth, file = "out/monitor/2015/shelter/dataother.csv",na
 
 output.wash <-  subset(output, output$sector == "WASH")
 output.wash.benef <-  subset(output.wash, output.wash$Indicator != "")
+output.wash.benef$Indicator[output.wash.benef$Indicator=="From Script"] <- ""
 write.csv(output.wash.benef, file = "out/monitor/2015/wash/data.csv",na="")
 output.wash.oth <-  subset(output.wash, output.wash$Indicator == "")
 output.wash.oth$Indicator <- output.wash.oth$Indicator2
