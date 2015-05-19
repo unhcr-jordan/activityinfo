@@ -872,10 +872,13 @@ output.food.oth$Indicator <- output.food.oth$Indicator2
 write.csv(output.food.oth, file = "out/monitor/2015/food/dataother.csv",na="")
 
 output.basicneeds <-  subset(output, output$sector == "BASIC NEEDS")
+output.basicneedscase <- subset(output.basicneeds, output.basicneeds$Units == "# of case")
+output.basicneedscase$Indicator <- output.basicneedscase$Indicator2
 output.basicneeds.benef <-  subset(output.basicneeds, output.basicneeds$Indicator != "")
 output.basicneeds.benef$Indicator[output.basicneeds.benef$Indicator=="From Script"] <- ""
-write.csv(output.basicneeds.benef, file = "out/monitor/2015/basicneeds/data.csv",na="")
-output.basicneeds.oth <-  subset(output.basicneeds, output.basicneeds$Indicator == "")
+output.basicneeds.benefFinal <- rbind(output.basicneeds.benef,output.basicneedscase)
+write.csv(output.basicneeds.benefFinal, file = "out/monitor/2015/basicneeds/data.csv")
+output.basicneeds.oth <-  subset(output.basicneeds, output.basicneeds$Indicator == "" & output.basicneeds$Units !="# of case")
 output.basicneeds.oth$Indicator <- output.basicneeds.oth$Indicator2
 write.csv(output.basicneeds.oth, file = "out/monitor/2015/basicneeds/dataother.csv",na="")
 
