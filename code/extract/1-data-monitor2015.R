@@ -332,6 +332,29 @@ values.unique.attribute.bcp <- values.unique.attribute
 
 #values.unique.attribute <- values.unique.attribute.bcp
 
+#### Assigning Gender/Indicator/poptype -  for # caregivers/ mothers reached with IYCF services
+
+
+values.unique.attribute$gender <- with(values.unique.attribute,
+                                       ifelse(grepl("# caregivers/ mothers reached with IYCF services", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                              paste0("Women"),values.unique.attribute$gender )
+)
+
+values.unique.attribute$poptype <- with(values.unique.attribute,
+                                        
+                                        ifelse(grepl("Urban", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$sitetype) &
+                                                 grepl("# caregivers/ mothers reached with IYCF services", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) ,                                        
+                                               paste0("Urban"), values.unique.attribute$poptype)
+)
+
+values.unique.attribute$poptype <- with(values.unique.attribute,
+                                        
+                                        ifelse(grepl("Camp", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$sitetype) &
+                                                 grepl("# caregivers/ mothers reached with IYCF services", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) ,                                        
+                                               paste0("Camp"), values.unique.attribute$poptype)
+)
+
+
 
 #################Urban/Rural Syrian Women (Age 18 and above)
 values.unique.attribute$gender <- with(values.unique.attribute,
@@ -809,6 +832,13 @@ output <- output[,c("sector","StartDate" ,"Category",
                     "Value" , "Units"  ,"location", "region","poptype")] 
 
 
+
+output$Indicator <- with(values.unique.attribute,
+                                        
+                                        ifelse(grepl("", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  output$Indicator) &
+                                                 grepl("# caregivers/ mothers reached with IYCF services", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  output$Indicator2) ,                                        
+                                               paste0("# caregivers/ mothers reached with IYCF services"), output$Indicator)
+)
 #names(output)
 
 #output$Indicator <- as.factor(output$Indicator)
