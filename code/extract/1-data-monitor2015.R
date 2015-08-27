@@ -13,7 +13,7 @@
 #activityInfoLogin()
 
 # Uncomment when you run for the first time during yout session
- source("code/0-activityinfo.R")
+source("code/0-activityinfo.R")
 #
 source("code/0-packages.R")
 
@@ -239,27 +239,27 @@ values.unique.attribute$gov[values.unique.attribute$locationName=="Camps"] <- "C
 values.unique.attribute$region[values.unique.attribute$locationName=="Camps"] <- "2"
 
 #Camp Names ZaatariCamp
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 9"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 6"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 5"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 3"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 10"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 2"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 4"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 11"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 7"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 12"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 1"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 8"] <- "ZaatariCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari Camp (all district)"] <- "ZaatariCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 9"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 6"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 5"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 3"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 10"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 2"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 4"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 11"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 7"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 12"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 1"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari District 8"] <- "ZAATARICAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Zaatari Camp (all district)"] <- "ZAATARICAMP"
 
 
 #Camp Names AzraqCamp
-values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 1"] <- "AzraqCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 6"] <- "AzraqCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 2"] <- "AzraqCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp"] <- "AzraqCamp"
-values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 3"] <- "AzraqCamp"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 1"] <- "AZRAQCAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 6"] <- "AZRAQCAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 2"] <- "AZRAQCAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp"] <- "AZRAQCAMP"
+values.unique.attribute$gov[values.unique.attribute$locationName=="Azraq Camp Village 3"] <- "AZRAQCAMP"
 
 #Camp Names EJC
 
@@ -409,6 +409,8 @@ values.unique.attribute$indic <- with(values.unique.attribute,
                                              ), values.unique.attribute$indic)
 )
 
+
+
 #################Urban/Rural Syrian Men (Age 18 and Above)
 values.unique.attribute$gender <- with(values.unique.attribute,
                                        ifelse(grepl("Urban/Rural Syrian Men", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
@@ -513,6 +515,60 @@ values.unique.attribute$indic <- with(values.unique.attribute,
                                              ), values.unique.attribute$indic)
 )
 
+
+#################Existing Camps Syrian Boys (Age 0-17)
+values.unique.attribute$gender <- with(values.unique.attribute,
+                                       ifelse(grepl("Existing Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                              paste0("Boys"),values.unique.attribute$gender )
+)
+values.unique.attribute$poptype <- with(values.unique.attribute,
+                                        ifelse(grepl("Existing Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                               paste0("Urban"), values.unique.attribute$poptype)
+)
+values.unique.attribute$indic <- with(values.unique.attribute,
+                                      ifelse(grepl("Existing Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) &
+                                               grepl("Age 0-17", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                             paste0(
+                                               substr(values.unique.attribute$indicatorName ,
+                                                      (regexpr("Existing Camps Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+37,250)
+                                             ), values.unique.attribute$indic)
+)
+values.unique.attribute$indic <- with(values.unique.attribute,
+                                      ifelse(grepl("Existing Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) &
+                                               grepl("Age 0-17", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                             paste0(
+                                               substr(values.unique.attribute$indicatorName ,
+                                                      (regexpr("Existing Camps Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+38,250)
+                                             ), values.unique.attribute$indic)
+)
+
+##Newly Camps Syrian Boys (Age 0-17)
+
+#################Newly Camps Syrian Boys(Age 0-17)
+values.unique.attribute$gender <- with(values.unique.attribute,
+                                       ifelse(grepl("Newly Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                              paste0("Boys"),values.unique.attribute$gender )
+)
+values.unique.attribute$poptype <- with(values.unique.attribute,
+                                        ifelse(grepl("Newly Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                               paste0("Urban"), values.unique.attribute$poptype)
+)
+values.unique.attribute$indic <- with(values.unique.attribute,
+                                      ifelse(grepl("Newly Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) &
+                                               grepl("Age 0-17", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                             paste0(
+                                               substr(values.unique.attribute$indicatorName ,
+                                                      (regexpr("Newly Camps Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+34,250)
+                                             ), values.unique.attribute$indic)
+)
+values.unique.attribute$indic <- with(values.unique.attribute,
+                                      ifelse(grepl("Newly Camps Syrian Boys", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName) &
+                                               grepl("Age 0-17", ignore.case = TRUE, fixed = FALSE, useBytes = FALSE,  values.unique.attribute$indicatorName),
+                                             paste0(
+                                               substr(values.unique.attribute$indicatorName ,
+                                                      (regexpr("Newly Camps Syrian Boys (Age 0-17)", values.unique.attribute$indicatorName , ignore.case=FALSE, fixed=TRUE))+35,250)
+                                             ), values.unique.attribute$indic)
+)
 
 #################Urban/Rural Syrian Boys (Age 0-17)
 values.unique.attribute$gender <- with(values.unique.attribute,
@@ -859,6 +915,10 @@ output$StartDate[output$StartDate=="01/09/2015"] <- "30/9/2015"
 output$StartDate[output$StartDate=="01/10/2015"] <- "30/10/2015"
 output$StartDate[output$StartDate=="01/11/2015"] <- "30/11/2015"
 output$StartDate[output$StartDate=="01/12/2015"] <- "30/12/2015"
+output$Indicator[output$Indicator=="bove) # benefiting from basic learning (literacy and numeracy)"] <- "# benefiting from basic learning (literacy and numeracy)"
+output$Indicator[output$Indicator=="bove) # benefiting from life skills activities"] <- "# benefiting from life skills activities"
+output$Indicator[output$Indicator=="d above) # benefiting from basic learning (literacy and numeracy)"] <- "# benefiting from basic learning (literacy and numeracy)"
+output$Indicator[output$Indicator=="d above) # benefiting from life skills activities"] <- "# benefiting from life skills activities"
 
 
 
@@ -884,6 +944,8 @@ write.csv(output.education.benef, file = "out/monitor/2015/education/data.csv",n
 output.education.oth <-  subset(output.education, output.education$Indicator == "")
 output.education.oth$Indicator <- output.education.oth$Indicator2
 write.csv(output.education.oth, file = "out/monitor/2015/education/dataother.csv",na="")
+OE <- rbind(output.education.oth,output.education.benef)
+write.csv(OE, file = "out/monitor/2015/education/dataind.csv",na="")
 
 output.health <-  subset(output, output$sector == "HEALTH")
 output.health.benef <-  subset(output.health, output.health$Indicator != "")
@@ -892,6 +954,9 @@ write.csv(output.health.benef, file = "out/monitor/2015/health/data.csv",na="")
 output.health.oth <-  subset(output.health, output.health$Indicator == "")
 output.health.oth$Indicator <- output.health.oth$Indicator2
 write.csv(output.health.oth, file = "out/monitor/2015/health/dataother.csv",na="")
+HE <- rbind(output.health.oth,output.health.benef)
+write.csv(HE, file = "out/monitor/2015/health/dataind.csv",na="")
+
 
 output.food <-  subset(output, output$sector == "FOOD/LIVELIHOOD")
 output.food.benef <-  subset(output.food, output.food$Indicator != "")
@@ -900,6 +965,8 @@ write.csv(output.food.benef, file = "out/monitor/2015/food/data.csv",na="")
 output.food.oth <-  subset(output.food, output.food$Indicator == "")
 output.food.oth$Indicator <- output.food.oth$Indicator2
 write.csv(output.food.oth, file = "out/monitor/2015/food/dataother.csv",na="")
+FE <- rbind(output.food.oth,output.food.benef)
+write.csv(FE, file = "out/monitor/2015/food/dataind.csv",na="")
 
 output.basicneeds <-  subset(output, output$sector == "BASIC NEEDS")
 output.basicneedscase <- subset(output.basicneeds, output.basicneeds$Units == "# of case")
@@ -911,6 +978,8 @@ write.csv(output.basicneeds.benefFinal, file = "out/monitor/2015/basicneeds/data
 output.basicneeds.oth <-  subset(output.basicneeds, output.basicneeds$Indicator == "" & output.basicneeds$Units !="# of case")
 output.basicneeds.oth$Indicator <- output.basicneeds.oth$Indicator2
 write.csv(output.basicneeds.oth, file = "out/monitor/2015/basicneeds/dataother.csv",na="")
+BE <- rbind(output.basicneeds.oth,output.basicneeds.benef)
+write.csv(BE, file = "out/monitor/2015/basicneeds/dataind.csv",na="")
 
 
 output.protection <-  subset(output, output$sector == "PROTECTION")
@@ -927,6 +996,8 @@ write.csv(output.protection.benef, file = "out/monitor/2015/protection/data.csv"
 output.protection.oth <-  subset(output.protection, output.protection$Indicator == "")
 output.protection.oth$Indicator <- output.protection.oth$Indicator2
 write.csv(output.protection.oth, file = "out/monitor/2015/protection/dataother.csv",na="")
+PE <- rbind(output.protection.oth,output.protection.benef)
+write.csv(PE, file = "out/monitor/2015/protection/dataind.csv",na="")
 
 output.shelter <-  subset(output, output$sector == "SHELTER")
 # of dwelling units upgraded to minimum standards
@@ -941,6 +1012,8 @@ write.csv(output.shelter.benef, file = "out/monitor/2015/shelter/data.csv",na=""
 output.shelter.oth <-  subset(output.shelter, output.shelter$Indicator == "")
 output.shelter.oth$Indicator <- output.shelter.oth$Indicator2
 write.csv(output.shelter.oth, file = "out/monitor/2015/shelter/dataother.csv",na="")
+SE <- rbind(output.shelter.oth,output.shelter.benef)
+write.csv(SE, file = "out/monitor/2015/shelter/dataind.csv",na="")
 
 output.wash <-  subset(output, output$sector == "WASH")
 output.wash.benef <-  subset(output.wash, output.wash$Indicator != "")
@@ -949,11 +1022,13 @@ write.csv(output.wash.benef, file = "out/monitor/2015/wash/data.csv",na="")
 output.wash.oth <-  subset(output.wash, output.wash$Indicator == "")
 output.wash.oth$Indicator <- output.wash.oth$Indicator2
 write.csv(output.wash.oth, file = "out/monitor/2015/wash/dataother.csv",na="")
+WE <- rbind(output.wash.oth,output.wash.benef)
+write.csv(WE, file = "out/monitor/2015/wash/dataind.csv",na="")
 
 ########################################################
 
 ### Multisectorial Dashboard - ZaatariCamp
-output.zaatari <-  subset(output, output$Governorate == "ZaatariCamp")
+output.zaatari <-  subset(output, output$Governorate == "ZAATARICAMP")
 output.zaatari.benef <-  subset(output.zaatari, output.zaatari$Indicator != "")
 output.zaatari.benef$sector[output.zaatari.benef$sector=="BASIC NEEDS"] <- "BASICNEEDS"
 output.zaatari.benef$sector[output.zaatari.benef$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
@@ -970,11 +1045,14 @@ output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 1
 output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 1"] <- "District 1"
 output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari District 8"] <- "District 8"
 output.zaatari.benef$location[output.zaatari.benef$location=="Zaatari Camp (all district)"] <- "Campwide"
-write.csv(output.zaatari.benef, file = "out/monitor/2015/zaatari/data.csv",na="")
+tweakdata1 <- read.csv("data/config/tweakzaatari.csv",header=T,sep=",")
+output.zaatari.benefFinal <- rbind(output.zaatari.benef,tweakdata1)
+
+write.csv(output.zaatari.benefFinal, file = "out/monitor/2015/zaatari/data.csv",na="")
 
 
 ### Multisectorial Dashboard - AzraqCamp
-output.azraq <-  subset(output, output$Governorate == "AzraqCamp")
+output.azraq <-  subset(output, output$Governorate == "AZRAQCAMP")
 output.azraq.benef <-  subset(output.azraq, output.azraq$Indicator != "")
 output.azraq.benef$sector[output.azraq.benef$sector=="BASIC NEEDS"] <- "BASICNEEDS"
 output.azraq.benef$sector[output.azraq.benef$sector=="FOOD/LIVELIHOOD"] <- "FOOD"
@@ -983,7 +1061,9 @@ output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 6"]
 output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 2"] <- "Village 2"
 output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp"] <- "Campwide"
 output.azraq.benef$location[output.azraq.benef$location=="Azraq Camp Village 3"] <- "Village 3"
-write.csv(output.azraq.benef, file = "out/monitor/2015/azraq/data.csv",na="")
+tweakdata2 <- read.csv("data/config/tweakazraq.csv",header=T,sep=",")
+output.azraq.benefFinal <- rbind(output.azraq.benef,tweakdata2)
+write.csv(output.azraq.benefFinal, file = "out/monitor/2015/azraq/data.csv",na="")
 
 ### Multisectorial Dashboard - Countrywide
 
@@ -1022,6 +1102,53 @@ rm(location.types)
 rm(locations)
 rm(rows)
 rm(schema)
+rm(BE)
+rm(FE)
+rm(HE)
+rm(OE)
+rm(PE)
+rm(SE)
+rm(WE)
+rm(countrywide)
+rm(db.2300.monitor)
+rm(db.1064.monitor)
+rm(indicbreak)
+rm(output)
+rm(output.azraq)
+rm(output.azraq.benef)
+rm(output.basicneeds)
+rm(output.basicneeds.oth)
+rm(output.basicneeds.benef)
+rm(output.basicneeds.benefFinal)
+rm(output.basicneedscase)
+rm(output.education)
+rm(output.education.benef)
+rm(output.education.oth)
+rm(output.food)
+rm(output.food.benef)
+rm(output.food.oth)
+rm(output.health)
+rm(output.health.benef)
+rm(output.health.oth)
+rm(output.protection)
+rm(output.protection.benef)
+rm(output.protection.oth)
+rm(output.shelter)
+rm(output.shelter.benef)
+rm(output.shelter.oth)
+rm(output.wash)
+rm(output.wash.benef)
+rm(output.wash.oth)
+rm(output.zaatari)
+rm(output.zaatari.benef)
+rm(output.zaatari.benefFinal)
+rm(regionactivityinfo)
+rm(sites.attribute.multiple.wide)
+rm(tweakdata)
+rm(tweakdata1)
+rm(tweakdata2)
+rm(values.unique.attribute)
+rm(values.unique.attribute.bcp)
 rm(type)
 
 rm(attributes)
