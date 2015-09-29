@@ -52,20 +52,18 @@ activityInfoLogin()
 # databases <- c(1540, 1563, 1564)
 # copyPartners(1539, databases)
 
-df <- getPartnerNames(1064)
+df <- getPartnerNames(2300)
 
 #databases <- c(1662)
 #copyPartners(1272, databases)
 
-databases <- c(2359)
+databases <- c(4470)
 copyPartners(2300, databases)
 
 
 ## Copy all users from 3rp plan and monitrong db 2014 to monitor 2015
 # copyUsers(sourceDatabase, targetDatabase)
 
-copyUsers(1662, 2300)
+copyUsers(2300, 4470)
 
-copyUsers(1064, 2300)
 
-copyUsers(2300, 2359)
