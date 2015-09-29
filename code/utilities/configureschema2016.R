@@ -13,6 +13,8 @@ attribute3rp <- read.csv("data/config/attribute3rp.csv", comment.char="#")
 rm(activity.unique)
 activity.unique <- activity[,c("ActivityCategory","ActivityName")]
 activity.unique <- as.data.frame(unique(activity.unique))
+write.csv(activity.unique, file = "out/plan2016unique.csv",na="")
+
 
 ## step4: merge unique list of activities with attributes
 rm(activity.unique.attr)
@@ -37,3 +39,5 @@ plan2016 <- rbind(activity,activity.unique.attr )
 
 plan2016 <- plan2016[order(plan2016$ActivityCategory, plan2016$ActivityName, plan2016$FormFieldType, plan2016$Category, plan2016$Name, plan2016$sort ),]
 
+
+write.csv(plan2016, file = "out/plan2016.csv",na="")
