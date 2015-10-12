@@ -20,7 +20,9 @@ source("code/0-activityinfo.R")
 ### JOR-3RP Plan Database Jordan db 4514
 database.id <- 4514
 
-values <- getIndicatorValueTable(database.id)
+
+
+values <- getIndicatorValueTableLocal(database.id)
 # this gives us almost all the information we need. Missing are the start and 
 # end date of the reporting period as well as the value of the attributes for
 # each site.
@@ -195,7 +197,11 @@ values.unique.attribute$sector[values.unique.attribute$sector=="EDU"] <-"EDUCATI
 values.unique.attribute$sector[values.unique.attribute$sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
 values.unique.attribute$sector[values.unique.attribute$sector=="PROT"] <-"PROTECTION"
 values.unique.attribute$sector[values.unique.attribute$sector=="SHLT"] <-"SHELTER"
-values.unique.attribute$sector[values.unique.attribute$sector=="HLTH"] <-"HEALTH"
+values.unique.attribute$sector[values.unique.attribute$sector=="TRAN"] <-"TRANSPORT"
+values.unique.attribute$sector[values.unique.attribute$sector=="MUN"] <-"MUNICIPALITY"
+values.unique.attribute$sector[values.unique.attribute$sector=="JUS"] <-"JUSTICE"
+values.unique.attribute$sector[values.unique.attribute$sector=="ENV"] <-"ENVIRONMENT"
+values.unique.attribute$sector[values.unique.attribute$sector=="ENG"] <-"ENGINEERING"
 #unique(values.unique.attribute$sector)
 
 values.unique.attribute$Category <- substr(values.unique.attribute$activityName ,(regexpr("[", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))+1, (regexpr("]", values.unique.attribute$activityName , ignore.case=FALSE, fixed=TRUE))-4)

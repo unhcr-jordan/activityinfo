@@ -161,7 +161,7 @@ names(values)
 values.unique <- unique(values[,c("siteId" , "activityId" , "locationId" , "locationName"  ,
                                   "partnerId"  , "partnerName" ,  "activityName" ,
                                   "activityCategory","indicatorId"  , "value", "indicatorName",
-                                  "month" , "database",  "indicatorCategory","units" , 
+                                  "month" , "database",  "indicatorCategory","units" , "attributeValue" ,
                                   #"startDate" , "endDate" , 
                                   #"attributeGroup" , "attributeValue" , "multipleAllowed"
                                   "governorate" ,  "region", "district" ,  "subdistrict", "refugee.camps", "camp.districts","comments"  )])
@@ -175,7 +175,7 @@ sites.unique <- as.data.frame(values[,c("siteId"  )])
 sites.unique <- unique(sites.unique)
 
 sites.attribute.single <- sites.unique.attr[sites.unique.attr$multipleAllowed == "FALSE",c("siteId", "attributeGroup" , "attributeValue")]
-sites.attribute.single.wide <- dcast(sites.attribute.single, siteId ~ attributeGroup, value.var="attributeValue")
+sites.attribute.single.wide <- dcast(sites.attribute.single, siteId  ~ attributeGroup, value.var="attributeValue")
 
 
 sites.attribute.multiple <- sites.unique.attr[sites.unique.attr$multipleAllowed == "TRUE",c("siteId", "attributeGroup" , "attributeValue")]
@@ -215,9 +215,9 @@ location <- read.csv("data/config/loc.csv")
 
 db.4513.3rp <- merge (x=db.4513.3rpLoc, y=location, by="locationName", all.x=TRUE)
 
-
-db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, sector,activity2,RegionCODE,Area2))
-setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "sector","activity2","RegionCODE","Area2"), new=c("Governorate", "sector","activity","partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","RegionCODE","Area2"))
+setnames(db.4513.3rp, old=c("attributeValue"), new=c("Implementation"))
+db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, sector,activity2,Implementation,RegionCODE,Area2))
+setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "sector","activity2", "Implementation", "RegionCODE","Area2"), new=c("Governorate", "sector","activity","partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2"))
 write.csv(db.4513.3rpVis, file = "out/plandataREF2016Viz.csv",na="")
 write.csv(db.4513.3rp, file = "out/plandataREF2016.csv",na="")
 
