@@ -216,8 +216,8 @@ location <- read.csv("data/config/loc.csv")
 db.4513.3rp <- merge (x=db.4513.3rpLoc, y=location, by="locationName", all.x=TRUE)
 
 setnames(db.4513.3rp, old=c("attributeValue"), new=c("Implementation"))
-db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, sector,activity2,Implementation,RegionCODE,Area2))
-setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "sector","activity2", "Implementation", "RegionCODE","Area2"), new=c("Governorate", "sector","activity","partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2"))
+db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, sector,activity2,Implementation,RegionCODE,Area2,units))
+setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "sector","activity2", "Implementation", "RegionCODE","Area2","units"), new=c("Governorate", "sector","activity","partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2","units"))
 write.csv(db.4513.3rpVis, file = "out/plandataREF2016Viz.csv",na="")
 write.csv(db.4513.3rp, file = "out/plandataREF2016.csv",na="")
 

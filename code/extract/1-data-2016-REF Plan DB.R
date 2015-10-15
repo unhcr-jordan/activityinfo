@@ -24,7 +24,7 @@
 
 opt <- options(warn = 1)
 rm(list = ls())
-
+source("code/0-packages.R")
 library("activityinfo")
 library("httr")
 
@@ -496,9 +496,10 @@ values$objective <- substr(values$activityCategory , (regexpr("]", values$activi
 
 setnames(values, old=c("Implementation..direct.indirect."), new=c("Implementation"))
 location <- read.csv("data/config/loc.csv")
+db.4513.3rp  <- read.csv("out/plandataREF2016.csv")
 db.4513.3rp <- merge (x=values, y=location, by="locationName", all.x=TRUE)
-db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, Sector,activity2,Implementation,RegionCODE,Area2))
-setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "Sector","activity2", "Implementation", "RegionCODE","Area2"), new=c("Governorate", "sector","activity","partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2"))
+db.4513.3rpVis <- subset(db.4513.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, Sector,activity2,Implementation,RegionCODE,Area2, units))
+setnames(db.4513.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "Sector","activity2", "Implementation", "RegionCODE","Area2","units"), new=c("Governorate", "sector","activity","Partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2","units"))
 write.csv(db.4513.3rpVis, file = "out/plandataREF2016Viz.csv",na="")
 write.csv(db.4513.3rp, file = "out/plandataREF2016.csv",na="")
 rm(list =ls())
