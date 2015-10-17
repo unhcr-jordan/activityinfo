@@ -501,6 +501,7 @@ values$Sector[values$Sector=="MUN"] <-"MUNICIPALITY"
 values$Sector[values$Sector=="JUS"] <-"JUSTICE"
 values$Sector[values$Sector=="ENV"] <-"ENVIRONMENT"
 values$Sector[values$Sector=="ENG"] <-"ENGINEERING"
+values$Sector[values$Sector=="HLTH"] <-"HEALTH"
 
 
 
@@ -512,6 +513,7 @@ location <- read.csv("data/config/loc.csv")
 db.4514.3rp <- merge (x=values, y=location, by="locationName", all.x=TRUE)
 db.4514.3rpVis <- subset(db.4514.3rp, select = c(governorate,activityCategory,activityName,partnerName,locationName,refugee.camps,month, value, objective, Sector,activity2,Implementation,RegionCODE,Area2,units))
 setnames(db.4514.3rpVis, old=c("governorate","activityCategory","activityName","partnerName","locationName","refugee.camps","month", "value", "objective", "Sector","activity2", "Implementation", "RegionCODE","Area2","units"), new=c("Governorate", "sector","activity","Partner","Area","Refugee.Camps","End","Total","Objective","Sector","Output","Implementation","RegionCODE","Area2","units"))
+db.4514.3rpFinal <- subset(db.4514.3rp, select = c(locationName, locationId, indicatorId, indicatorName, units, indicatorCategory, value, activityId, activityName, activityCategory, month, locationCode, partnerId, partnerName, Implementation, implementation..direct.indirect., locationx, locationy, governorate, region, district, subdistrict, refugee.camps, camp.districts, databaseId, databaseName, Sector, activity2, objective, RegionCODE, Area2))
 write.csv(db.4514.3rpVis, file = "out/plandataRES2016Viz.csv",na="")
-write.csv(db.4514.3rp, file = "out/plandataRES2016.csv",na="")
+write.csv(db.4514.3rpFinal, file = "out/plandataRES2016.csv",na="")
 rm(list =ls())

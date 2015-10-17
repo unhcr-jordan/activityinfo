@@ -1,4 +1,5 @@
-
+## Load Library
+source("code/0-packages.R")
 ## Load Viz CSv from REF DB
 REFDB <- read.csv("out/plandataREF2016Viz.csv")
 ## Adding column category with value Refugee
@@ -13,3 +14,4 @@ mergeDB <- rbind(REFDB, RESDB)
 budget <- subset(mergeDB, units=="USD $"  | units=="$")
 VizSubset <- subset(budget, select = c(Category, Partner,Area,Objective,Output,Sector,Implementation,Total, RegionCODE,Area2))
 write.csv(VizSubset, file = "out/3rpviz.csv",na="")
+rm(list =ls())
