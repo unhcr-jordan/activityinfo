@@ -500,7 +500,7 @@ values$Sector[values$Sector=="TRAN"] <-"TRANSPORT"
 values$Sector[values$Sector=="MUN"] <-"MUNICIPALITY"
 values$Sector[values$Sector=="JUS"] <-"JUSTICE"
 values$Sector[values$Sector=="ENV"] <-"ENVIRONMENT"
-values$Sector[values$Sector=="ENG"] <-"ENGINEERING"
+values$Sector[values$Sector=="ENG"] <-"ENERGY"
 values$Sector[values$Sector=="HLTH"] <-"HEALTH"
 
 
