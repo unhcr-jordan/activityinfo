@@ -11,7 +11,8 @@ RESDB$Category <- "Resilience"
 ## Merging Data frames
 mergeDB <- rbind(REFDB, RESDB)
 ## Subset of Data for Visualization
-budget <- subset(mergeDB, units=="USD $"  | units=="$")
+budget <- subset(mergeDB, indicatorName=="Budget Requirement for 2016")
+#budget <- subset(mergeDB, units=="USD $"  | units=="$")
 VizSubset <- subset(budget, select = c(Category, Partner,Area,Objective,Output,Sector,Implementation,Total, RegionCODE,Area2))
 write.csv(VizSubset, file = "out/3rpviz.csv",na="")
 rm(list =ls())
