@@ -226,6 +226,7 @@ if (is.na(database.id)) {
 
 # Use the new API (in beta)
 activityInfoRootUrl("https://beta-api-dot-activityinfoeu.appspot.com")
+#activityInfoRootUrl("https://www.activityinfo.org")
 
 # Get the schema and retry a few times to allow the beta-api instance to warm up:
 cat("Retrieving schema for database ", database.id, "...\n", sep ="")
@@ -516,4 +517,5 @@ setnames(db.4514.3rpVis, old=c("governorate","activityCategory","activityName","
 db.4514.3rpFinal <- subset(db.4514.3rp, select = c(locationName, locationId, indicatorId, indicatorName, units, indicatorCategory, value, activityId, activityName, activityCategory, month, locationCode, partnerId, partnerName, Implementation, implementation..direct.indirect., locationx, locationy, governorate, region, district, subdistrict, refugee.camps, camp.districts, databaseId, databaseName, Sector, activity2, objective, RegionCODE, Area2))
 write.csv(db.4514.3rpVis, file = "out/plandataRES2016Viz.csv",na="")
 write.csv(db.4514.3rpFinal, file = "out/plandataRES2016.csv",na="")
+write.csv(db.4514.3rp, file = "out/plandataRES201611.csv",na="")
 rm(list =ls())
