@@ -498,6 +498,9 @@ values$Sector[values$Sector=="FOOD/LIV"] <-"FOOD/LIVELIHOOD"
 values$Sector[values$Sector=="PROT"] <-"PROTECTION"
 values$Sector[values$Sector=="SHLT"] <-"SHELTER"
 values$Sector[values$Sector=="HLTH"] <-"HEALTH"
+values$Sector[values$Sector=="JUS"] <-"JUSTICE"
+values$Sector[values$Sector=="ENG"] <-"ENERGY"
+
 
 
 values$activity2 <- substr(values$activityName , (regexpr("]", values$activityName , ignore.case=FALSE, fixed=TRUE))+1,50)
@@ -517,5 +520,5 @@ db.4513.3rp$databaseName <- "REF Plan"
 setnames(db.4513.3rp, old=c("sector"), new=c("Sector"))
 db.4513.3rpFinal <- subset(db.4513.3rp, select = c(locationName, locationId, indicatorId, indicatorName, units, indicatorCategory, value, activityId, activityName, activityCategory, month, locationCode, partnerId, partnerName, Implementation, implementation..direct.indirect., locationx, locationy, governorate, region, district, subdistrict, refugee.camps, camp.districts, databaseId, databaseName, Sector, activity2, objective, RegionCODE, Area2))
 write.csv(db.4513.3rpVis, file = "out/plandataREF2016Viz.csv",na="")
-write.csv(db.4513.3rpFinal, file = "out/plandataREF2016New.csv",na="")
+write.csv(db.4513.3rpFinal, file = "out/plandataREF2016.csv",na="")
 rm(list =ls())
