@@ -321,15 +321,17 @@ for (formIndex in seq(length(schema$activities))) {
                               values = unlist(report), stringsAsFactors = FALSE)
     reportTable <- merge(reportTable, formTree, by = "name")
     
+  
     if (is.monthly(formTree)) {
-      partnerId <- extractOldId(report$site.partner.label)
-      locationId <- extractOldId(report$site.location.label)
+      partnerLabel <- report$site.partner.label
+      locationLabel <- report$site.location.label
     } else {
-#       partnerId <- extractOldId(report$partner.label)
-#       locationId <- extractOldId(report$location.label)
-      partnerId <- partners$oldId[match(report$partner.label, partners$name)]
-      locationId <- locations$oldId[match(report$location.label, locations$name)]
+      partnerLabel <- report$partner.label
+      locationLabel <- report$location.label
     }
+    partnerId <- partners$oldId[match(partnerLabel, partners$name)]
+    locationId <- locations$oldId[match(locationLabel, locations$name)]
+    
     is.indicator <- grepl("indicator", reportTable$type)
     n <- sum(is.indicator)
     
