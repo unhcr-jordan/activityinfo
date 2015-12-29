@@ -2,7 +2,8 @@
 
 ## install the packages that are not yet instaled
 
-packages <- c("ggplot2", 
+packages <- c("ggplot2",
+              "httr",
              # "xlsx",  
               "rjson", "RCurl", "reshape2","plyr", "data.table")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
@@ -18,7 +19,7 @@ library(RCurl)
 library(plyr)
 library(data.table)
 
-
+library(httr)  # required to "warm-up" the beta API for ActivityInfo.org
 
 
 # Function that will sum values even if we have NA
