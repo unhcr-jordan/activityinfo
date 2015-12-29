@@ -159,7 +159,7 @@ getLocationsDataFrame <- function(formId) {
 
 lookupName <- function(x, table, lookupCol = "oldId", outputCol = "name") {
 
-  if (is.character(x)) return(x)
+  if (is.na(x) || is.character(x)) return(x)
   
   tableName <- deparse(substitute(table))
   
@@ -307,13 +307,13 @@ for (formIndex in seq(length(schema$activities))) {
                  "date2",
                  "site.partner.label",
                  "site.location.label") %in% names(report)))
-        stop("report is missing one of the mandatory fields")
+        warning("report is missing one of the mandatory fields")
     } else {
       if (!all(c("date1",
                  "date2",
                  "partner.label",
                  "location.label") %in% names(report)))
-      stop("report is missing one of the mandatory fields")
+      warning("report is missing one of the mandatory fields")
     }
     
     # Convert report to a data frame so we can merge with the form tree:
@@ -324,13 +324,17 @@ for (formIndex in seq(length(schema$activities))) {
   
     if (is.monthly(formTree)) {
       partnerLabel <- report$site.partner.label
-      locationLabel <- report$site.location.label
+      locationLabel <- na.if.null(report$site.location.label)
     } else {
       partnerLabel <- report$partner.label
-      locationLabel <- report$location.label
+      locationLabel <- na.if.null(report$location.label)
     }
     partnerId <- partners$oldId[match(partnerLabel, partners$name)]
-    locationId <- locations$oldId[match(locationLabel, locations$name)]
+    locationId <- if (!is.na(locationLabel)) {
+      locations$oldId[match(locationLabel, locations$name)]
+    } else {
+      NA
+    }
     
     is.indicator <- grepl("indicator", reportTable$type)
     n <- sum(is.indicator)
