@@ -43,7 +43,7 @@ translateFieldType <- function(typeClass) {
          NARRATIVE  =,
          FREE_TEXT  = "text",
          GEOAREA    = "geographic entity",
-         stop("unknown field type '", typeClass, "'"))
+         "other")
 }
 
 getFormElements <- function(form, tree, name.prefix = NULL) {
