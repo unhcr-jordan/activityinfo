@@ -1,40 +1,10 @@
 
-
-##############################################################
-#  ActivityInfo Monitoring analysis script   Version 2       #
-##############################################################
+#####################################################
+#  ActivityInfo Monitoring analysis script          #
+#####################################################
 
 #  This script retrieves a selection of information for all activities in a
 #  database which have reporting frequency "once".
-
-
-
-packages <- c("ggplot2",
-              "httr",
-              # "xlsx",  
-              "rjson", "RCurl", "reshape2","plyr", "data.table")
-if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
-  install.packages(setdiff(packages, rownames(installed.packages())))  
-}
-
-rm(packages)
-
-#library(xlsx)
-library(reshape2)
-library(rjson)
-library(RCurl)
-library(plyr)
-library(data.table)
-
-library(httr)  # required to "warm-up" the beta API for ActivityInfo.org
-
-
-# Function that will sum values even if we have NA
-psum <- function(..., na.rm=FALSE) {
-  x <- list(...)
-  rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
-}
-
 
 # authenticate
 #activityInfoLogin()
@@ -45,7 +15,7 @@ source("code/0-activityinfo.R")
 source("code/0-packages.R")
 
 ### JOR Monitoring Database Jordan db 1064
-database.id <- 2300
+database.id <- 5026
 
 # Set the following to 'TRUE' if you also want to export the comment field of each site:
 include.comments <- TRUE
@@ -73,7 +43,7 @@ translateFieldType <- function(typeClass) {
          NARRATIVE  =,
          FREE_TEXT  = "text",
          GEOAREA    = "geographic entity",
-         stop("unknown field type '", typeClass, "'"))
+         "other")
 }
 
 getFormElements <- function(form, tree, name.prefix = NULL) {
@@ -189,7 +159,7 @@ getLocationsDataFrame <- function(formId) {
 
 lookupName <- function(x, table, lookupCol = "oldId", outputCol = "name") {
   
-  if (is.character(x)) return(x)
+  if (is.na(x) || is.character(x)) return(x)
   
   tableName <- deparse(substitute(table))
   
@@ -337,13 +307,13 @@ for (formIndex in seq(length(schema$activities))) {
                  "date2",
                  "site.partner.label",
                  "site.location.label") %in% names(report)))
-        stop("report is missing one of the mandatory fields")
+        warning("report is missing one of the mandatory fields")
     } else {
       if (!all(c("date1",
                  "date2",
                  "partner.label",
                  "location.label") %in% names(report)))
-        stop("report is missing one of the mandatory fields")
+        warning("report is missing one of the mandatory fields")
     }
     
     # Convert report to a data frame so we can merge with the form tree:
@@ -351,15 +321,21 @@ for (formIndex in seq(length(schema$activities))) {
                               values = unlist(report), stringsAsFactors = FALSE)
     reportTable <- merge(reportTable, formTree, by = "name")
     
+    
     if (is.monthly(formTree)) {
-      partnerId <- extractOldId(report$site.partner.label)
-      locationId <- extractOldId(report$site.location.label)
+      partnerLabel <- report$site.partner.label
+      locationLabel <- na.if.null(report$site.location.label)
     } else {
-      #       partnerId <- extractOldId(report$partner.label)
-      #       locationId <- extractOldId(report$location.label)
-      partnerId <- partners$oldId[match(report$partner.label, partners$name)]
-      locationId <- locations$oldId[match(report$location.label, locations$name)]
+      partnerLabel <- report$partner.label
+      locationLabel <- na.if.null(report$location.label)
     }
+    partnerId <- partners$oldId[match(partnerLabel, partners$name)]
+    locationId <- if (!is.na(locationLabel)) {
+      locations$oldId[match(locationLabel, locations$name)]
+    } else {
+      NA
+    }
+    
     is.indicator <- grepl("indicator", reportTable$type)
     n <- sum(is.indicator)
     
@@ -1225,18 +1201,18 @@ output$Indicator <- with(values.unique.attribute,
 
 
 #Changing Start Date to End date
-output$StartDate[output$StartDate=="01/01/2015"] <- "30/1/2015"
-output$StartDate[output$StartDate=="01/02/2015"] <- "28/2/2015"
-output$StartDate[output$StartDate=="01/03/2015"] <- "30/3/2015"
-output$StartDate[output$StartDate=="01/04/2015"] <- "30/4/2015"
-output$StartDate[output$StartDate=="01/05/2015"] <- "30/5/2015"
-output$StartDate[output$StartDate=="01/06/2015"] <- "30/6/2015"
-output$StartDate[output$StartDate=="01/07/2015"] <- "30/7/2015"
-output$StartDate[output$StartDate=="01/08/2015"] <- "30/8/2015"
-output$StartDate[output$StartDate=="01/09/2015"] <- "30/9/2015"
-output$StartDate[output$StartDate=="01/10/2015"] <- "30/10/2015"
-output$StartDate[output$StartDate=="01/11/2015"] <- "30/11/2015"
-output$StartDate[output$StartDate=="01/12/2015"] <- "30/12/2015"
+output$StartDate[output$StartDate=="01/01/2016"] <- "30/1/2016"
+output$StartDate[output$StartDate=="01/02/2016"] <- "28/2/2016"
+output$StartDate[output$StartDate=="01/03/2016"] <- "30/3/2016"
+output$StartDate[output$StartDate=="01/04/2016"] <- "30/4/2016"
+output$StartDate[output$StartDate=="01/05/2016"] <- "30/5/2016"
+output$StartDate[output$StartDate=="01/06/2016"] <- "30/6/2016"
+output$StartDate[output$StartDate=="01/07/2016"] <- "30/7/2016"
+output$StartDate[output$StartDate=="01/08/2016"] <- "30/8/2016"
+output$StartDate[output$StartDate=="01/09/2016"] <- "30/9/2016"
+output$StartDate[output$StartDate=="01/10/2016"] <- "30/10/2016"
+output$StartDate[output$StartDate=="01/11/2016"] <- "30/11/2016"
+output$StartDate[output$StartDate=="01/12/2016"] <- "30/12/2016"
 output$Indicator[output$Indicator=="bove) # benefiting from basic learning (literacy and numeracy)"] <- "# benefiting from basic learning (literacy and numeracy)"
 output$Indicator[output$Indicator=="bove) # benefiting from life skills activities"] <- "# benefiting from life skills activities"
 output$Indicator[output$Indicator=="d above) # benefiting from basic learning (literacy and numeracy)"] <- "# benefiting from basic learning (literacy and numeracy)"
@@ -1483,3 +1459,4 @@ rm(sites.unique)
 rm(sites.unique.attr)
 rm(values.unique)
 #rm(values.unique.attribute)
+
