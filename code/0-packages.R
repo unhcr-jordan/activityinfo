@@ -1,11 +1,9 @@
-
-
 ## install the packages that are not yet instaled
 
 packages <- c("ggplot2",
               "httr",
-             # "xlsx",  
-              "rjson", "RCurl", "reshape2","plyr", "data.table")
+              # "xlsx",  
+              "rjson", "RCurl", "reshape2", "plyr", "data.table")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
 }
@@ -27,4 +25,3 @@ psum <- function(..., na.rm=FALSE) {
   x <- list(...)
   rowSums(matrix(unlist(x), ncol=length(x)), na.rm=na.rm)
 }
-

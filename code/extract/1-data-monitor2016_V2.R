@@ -1,4 +1,3 @@
-
 #####################################################
 #  ActivityInfo Monitoring analysis script          #
 #####################################################
@@ -9,7 +8,7 @@
 # authenticate
 #activityInfoLogin()
 
-# Uncomment when you run for the first time during yout session
+# Uncomment when you run for the first time during your session
 source("code/0-activityinfo.R")
 #
 source("code/0-packages.R")
@@ -128,8 +127,8 @@ extractOldId <- function(s) {
 }
 
 determineMonth <- function(start, end) {
-  start <- as.POSIXlt(start)
-  end <- as.POSIXlt(end)
+  start <- as.POSIXlt(start, format = "%Y-%m-%d", tz = "GMT")
+  end <- as.POSIXlt(end, format = "%Y-%m-%d", tz = "GMT")
   if (start$year != end$year || start$mon != end$mon) {
     cat("Warning: found a start and end date in different months\n")
   }

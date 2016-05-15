@@ -1,12 +1,15 @@
-
 # Uncomment if needed or to update the package
 
 ## Activity Info R package
-install.packages("devtools")
-library(devtools)
- install_github( "bedatadriven/activityinfo-R", ref = "release")
-
-install_github( "bedatadriven/activityinfo-R", ref = "development")
+# Install packages if not present
+if(!("devtools" %in% installed.packages())) {
+  install.packages("devtools")
+}
+# Ensure that a recent version of the 'activityinfo' package is installed:
+if(!"activityinfo" %in% installed.packages() || packageVersion("activityinfo") < "0.4.17") {
+  library(devtools)
+  install_github( "bedatadriven/activityinfo-R", ref = "release")
+}
 
 library(activityinfo)
 
@@ -14,7 +17,6 @@ library(activityinfo)
 ### ActivityInfo Login
 
 # required packages:
-require("activityinfo")
 require("reshape2")
 
 # authenticate
@@ -98,6 +100,3 @@ extractField <- function(sites, fieldName)
       NA
     }
   })
-
-
-
