@@ -1,4 +1,3 @@
-
 # Uncomment if needed or to update the package
 
 ## Activity Info R package
@@ -101,6 +100,3 @@ extractField <- function(sites, fieldName)
       NA
     }
   })
-
-
-
