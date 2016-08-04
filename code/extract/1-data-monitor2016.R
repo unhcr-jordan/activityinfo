@@ -1,0 +1,284 @@
+#####################################################
+#  ActivityInfo Monitoring analysis script          #
+#####################################################
+
+#  This script retrieves a selection of information for all activities in a
+#  database which have reporting frequency "once".
+
+# authenticate
+activityInfoLogin()
+
+# Uncomment when you run for the first time during your session
+# source("code/0-activityinfo.R")
+#
+# source("code/0-packages.R")
+
+### JOR 2016 Monitoring Database Jordan db 5026
+database.id <- 5026
+
+# Set the following to 'TRUE' if you also want to export the comment field of each site:
+# include.comments <- TRUE
+
+#-------------------------------------------------------------------------------
+# Function definitions
+#-------------------------------------------------------------------------------
+
+require("reshape2")
+
+na.if.null <- function(x, mode) {
+  if (is.null(x)) as.vector(NA, mode) else x
+}
+
+makeColumnName <- function(s, prefix = NULL) {
+  
+  stopifnot(is.character(s))
+  
+  s <- gsub("\\s+|\\.+|-+", "_", trimws(tolower(s)))
+  s <- gsub("#", "nr", s)
+  
+  if (is.null(prefix)) {
+    make.names(s)  
+  } else {
+    make.names(paste(prefix, s, sep = ""))
+  }
+}
+
+is.formInstance <- function(formInstance) {
+  is.list(formInstance) &&
+    all(c("name",
+          "id",
+          "attributeGroups",
+          "reportingFrequency",
+          "indicators") %in% names(formInstance))
+}
+
+getSiteData <- function(formInstance) {
+  
+  # Ensure that we are dealing with a form instance from the database schema:
+  stopifnot(is.formInstance(formInstance))
+  
+  # Fields which exist for all sites:
+  query <- list(
+    site.id = "_id",
+    partner.id = "partner._id",
+    partner.label = "partner.label",
+    partner.description = "partner.[full%20name]",
+    location.latitude = "location.latitude",
+    location.longitude = "location.longitude",
+    location.name = "location.name",
+    location.alternate_name = "location.axe",
+    project.label = "project.name",
+    project.description = "project.description"
+  )
+  
+  # Start and end date are site data if reporting frequency is "once":
+  if (as.character(formInstance$reportingFrequency) == "0") {
+    query[["start_date"]] <- "date1"
+    query[["end_date"]] <- "date2"
+  }
+  
+  # Fields which depend on the administrative levels in the country of the
+  # database which contains the form:
+  for (admin.level in adminlevel.names) {
+    column.name <- makeColumnName(admin.level, prefix = "location.adminlevel.")
+    
+    if (column.name %in% names(query)) {
+      stop("cannot create unique column name for administrative level '", admin.level, "'")
+    }
+    
+    query[[column.name]] <- paste("location.[", URLencode(admin.level), "].name", sep = "")
+  }
+  
+  # Translation table for the attributes (from identifier to full name):
+  attributes <- data.frame(
+    id = vapply(formInstance$attributeGroups, function(x) sprintf("Q%010d", x$id), character(1L)),
+    name = vapply(formInstance$attributeGroups, function(x) x$name, character(1L)),
+    stringsAsFactors = FALSE
+  )
+  
+  for (id in attributes$id) {
+    # Use indicator identifiers instead of names for greater robustness and
+    # shorter URLs:
+    query[[id]] <- id
+  }
+  
+  # Execute the query through the ActivityInfo API:
+  path <- sprintf("form/a%s/query/columns", formInstance$id)
+  list(resource = getResource(path = path, queryParams = query),
+       column.names = attributes)
+}
+
+getIndicatorData <- function(formInstance) {
+  
+  # Ensure that we are dealing with a form instance from the database schema:
+  stopifnot(is.formInstance(formInstance))
+  
+  # Return an empty result if the form has no indicators in its design:
+  if (length(formInstance$indicators) == 0L) {
+    warning("form '", formInstance$name, "' has no indicators")
+    return(list(rows = 0L, columns = list()))
+  }
+  
+  query <- list(site.id = "site@id")
+  
+  # Start and end date are report data if reporting frequency is "monthly":
+  if (as.character(formInstance$reportingFrequency) == "1") {
+    query[["start_date"]] <- "date1"
+    query[["end_date"]] <- "date2"
+    query[["report.id"]] <- "_id"
+    path <- sprintf("form/M%s/query/columns", formInstance$id)
+  } else {
+    path <- sprintf("form/a%s/query/columns", formInstance$id)
+  }
+  
+  # Translation table for the indicators (from identifier to full name):
+  indicators <- data.frame(
+    id = vapply(formInstance$indicators, function(x) sprintf("i%010d", x$id), character(1L)),
+    name = vapply(formInstance$indicators, function(x) x$name, character(1L)),
+    units = vapply(formInstance$indicators, function(x) x$units, character(1L)),
+    stringsAsFactors = FALSE
+  )
+  
+  for (id in indicators$id) {
+    # Use indicator identifiers instead of names for greater robustness and
+    # shorter URLs:
+    query[[id]] <- id
+  }
+
+  # Execute the query through the ActivityInfo API:
+  list(resource = getResource(path = path, queryParams = query),
+       column.names = indicators)
+}
+
+getFormData <- function(formInstance) {
+  
+  convertToTable <- function(x) {
+    as.data.frame(
+      lapply(x$resource$columns, function(column) {
+        switch(column$storage,
+               constant = {
+                 if (is.null(column$values)) {
+                   rep(switch(column$type,
+                              STRING = NA_character_,
+                              NUMBER = NA_real_),
+                       x$resource$rows)
+                 } else {
+                   rep(column$values, x$resource$rows)
+                 }
+               },
+               array = {
+                 if (is.list(column$values)) {
+                   # one or more of the values is 'NULL'
+                   mode <- switch(column$type,
+                                  STRING = "character",
+                                  NUMBER = "double")
+                   vapply(column$values, na.if.null, vector(mode, 1L), mode = mode)
+                 } else {
+                   column$values
+                 }
+               },
+               stop("unknown storage mode '", column$storage, "'")
+        )
+      }),
+      stringsAsFactors = FALSE
+    )
+  }
+  
+  site <- getSiteData(formInstance)
+  
+  if (site$resource$rows == 0) {
+    cat("Form '", formInstance$name,
+        "' has no reports. Skipping...\n", sep = "")
+    return(invisible())
+  } else {
+    cat("Form '", formInstance$name,
+        "' has ", site$resource$rows, " reports.\n", sep = "")
+  }
+  
+  # Convert the site data from a list to a data frame:
+  site.data <- convertToTable(site)
+  
+  indicators <- getIndicatorData(formInstance)
+  
+  if (indicators$resource$rows == 0) {
+    cat("Form '", formInstance$name,
+        "' has no indicator values in any report. Skipping...\n", sep = "")
+    return(invisible())
+  }
+  
+  # Convert reported indicator values from a list to a data frame:
+  indicator.data <- convertToTable(indicators)
+  # Reshape the table to create a separate row for each reported indicator value:
+  indicator.columns <- grep("^i\\d+", names(indicator.data), value = TRUE)
+  indicator.data <- reshape2::melt(indicator.data,
+                                   measure.vars = indicator.columns,
+                                   variable.name = "indicator.id",
+                                   na.rm = TRUE)
+  
+  indicator.metadata <- indicators$column.names
+  names(indicator.metadata) <- paste("indicator", names(indicator.metadata), sep = ".")
+  indicator.data <- merge(indicator.data, indicator.metadata, by = "indicator.id", all.x = TRUE)
+  
+  # Merge site (meta) data and reported values:
+  form.data <- merge(indicator.data, site.data, by = "site.id", all.x = TRUE)
+  # Add form name and category:
+  form.data$form <- formInstance$name
+  form.data$form.category <- na.if.null(formInstance$category)
+  # Sort columns alphabetically to group related columns together:
+  form.data <- form.data[, order(names(form.data))]
+  # Rename the columns with attribute values:
+  names(form.data) <- vapply(names(form.data), function(colname) {
+    if (colname %in% site$column.names$id) {
+      site$column.names$name[match(colname, site$column.names$id)]
+    } else {
+      colname
+    }
+  }, character(1L), USE.NAMES = FALSE)
+  
+  form.data
+}
+
+#-------------------------------------------------------------------------------
+# Script body
+#-------------------------------------------------------------------------------
+
+cat("Fetching database schema...\n")
+db.schema <- getDatabaseSchema(database.id)
+
+cat("Fetching administrative levels...\n")
+adminlevel.names <- vapply(getAdminLevels(db.schema$country$id), function(x) {
+  x$name
+}, character(1L))
+
+cat("Database contains ", length(db.schema$activities),
+    " forms. Retrieving data per form...\n", sep = "")
+
+form.data <- lapply(db.schema$activities, function(form) {
+  # Check if the data in the form is reported monthly or just once:
+  monthly <- switch(as.character(form$reportingFrequency), "0"=FALSE, "1"=TRUE)
+  
+  form.data <- getFormData(form)
+  
+  if (!monthly) {
+    form.data$report.id <- rep(NA_character_, nrow(form.data))
+  }
+  
+  form.data
+})
+
+# Remove forms without data entries:
+form.data <- form.data[!vapply(form.data, is.null, logical(1L))]
+
+# Find common column names for combining all results into a single table:
+common.column.names <- Reduce(intersect, lapply(form.data, names))
+
+# Combine all data into a single table:
+values <- do.call(rbind, lapply(form.data, function(table) table[, common.column.names]))
+
+# Warn the user if any column(s) is or are missing in the combined result:
+all.column.names <- unique(do.call(c, lapply(form.data, names)))
+missing.columns <- setdiff(all.column.names, common.column.names)
+if (length(missing.columns) > 0L) {
+  warning("the following column(s) is or are not shared by all forms: ",
+          paste(missing.columns, sep = ", "))
+}
