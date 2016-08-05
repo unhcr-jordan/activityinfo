@@ -147,7 +147,7 @@ getIndicatorData <- function(formInstance) {
     # shorter URLs:
     query[[id]] <- id
   }
-
+  
   # Execute the query through the ActivityInfo API:
   list(resource = getResource(path = path, queryParams = query),
        column.names = indicators)
@@ -248,7 +248,7 @@ getFormData <- function(formInstance, include.comments = FALSE) {
 }
 
 #-------------------------------------------------------------------------------
-# Script body
+# Script body: data extraction from ActivityInfo
 #-------------------------------------------------------------------------------
 
 cat("Fetching database schema...\n")
@@ -291,3 +291,61 @@ if (length(missing.columns) > 0L) {
   warning("the following column(s) is or are not shared by all forms: ",
           paste(missing.columns, sep = ", "))
 }
+
+#-------------------------------------------------------------------------------
+# Script body: data preparation for dashboards
+#-------------------------------------------------------------------------------
+
+# Determine sector, category and objective based on form category names:
+form.categories <- unique(values$form.category)
+
+sec.cat.obj <- do.call(rbind, lapply(form.categories, function(s) {
+  m <- regexec("^([A-Z /]+)(\\[([A-Z]*)(.+)\\])(.+)$", s)[[1]]
+  if (length(m) == 1L && m == -1) {
+    warning("could not find sector, category and objective in form category name '",
+            s, "'")
+    data.frame(
+      form.category = s,
+      Sector = NA_character_,
+      Category = NA_character_,
+      Objective = NA_character_,
+      stringsAsFactors = FALSE
+    )
+  } else {
+    matches <- mapply(function(start, length) {
+      substr(s, start, start + length - 1)
+    }, m, attr(m, "match.length"))
+    # Matched expressions:
+    # matches[1] = complete string
+    # matches[2] = sector label
+    # matches[3] = code (in brackets)
+    # matches[4] = category label (REF or RES)
+    # matches[5] = category number
+    # matches[6] = objective
+    sector.label <- trimws(matches[2])
+    sector <- switch(sector.label,
+                     "BN" = "BASICNEEDS",
+                     "EDU" = "EDUCATION",
+                     "FOOD/LIV" = "FOOD",
+                     "HLTH" = "HEALTH",
+                     "PROT" = "PROTECTION",
+                     "SHLT" = "SHELTER",
+                     # 'WASH' and 'JUS' remain as they are:
+                     sector.label
+                     )
+    category.label <- matches[4]
+    category <- switch(category.label,
+                       "RES" = "Resilience",
+                       "REF" = "Refugee",
+                       NA_character_)
+    data.frame(
+      form.category = s,
+      Sector = sector,
+      Category = category,
+      Objective = trimws(matches[6]),
+      stringsAsFactors = FALSE
+    )
+  }
+}))
+
+values <- merge(values, sec.cat.obj, by = "form.category", all.x = TRUE)
