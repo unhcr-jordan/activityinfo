@@ -11,13 +11,13 @@ for (pkg in required.packages) {
 }
 
 # authenticate
-activityInfoLogin()
+# activityInfoLogin()
 
 ### JOR 2016 Monitoring Database Jordan db 5026
 database.id <- 5026
 
 # Set the following to 'TRUE' if you also want to export the comment field of each site:
-# include.comments <- TRUE
+include.comments <- TRUE
 
 #-------------------------------------------------------------------------------
 # Function definitions
@@ -50,7 +50,7 @@ is.formInstance <- function(formInstance) {
           "indicators") %in% names(formInstance))
 }
 
-getSiteData <- function(formInstance) {
+getSiteData <- function(formInstance, include.comments = FALSE) {
   
   # Ensure that we are dealing with a form instance from the database schema:
   stopifnot(is.formInstance(formInstance))
@@ -68,6 +68,11 @@ getSiteData <- function(formInstance) {
     project.label = "project.name",
     project.description = "project.description"
   )
+  
+  # Add comments if requested:
+  if (include.comments) {
+    query$site.comments <- "comments"
+  }
   
   # Start and end date are site data if reporting frequency is "once":
   if (as.character(formInstance$reportingFrequency) == "0") {
@@ -148,7 +153,7 @@ getIndicatorData <- function(formInstance) {
        column.names = indicators)
 }
 
-getFormData <- function(formInstance) {
+getFormData <- function(formInstance, include.comments = FALSE) {
   
   convertToTable <- function(x) {
     as.data.frame(
@@ -175,6 +180,12 @@ getFormData <- function(formInstance) {
                    column$values
                  }
                },
+               empty = {
+                 rep(switch(column$type,
+                            STRING = NA_character_,
+                            NUMBER = NA_real_),
+                     x$resource$rows)
+               },
                stop("unknown storage mode '", column$storage, "'")
         )
       }),
@@ -182,7 +193,7 @@ getFormData <- function(formInstance) {
     )
   }
   
-  site <- getSiteData(formInstance)
+  site <- getSiteData(formInstance, include.comments)
   
   if (site$resource$rows == 0) {
     cat("Form '", formInstance$name,
@@ -255,7 +266,7 @@ form.data <- lapply(db.schema$activities, function(form) {
   # Check if the data in the form is reported monthly or just once:
   monthly <- switch(as.character(form$reportingFrequency), "0"=FALSE, "1"=TRUE)
   
-  form.data <- getFormData(form)
+  form.data <- getFormData(form, include.comments)
   
   if (!monthly) {
     form.data$report.id <- rep(NA_character_, nrow(form.data))
