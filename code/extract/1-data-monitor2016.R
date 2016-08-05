@@ -349,3 +349,19 @@ sec.cat.obj <- do.call(rbind, lapply(form.categories, function(s) {
 }))
 
 values <- merge(values, sec.cat.obj, by = "form.category", all.x = TRUE)
+
+# Create a 'Governorate' column which contains the (capitalized) name of the
+# governorate OR the name of a camp OR 'Countrywide':
+regionactivityinfocode <- read.csv(file = "data/regionactivityinfocode.csv",
+                                   colClasses = "character",
+                                   stringsAsFactors = FALSE)
+values$Governorate <- regionactivityinfocode$gov[match(
+  values$location.adminlevel.governorate,
+  regionactivityinfocode$governorate
+)]
+
+# Identify special locations and replace the governorate name:
+values$Governorate[grepl("^Zaatari (District|Camp)", values$location.name)] <- "ZaatariCamp"
+values$Governorate[grepl("^Azraq Camp", values$location.name)] <- "AzraqCamp"
+values$Governorate[values$location.name == "Emirati Jordanian Camp (EJC)"] <- "EJ Camp"
+values$Governorate[values$location.name == "Country Wide"] <- "Countrywide"
