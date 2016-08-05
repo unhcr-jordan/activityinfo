@@ -2,16 +2,16 @@
 #  ActivityInfo Monitoring analysis script          #
 #####################################################
 
-#  This script retrieves a selection of information for all activities in a
-#  database which have reporting frequency "once".
+required.packages <- c("activityinfo", "reshape2")
+
+for (pkg in required.packages) {
+  if (!require(pkg, character.only = TRUE)) {
+    stop("package '", pkg, "' is required by this script, but is not installed")
+  }
+}
 
 # authenticate
 activityInfoLogin()
-
-# Uncomment when you run for the first time during your session
-# source("code/0-activityinfo.R")
-#
-# source("code/0-packages.R")
 
 ### JOR 2016 Monitoring Database Jordan db 5026
 database.id <- 5026
@@ -22,8 +22,6 @@ database.id <- 5026
 #-------------------------------------------------------------------------------
 # Function definitions
 #-------------------------------------------------------------------------------
-
-require("reshape2")
 
 na.if.null <- function(x, mode) {
   if (is.null(x)) as.vector(NA, mode) else x
