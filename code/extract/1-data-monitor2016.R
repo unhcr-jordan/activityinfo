@@ -160,13 +160,13 @@ getFormData <- function(formInstance, include.comments = FALSE) {
       lapply(x$resource$columns, function(column) {
         switch(column$storage,
                constant = {
-                 if (is.null(column$values)) {
+                 if (is.null(column$value)) {
                    rep(switch(column$type,
                               STRING = NA_character_,
                               NUMBER = NA_real_),
                        x$resource$rows)
                  } else {
-                   rep(column$values, x$resource$rows)
+                   rep(column$value, x$resource$rows)
                  }
                },
                array = {
