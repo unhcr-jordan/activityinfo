@@ -293,6 +293,15 @@ if (length(missing.columns) > 0L) {
           paste(missing.columns, sep = ", "))
 }
 
+# Write out the full data extract to CSV file:
+write.csv(
+  values,
+  file.path("out", sprintf("%s_db%d_all_data_extract.csv",
+                           format(Sys.Date(), "%Y-%m-%d"),
+                           database.id)),
+  na = ""
+)
+
 #-------------------------------------------------------------------------------
 # Script body: data preparation for dashboards
 #-------------------------------------------------------------------------------
@@ -434,8 +443,27 @@ output <- cbind(output, local({
 # Write dashboard data out per sector:
 for (sector in unique(output$Sector)) {
   write.csv(
-    subset(output, Sector == sector),
+    # Keep only those indicators for the sector AND for which we have determined
+    # the gender (and population type):
+    subset(output, Sector == sector & !is.na(Gender)),
     file.path("out", "monitor", "2016", tolower(sector), "data.csv"),
     na = "(unknown)"
   )
 }
+
+# Write dashboard data out for camps and country wide:
+write.csv(
+  subset(output, Governorate == "AzraqCamp" & !is.na(Gender)),
+  file.path("out", "monitor", "2016", "azraq", "data.csv"),
+  na = "(unknown)"
+)
+write.csv(
+  subset(output, Governorate == "ZaatariCamp" & !is.na(Gender)),
+  file.path("out", "monitor", "2016", "zaatari", "data.csv"),
+  na = "(unknown)"
+)
+write.csv(
+  subset(output, Governorate == "Countrywide" & !is.na(Gender)),
+  file.path("out", "monitor", "2016", "countrywide", "data.csv"),
+  na = "(unknown)"
+)
